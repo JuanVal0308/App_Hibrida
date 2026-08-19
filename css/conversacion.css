@@ -1,0 +1,181 @@
+/* ============================================================
+   Renta Ya — Conversación (chat)
+   Estilos propios de esta pantalla. Avatar, botones y colores
+   compartidos viven en styleBase.css.
+   ============================================================ */
+
+.chat-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* ---------- Encabezado con el contacto ---------- */
+.chat-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.chat-header .contact-name {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+/* ---------- Cuerpo de mensajes ---------- */
+.chat-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.bubble-row {
+    display: flex;
+    max-width: 100%;
+}
+
+.bubble-row.in {
+    justify-content: flex-start;
+}
+
+.bubble-row.out {
+    justify-content: flex-end;
+}
+
+.bubble {
+    max-width: 72%;
+    padding: 11px 14px;
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.bubble .bubble-lines {
+    height: 8px;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.bubble-row.in .bubble {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-bottom-left-radius: 4px;
+}
+
+.bubble-row.in .bubble .bubble-lines {
+    background: repeating-linear-gradient(90deg, var(--input-border) 0 10px, transparent 10px 16px);
+}
+
+.bubble-row.out .bubble {
+    background: var(--accent);
+    border-bottom-right-radius: 4px;
+}
+
+.bubble-row.out .bubble .bubble-lines {
+    background: repeating-linear-gradient(90deg, var(--accent-ink) 0 10px, transparent 10px 16px);
+    opacity: .55;
+}
+
+/* Tarjeta de propiedad compartida dentro del chat (referencia al listado) */
+.bubble-listing {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    border-bottom-left-radius: 4px;
+    padding: 10px;
+    max-width: 72%;
+}
+
+.bubble-listing .thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background: var(--card-2);
+    border: 1px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-faint);
+    flex-shrink: 0;
+}
+
+.bubble-listing .info {
+    font-size: 13px;
+}
+
+.bubble-listing .info .name {
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.bubble-listing .info .price {
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-weight: 600;
+}
+
+/* ---------- Barra de escritura ---------- */
+.chat-input-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--card-border);
+}
+
+.chat-input-row input {
+    flex: 1;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 999px;
+    padding: 12px 16px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    outline: none;
+}
+
+.chat-input-row input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.chat-input-row input::placeholder {
+    color: var(--text-faint);
+}
+
+.chat-icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: none;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.chat-icon-btn:hover {
+    color: var(--accent);
+}
+
+.chat-icon-btn.send {
+    background: var(--accent);
+    color: var(--accent-ink);
+}
+
+.chat-icon-btn.send:hover {
+    filter: brightness(1.05);
+    color: var(--accent-ink);
+}
