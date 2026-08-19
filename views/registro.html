@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renta Ya · Crear cuenta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/styleBase.css">
+    <link rel="stylesheet" href="../css/registro.css">
+</head>
+
+<body>
+    <div class="app">
+        <div class="registro-page">
+
+            <div class="registro-header">
+                <a href="../views/onboarding.html" class="icon-btn" aria-label="Volver">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </a>
+                <h1>Crear cuenta</h1>
+            </div>
+
+            <!-- El envío se gestiona desde js/registro.js: valida los campos, guarda el usuario -->
+            <!-- en localStorage (p. ej. bajo la clave "rentaya_usuarios") y redirige a login.html. -->
+            <form id="registro-form" class="registro-body" novalidate>
+
+                <div id="form-status" class="form-status" role="alert"></div>
+
+                <div class="field">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" autocomplete="name"
+                        required>
+                    <span class="field-error" id="nombre-error">Ingresa tu nombre.</span>
+                </div>
+
+                <div class="field">
+                    <label for="correo">Correo</label>
+                    <input type="email" id="correo" name="correo" placeholder="tucorreo@ejemplo.com"
+                        autocomplete="email" required>
+                    <span class="field-error" id="correo-error">Ingresa un correo válido.</span>
+                </div>
+
+                <div class="field">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" name="telefono" placeholder="300 000 0000" autocomplete="tel"
+                        required>
+                    <span class="field-error" id="telefono-error">Ingresa un teléfono válido.</span>
+                </div>
+
+                <div class="field">
+                    <label for="contrasena">Contraseña</label>
+                    <input type="password" id="contrasena" name="contrasena" placeholder="Mínimo 6 caracteres"
+                        autocomplete="new-password" minlength="6" required>
+                    <span class="field-error" id="contrasena-error">Mínimo 6 caracteres.</span>
+                </div>
+
+                <label class="checkbox-row terms-row">
+                    <input type="checkbox" id="acepto-terminos" name="acepto-terminos" required>
+                    Acepto Términos
+                </label>
+
+                <button type="submit" class="btn-primary" id="submit-btn">Crear cuenta</button>
+
+                <p class="login-hint">¿Ya tienes? <a href="../views/login.html">Inicia sesión</a></p>
+
+            </form>
+
+        </div>
+    </div>
+    <script src="../js/registro.js"></script>
+</body>
+
+</html>

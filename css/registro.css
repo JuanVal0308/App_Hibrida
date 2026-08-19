@@ -1,0 +1,64 @@
+/* ============================================================
+   Renta Ya — Crear cuenta
+   Estilos propios de esta pantalla. Los tokens y componentes
+   compartidos (botones, inputs, colores) viven en styles.css.
+   ============================================================ */
+
+.registro-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Encabezado con flecha de volver + título, separado del contenido */
+.registro-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 24px 8px;
+}
+
+.registro-header h1 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 20px;
+    margin: 0;
+}
+
+/* Cuerpo del formulario con aire generoso entre secciones */
+.registro-body {
+    flex: 1;
+    padding: 12px 24px 32px;
+}
+
+.registro-body .field {
+    margin-bottom: 22px;
+}
+
+.registro-body .field label {
+    margin-bottom: 8px;
+}
+
+.registro-body .field input {
+    padding: 15px 16px;
+}
+
+.terms-row {
+    margin: 6px 0 28px;
+}
+
+.registro-body .btn-primary {
+    margin-bottom: 24px;
+}
+
+.login-hint {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-dim);
+}
+
+.login-hint a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
