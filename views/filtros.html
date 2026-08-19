@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Renta Ya · Filtros</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styleBase.css">
+<link rel="stylesheet" href="../css/filtros.css">
+</head>
+<body>
+<div class="app">
+  <div class="sheet-page">
+
+    <div class="sheet-header">
+      <button class="link-btn" id="btn-limpiar" type="button">Limpiar</button>
+      <span class="sheet-title">Filtros</span>
+      <a href="buscar.html" class="icon-btn" aria-label="Cerrar" style="width:32px;height:32px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </a>
+    </div>
+
+    <!-- js/filtros.js lee los valores seleccionados (tipo, rango de precio, habitaciones, -->
+    <!-- servicios) y arma el objeto de filtros que luego consulta resultados.html. -->
+    <form id="filtros-form" class="filtros-body">
+
+      <div class="section-label">Tipo</div>
+      <div class="chip-group" id="tipo-chips">
+        <span class="chip active" data-tipo="apto">Apto</span>
+        <span class="chip" data-tipo="casa">Casa</span>
+        <span class="chip" data-tipo="celda">Celda</span>
+      </div>
+
+      <div class="section-label">Precio</div>
+      <div class="price-range">
+        <input type="range" id="precio-min" min="500000" max="3500000" step="50000" value="500000">
+        <input type="range" id="precio-max" min="500000" max="3500000" step="50000" value="3500000">
+        <div class="price-values">
+          <span id="precio-min-label">$500K</span>
+          <span id="precio-max-label">$3.5M</span>
+        </div>
+      </div>
+
+      <div class="section-label">Habitaciones</div>
+      <div class="rooms-row" id="habitaciones-chips">
+        <span class="chip-square" data-hab="1">1</span>
+        <span class="chip-square" data-hab="2">2</span>
+        <span class="chip-square" data-hab="3">3</span>
+        <span class="chip-square" data-hab="4+">4+</span>
+      </div>
+
+      <div class="section-label">Servicios</div>
+      <label class="service-row">
+        <input type="checkbox" id="serv-parqueadero" name="servicios" value="parqueadero">
+        Parqueadero
+      </label>
+      <label class="service-row">
+        <input type="checkbox" id="serv-amoblado" name="servicios" value="amoblado" checked>
+        Amoblado
+      </label>
+
+    </form>
+
+    <div class="filtros-footer">
+      <button type="submit" form="filtros-form" class="btn-primary" id="ver-resultados-btn">Ver 128 resultados</button>
+    </div>
+
+  </div>
+</div>
+<script src="../js/filtros.js"></script>
+</body>
+</html>

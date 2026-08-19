@@ -1,0 +1,101 @@
+/* ============================================================
+   Renta Ya — Filtros
+   Estilos propios de esta pantalla. Tokens y componentes
+   compartidos (chips, botones, colores) viven en styleBase.css.
+   ============================================================ */
+
+.sheet-page{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.sheet-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 12px;
+}
+
+.sheet-title{
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.link-btn{
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.link-btn:hover{ color: var(--accent); }
+
+.filtros-body{
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 20px 16px;
+}
+
+.section-label{
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--text-dim);
+  margin: 22px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.section-label::before{ content: "•"; color: var(--accent); }
+
+/* ---------- Rango de precio ---------- */
+.price-range{ padding: 6px 2px 2px; }
+
+.price-range input[type="range"]{
+  width: 100%;
+  accent-color: var(--accent);
+  background: transparent;
+}
+
+.price-values{
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--text);
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+/* ---------- Habitaciones ---------- */
+.rooms-row{
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+/* ---------- Servicios ---------- */
+.service-row{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.service-row input{
+  accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
+}
+
+/* ---------- Pie fijo con botón de resultados ---------- */
+.filtros-footer{
+  padding: 14px 20px calc(16px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--card-border);
+}
