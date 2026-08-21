@@ -34,5 +34,14 @@
     "efecto": { "slots": 5 },
     "unica": true,
     "maxCompras": 1
+  },
+  {
+    "id": "iman_puntos",
+    "nombre": "Imán de puntos",
+    "descripcion": "+25 puntos extra en cada captura (una sola compra).",
+    "costo": 180,
+    "efecto": { "bonusCaptura": 25 },
+    "unica": true,
+    "maxCompras": 1
   }
 ]
