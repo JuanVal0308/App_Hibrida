@@ -1,0 +1,40 @@
+@use '../variables' as *;
+
+.bottom-nav {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  background: var(--card);
+  border-top: 1px solid var(--card-border);
+  padding: 10px 8px calc(10px + env(safe-area-inset-bottom));
+  z-index: 30;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 11px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 10px;
+  font-family: var(--font-body);
+
+  &.active {
+    color: var(--accent);
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.app.sin-nav .bottom-nav {
+  display: none;
+}

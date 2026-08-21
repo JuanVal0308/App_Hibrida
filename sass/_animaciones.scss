@@ -1,0 +1,26 @@
+// Animaciones auxiliares (Animate.css se carga desde vendor)
+.vista.oculta-anim {
+  pointer-events: none;
+}
+
+.btn-animar:active {
+  transform: scale(0.96);
+}
+
+.captura-flash {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(16, 21, 27, 0.72);
+  z-index: 20;
+  pointer-events: none;
+
+  .captura-texto {
+    font-family: var(--font-display);
+    font-size: 28px;
+    color: var(--accent);
+    font-style: italic;
+  }
+}

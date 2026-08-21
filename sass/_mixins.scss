@@ -1,0 +1,31 @@
+@use 'variables' as *;
+
+@mixin flex-centro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-entre {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin boton-pill {
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s ease, filter 0.15s ease;
+}
+
+@mixin tarjeta {
+  background: $card;
+  border: 1px solid $card-border;
+  border-radius: $radius-lg;
+}
+
+@mixin foco-acento {
+  border-color: $accent;
+  box-shadow: 0 0 0 3px $accent-dim;
+}

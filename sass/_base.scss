@@ -1,0 +1,391 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  background-image:
+    radial-gradient(600px 300px at 15% -10%, var(--accent-dim), transparent 60%),
+    radial-gradient(500px 260px at 110% 10%, #4d6bff1a, transparent 60%);
+}
+
+.app {
+  width: 100%;
+  max-width: var(--page-max);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.vista {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.vista.es-auth {
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+.page {
+  flex: 1;
+  padding: 20px 20px 96px;
+  overflow-y: auto;
+}
+
+.page.no-nav {
+  padding-bottom: 24px;
+}
+
+.brand {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 26px;
+  color: var(--text);
+  text-decoration: none;
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.brand-underline {
+  display: block;
+  margin: 4px auto 0;
+  width: 80px;
+}
+
+.topbar {
+  @include flex-entre;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--card-border);
+
+  .brand-mark {
+    font-size: 20px;
+  }
+}
+
+.topbar-action {
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  padding: 4px;
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+.back-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px 4px;
+
+  h1 {
+    font-size: 17px;
+    margin: 0;
+    font-weight: 600;
+  }
+}
+
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--card-border);
+  background: var(--card);
+  @include flex-centro;
+  cursor: pointer;
+  color: var(--text);
+  flex-shrink: 0;
+
+  &:hover {
+    border-color: var(--accent);
+  }
+}
+
+h1.title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 24px;
+  margin: 0 0 20px;
+  letter-spacing: -0.01em;
+}
+
+.eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+
+.field {
+  margin-bottom: 16px;
+
+  label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-sm);
+    padding: 13px 14px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+    &::placeholder {
+      color: var(--text-faint);
+    }
+
+    &:focus {
+      @include foco-acento;
+    }
+  }
+}
+
+.field-error {
+  display: none;
+  font-size: 12px;
+  color: var(--danger);
+  margin-top: 6px;
+
+  &.visible {
+    display: block;
+  }
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 18px;
+
+  input {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+}
+
+.form-status {
+  display: none;
+  font-size: 13px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+
+  &.visible {
+    display: block;
+  }
+
+  &.error {
+    background: #ff8a8014;
+    color: var(--danger);
+    border: 1px solid #ff8a8033;
+  }
+
+  &.success {
+    background: #58e08a14;
+    color: var(--success);
+    border: 1px solid #58e08a33;
+  }
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  @include boton-pill;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  &:hover {
+    filter: brightness(1.05);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.btn-outline {
+  width: 100%;
+  padding: 13px;
+  @include boton-pill;
+  background: transparent;
+  border: 1px solid var(--input-border);
+  color: var(--text);
+  font-size: 14px;
+
+  &:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+}
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--input-border);
+  background: var(--card);
+  color: var(--text-dim);
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+
+  &.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-dim);
+  }
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-dim);
+  font-size: 12px;
+  margin: 22px 0 16px;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--input-border);
+  }
+}
+
+.card {
+  @include tarjeta;
+  padding: 20px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--card-2);
+  border: 1px solid var(--card-border);
+  @include flex-centro;
+  color: var(--text-faint);
+  flex-shrink: 0;
+}
+
+.muted {
+  color: var(--text-dim);
+}
+
+.small {
+  font-size: 13px;
+}
+
+.center {
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.row-between {
+  @include flex-entre;
+}
+
+.gap-8 {
+  gap: 8px;
+}
+
+.gap-12 {
+  gap: 12px;
+}
+
+.mt-8 {
+  margin-top: 8px;
+}
+
+.mt-16 {
+  margin-top: 16px;
+}
+
+.mt-24 {
+  margin-top: 24px;
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+
+.puntos-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.shell-placeholder {
+  padding: 48px 24px;
+}

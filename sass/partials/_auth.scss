@@ -1,0 +1,118 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
+.auth-screen {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.auth-form {
+  @include tarjeta;
+  padding: 28px 24px 24px;
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 24px;
+    margin: 0 0 20px;
+  }
+}
+
+.auth-form .brand-mark {
+  font-size: 30px;
+}
+
+.auth-form .brand-underline {
+  width: 96px;
+}
+
+.row-end {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 18px;
+
+  a,
+  button.link {
+    font-size: 13px;
+    color: var(--text-dim);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+}
+
+.signup-hint,
+.login-hint {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-dim);
+  margin: 18px 0 0;
+
+  a,
+  button.link {
+    color: var(--accent);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font: inherit;
+  }
+}
+
+.registro-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.registro-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px 8px;
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 20px;
+    margin: 0;
+  }
+}
+
+.registro-body {
+  flex: 1;
+  padding: 12px 24px 32px;
+
+  .field {
+    margin-bottom: 22px;
+  }
+
+  .btn-primary {
+    margin-bottom: 24px;
+  }
+}
+
+.terms-row {
+  margin: 6px 0 28px;
+}
+
+.social-row {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+.social-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  @include flex-centro;
+  cursor: not-allowed;
+  opacity: 0.55;
+}

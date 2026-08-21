@@ -1,0 +1,25 @@
+// Tipografías offline vía fuentes del sistema / instaladas localmente.
+// Si agregas .woff2 en /fonts, descomenta las líneas url().
+@font-face {
+  font-family: 'FrauncesLocal';
+  src: local('Fraunces'), local('Georgia');
+  font-weight: 500 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FrauncesLocal';
+  src: local('Fraunces'), local('Georgia');
+  font-weight: 500 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpaceGroteskLocal';
+  src: local('Space Grotesk'), local('Segoe UI'), local('system-ui');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}

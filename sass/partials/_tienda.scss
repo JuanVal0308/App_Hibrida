@@ -1,0 +1,110 @@
+@use '../variables' as *;
+
+.tienda-page,
+.perfil-page {
+  padding: 20px 20px 96px;
+}
+
+.tienda-header,
+.perfil-header {
+  margin-bottom: 20px;
+
+  h1 {
+    margin: 0 0 6px;
+    font-size: 20px;
+    font-family: var(--font-display);
+  }
+}
+
+.mejoras-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mejora-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 16px;
+
+  h3 {
+    margin: 0 0 6px;
+    font-size: 15px;
+  }
+
+  p {
+    margin: 0 0 12px;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+}
+
+.mejora-pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mejora-costo {
+  font-family: var(--font-display);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.mejora-card .btn-primary {
+  width: auto;
+  padding: 8px 16px;
+  font-size: 13px;
+}
+
+.mejora-card.comprada {
+  opacity: 0.7;
+  border-color: var(--success);
+}
+
+.perfil-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+
+  .stat-valor {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--accent);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+}
+
+.perfil-info {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 20px;
+
+  p {
+    margin: 0 0 8px;
+    font-size: 14px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

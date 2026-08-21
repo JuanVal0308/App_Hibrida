@@ -1,0 +1,14 @@
+// Renta Ya — hoja principal (importa parciales Sass)
+@use 'fonts';
+@use 'variables';
+@use 'mixins';
+@use 'reset';
+@use 'base';
+@use 'animaciones';
+@use 'partials/onboarding';
+@use 'partials/auth';
+@use 'partials/mapa';
+@use 'partials/detalle';
+@use 'partials/inventario';
+@use 'partials/tienda';
+@use 'partials/nav';

@@ -1,0 +1,93 @@
+@use '../variables' as *;
+
+.inventario-page {
+  padding: 20px 20px 96px;
+}
+
+.inventario-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+
+  h1 {
+    margin: 0;
+    font-size: 20px;
+    font-family: var(--font-display);
+  }
+}
+
+.slots-info {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.capturas-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.captura-card {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 12px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  color: inherit;
+
+  &:hover {
+    border-color: var(--accent);
+  }
+}
+
+.captura-thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-sm);
+  background: var(--card-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-faint);
+  flex-shrink: 0;
+}
+
+.captura-body {
+  flex: 1;
+  min-width: 0;
+
+  .titulo {
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0 0 2px;
+  }
+
+  .meta {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin: 0;
+  }
+}
+
+.captura-puntos {
+  font-family: var(--font-display);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.vacio-estado {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--text-dim);
+
+  p {
+    margin: 8px 0 20px;
+  }
+}
