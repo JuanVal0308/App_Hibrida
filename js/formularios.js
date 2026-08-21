@@ -54,8 +54,12 @@ export function iniciarAuth() {
       return;
     }
 
-    mostrarStatus('registro-status', 'success', 'Cuenta creada. Ahora inicia sesión.');
-    setTimeout(() => irA('login'), 700);
+    mostrarStatus('registro-status', 'success', 'Cuenta creada. Entrando...');
+    const login = iniciarSesion({
+      correo: document.getElementById('reg-correo').value,
+      contrasena: document.getElementById('reg-contrasena').value,
+    });
+    setTimeout(() => irA(login.ok ? 'mapa' : 'login'), 500);
   });
 
   const formLogin = document.getElementById('login-form');
