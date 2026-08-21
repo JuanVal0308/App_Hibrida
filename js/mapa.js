@@ -24,6 +24,7 @@ function actualizarHud() {
   const juego = estadoJuego();
   const hud = document.getElementById('hud-puntos');
   if (hud) hud.textContent = `${juego.puntos} pts · radio ${juego.radio}`;
+  actualizarRadarVisual();
 }
 
 /** Distancia al marcador del jugador (centro del mapa ~50%, 50%). */
@@ -37,9 +38,18 @@ function distanciaAlJugador(arriendo) {
  * Radio 1 ≈ 35 unidades del mapa; cada nivel suma ~12.
  * Así la mejora "Radar extendido" revela más pins.
  */
-function radioMaximo() {
+export function radioMaximo() {
   const nivel = estadoJuego().radio || 1;
   return 35 + (nivel - 1) * 12;
+}
+
+/** Dibuja el anillo de alcance según el nivel de radar del jugador. */
+function actualizarRadarVisual() {
+  const anillo = document.getElementById('radar-anillo');
+  if (!anillo) return;
+  // radioMaximo está en % del mapa (0–100); el diámetro CSS usa el doble
+  const diametro = Math.min(radioMaximo() * 2, 120);
+  anillo.style.setProperty('--radar-diametro', `${diametro}%`);
 }
 
 function arriendosFiltrados() {
