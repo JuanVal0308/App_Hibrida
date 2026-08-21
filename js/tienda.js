@@ -7,6 +7,7 @@ import {
   mejoraAgotada,
   estadoJuego,
 } from './juego.js';
+import { mostrarAviso } from './ui.js';
 export function pintarTienda() {
   const juego = estadoJuego();
   const badge = document.getElementById('tienda-puntos');
@@ -37,10 +38,11 @@ export function pintarTienda() {
     btn.addEventListener('click', () => {
       const res = comprarMejora(btn.getAttribute('data-mejora'));
       if (!res.ok) {
-        alert(res.motivo);
+        mostrarAviso(res.motivo, 'error');
         return;
       }
       btn.classList.add('animate__animated', 'animate__tada');
+      mostrarAviso(`Compraste: ${res.mejora.nombre}`, 'success');
       pintarTienda();
       Promise.all([
         import('./inventario.js').then((m) => m.pintarInventario()),

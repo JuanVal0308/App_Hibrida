@@ -2,6 +2,7 @@
  * Mapa de captura: pins, preview y atrapar.
  */
 import { irA } from './router.js';
+import { mostrarAviso } from './ui.js';
 import {
   listarArriendos,
   idsAtrapados,
@@ -135,18 +136,19 @@ function ejecutarAtrapar() {
   if (!seleccionId) return;
   const chequeo = puedeAtrapar(seleccionId);
   if (!chequeo.ok) {
-    alert(chequeo.motivo);
+    mostrarAviso(chequeo.motivo, 'error');
     if (chequeo.motivo.includes('Inventario')) irA('tienda');
     return;
   }
 
   const res = atraparArriendo(seleccionId);
   if (!res.ok) {
-    alert(res.motivo);
+    mostrarAviso(res.motivo, 'error');
     return;
   }
 
   flashCaptura();
+  mostrarAviso(`¡Atrapado! +${res.puntosGanados} pts`, 'success');
   actualizarHud();
   renderPins();
   mostrarPreview(seleccionId);
@@ -188,6 +190,11 @@ export function iniciarMapa() {
 
   document.getElementById('btn-atrapar')?.addEventListener('click', ejecutarAtrapar);
   document.getElementById('btn-ver-detalle')?.addEventListener('click', () => abrirDetalleDesdeMapa());
+
+  document.getElementById('map-area')?.addEventListener('click', (ev) => {
+    if (ev.target.closest('.pin') || ev.target.closest('#preview-sheet')) return;
+    ocultarPreview();
+  });
 
   document.getElementById('btn-detalle-atrapar')?.addEventListener('click', () => {
     seleccionId = window.__detalleId;
