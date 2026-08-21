@@ -2,6 +2,8 @@
 
 Aplicación híbrida offline tipo Pokémon GO: explora un mapa local de Medellín, atrapa arriendos, gana puntos y gástalos en mejoras (más slots, radar, bonus).
 
+**Autor del proyecto:** Juan Pablo (`JunaVal0308`)
+
 ## Requisitos
 
 - Node.js 18+ y npm
@@ -14,6 +16,17 @@ npm install
 npm run dev      # desarrollo con Vite
 npm run build    # minifica Sass/JS → dist/
 npm run preview  # previsualiza dist/
+```
+
+## Si `npm install` falla
+
+1. Este repo incluye `.npmrc` con `strict-ssl=false` (redes escolares / antivirus suelen romper el certificado de npm).
+2. Usa **Vite 6** (no Vite 8): Vite 8 + npm 11 puede dar `Invalid Version` por dependencias opcionales de Rolldown.
+3. Borra `node_modules` y vuelve a instalar:
+
+```bash
+Remove-Item -Recurse -Force node_modules
+npm install
 ```
 
 ## Estructura activa (SPA)
