@@ -23,8 +23,8 @@
   --radius-sm: 10px;
   --radius: 14px;
   --radius-lg: 20px;
-  --font-display: "Fraunces", serif;
-  --font-body: "Space Grotesk", sans-serif;
+  --font-display: "FrauncesLocal", "Fraunces", Georgia, serif;
+  --font-body: "SpaceGroteskLocal", "Space Grotesk", system-ui, sans-serif;
   --page-max: 420px;
 }
 
