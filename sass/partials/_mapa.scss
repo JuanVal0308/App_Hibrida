@@ -85,8 +85,8 @@
   height: var(--radar-diametro);
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  border: 1px dashed rgba(77, 140, 255, 0.55);
-  background: radial-gradient(circle, rgba(77, 140, 255, 0.12) 0%, transparent 70%);
+  border: 1px dashed rgba($accent, 0.5);
+  background: radial-gradient(circle, rgba($accent, 0.12) 0%, transparent 70%);
   pointer-events: none;
   z-index: 1;
   animation: radar-pulso 2.8s ease-in-out infinite;
@@ -110,9 +110,9 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: #4d8cff;
-  border: 3px solid #f2eee6;
-  box-shadow: 0 0 0 6px rgba(77, 140, 255, 0.25);
+  background: var(--accent);
+  border: 3px solid var(--card);
+  box-shadow: 0 0 0 6px rgba($accent, 0.25);
   z-index: 2;
   pointer-events: none;
 }
@@ -120,7 +120,7 @@
 .pin {
   position: absolute;
   color: var(--accent);
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.18));
   background: none;
   border: none;
   padding: 0;
@@ -134,11 +134,11 @@
   }
 
   &.raro {
-    color: #c084fc;
+    color: var(--rareza-raro);
   }
 
   &.epico {
-    color: #58e08a;
+    color: var(--success);
   }
 }
 

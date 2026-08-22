@@ -13,7 +13,7 @@ body {
   justify-content: center;
   background-image:
     radial-gradient(600px 300px at 15% -10%, var(--accent-dim), transparent 60%),
-    radial-gradient(500px 260px at 110% 10%, #4d6bff1a, transparent 60%);
+    radial-gradient(500px 260px at 110% 10%, rgba($accent, 0.07), transparent 60%);
 }
 
 .app {
@@ -219,15 +219,15 @@ h1.title {
   }
 
   &.error {
-    background: #ff8a8014;
+    background: var(--danger-bg);
     color: var(--danger);
-    border: 1px solid #ff8a8033;
+    border: 1px solid var(--danger-border);
   }
 
   &.success {
-    background: #58e08a14;
+    background: var(--success-bg);
     color: var(--success);
-    border: 1px solid #58e08a33;
+    border: 1px solid var(--success-border);
   }
 }
 

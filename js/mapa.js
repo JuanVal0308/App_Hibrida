@@ -18,7 +18,7 @@ let filtroBarrio = '';
 const PIN_SVG = `
 <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
   <path d="M12 22s7-7.58 7-12.5A7 7 0 1 0 5 9.5C5 14.42 12 22 12 22Z" fill="currentColor"/>
-  <circle cx="12" cy="9.5" r="2.5" fill="#10151b"/>
+  <circle cx="12" cy="9.5" r="2.5" fill="var(--card)"/>
 </svg>`;
 
 function actualizarHud() {
