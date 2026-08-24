@@ -13,6 +13,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  // Overlay intencionalmente oscuro (efecto "flash"), independiente del
+  // tema: por eso el texto usa --accent-ink (blanco) y no --accent.
   background: rgba(16, 21, 27, 0.72);
   z-index: 20;
   pointer-events: none;
@@ -20,7 +22,7 @@
   .captura-texto {
     font-family: var(--font-display);
     font-size: 28px;
-    color: var(--accent);
+    color: var(--accent-ink);
     font-style: italic;
   }
 }

@@ -1,18 +1,38 @@
-// Tokens de diseño Renta Ya
-$bg: #10151b;
-$card: #171d25;
-$card-2: #1c232c;
-$card-border: #2a333e;
-$accent: #ffb648;
-$accent-dim: #ffb64822;
-$accent-ink: #171200;
-$text: #f2eee6;
-$text-dim: #93a0af;
-$text-faint: #566373;
-$input-bg: #10151b;
-$input-border: #313c48;
-$danger: #ff8a80;
-$success: #58e08a;
+// Tokens de diseño Renta Ya — tema claro
+$bg: #f7fafd;
+$card: #ffffff;
+$card-2: #edf3fa;
+$card-border: #dce6f0;
+
+// Azul pastel: $accent es el tono "de trabajo" (texto, botones, iconos
+// activos) — pasa AA (~5.3:1 sobre blanco). $accent-soft es el pastel
+// clarito propiamente dicho, para toques decorativos donde no hay
+// texto encima (halo de foco, anillo de radar).
+$accent: #3e6ea3;
+$accent-soft: #a9c9ea;
+$accent-dim: rgba(62, 110, 163, 0.12);
+$accent-ink: #ffffff;
+
+$text: #1b2430;
+$text-dim: #5b6472;
+$text-faint: #8b94a3;
+
+$input-bg: #f7fafd;
+$input-border: #c7d4e3;
+
+$danger: #c0392b;
+$danger-bg: rgba(192, 57, 43, 0.08);
+$danger-border: rgba(192, 57, 43, 0.22);
+
+$success: #1e8449;
+$success-bg: rgba(30, 132, 73, 0.08);
+$success-border: rgba(30, 132, 73, 0.22);
+
+// Rareza "raro" de los arriendos (independiente del acento principal).
+// "Épico" reutiliza $success.
+$rareza-raro: #8656c4;
+$rareza-raro-border: rgba(134, 86, 196, 0.35);
+
 $radius-sm: 10px;
 $radius: 14px;
 $radius-lg: 20px;
@@ -26,6 +46,7 @@ $page-max: 420px;
   --card-2: #{$card-2};
   --card-border: #{$card-border};
   --accent: #{$accent};
+  --accent-soft: #{$accent-soft};
   --accent-dim: #{$accent-dim};
   --accent-ink: #{$accent-ink};
   --text: #{$text};
@@ -34,7 +55,13 @@ $page-max: 420px;
   --input-bg: #{$input-bg};
   --input-border: #{$input-border};
   --danger: #{$danger};
+  --danger-bg: #{$danger-bg};
+  --danger-border: #{$danger-border};
   --success: #{$success};
+  --success-bg: #{$success-bg};
+  --success-border: #{$success-border};
+  --rareza-raro: #{$rareza-raro};
+  --rareza-raro-border: #{$rareza-raro-border};
   --radius-sm: #{$radius-sm};
   --radius: #{$radius};
   --radius-lg: #{$radius-lg};

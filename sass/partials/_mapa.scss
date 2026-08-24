@@ -58,12 +58,12 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: #0d1117;
+  background: var(--card-2);
 }
 
 .leaflet-container {
   font: inherit;
-  background: #0d1117;
+  background: var(--card-2);
 }
 
 .pin-leaflet {
@@ -78,8 +78,8 @@
   margin: 4px auto 0;
   border-radius: 50% 50% 50% 0;
   transform: rotate(-45deg);
-  border: 2px solid #f2eee6;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+  border: 2px solid var(--card);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 .pin-usuario {
@@ -92,9 +92,9 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: #4d8cff;
-  border: 3px solid #f2eee6;
-  box-shadow: 0 0 0 6px rgba(77, 140, 255, 0.28);
+  background: var(--accent);
+  border: 3px solid var(--card);
+  box-shadow: 0 0 0 6px rgba($accent, 0.28);
 }
 
 .leaflet-div-icon {
@@ -109,7 +109,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(16, 21, 27, 0.55);
+  background: rgba(27, 36, 48, 0.35);
   pointer-events: none;
 }
 

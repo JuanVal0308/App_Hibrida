@@ -50,10 +50,10 @@ function actualizarHud() {
 }
 
 function iconoPin(arriendo, atrapado, enRango) {
-  let color = '#ffb648';
-  if (atrapado) color = '#566373';
-  else if (arriendo.rareza === 'epico') color = '#58e08a';
-  else if (arriendo.rareza === 'raro') color = '#c084fc';
+  let color = '#3e6ea3';
+  if (atrapado) color = '#8b94a3';
+  else if (arriendo.rareza === 'epico') color = '#1e8449';
+  else if (arriendo.rareza === 'raro') color = '#8656c4';
   const opacidad = enRango || atrapado ? '1' : '0.45';
   return L.divIcon({
     className: 'pin-leaflet',
@@ -257,7 +257,7 @@ function crearMapa() {
     attributionControl: true,
   }).setView([pos.lat, pos.lng], 13);
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; OSM &copy; CARTO',
     maxZoom: 19,
   }).addTo(mapa);

@@ -47,8 +47,3 @@ npm install
 5. Perfil → estadísticas y cerrar sesión
 
 Claves en `localStorage` con prefijo `rentaya_`.
-
-## Carpetas legacy
-
-`views/` y `css/` son pantallas/estilos de la versión multi-página anterior.  
-La app que corre con Vite usa solo `index.html` + `sass/` + `js/`.
