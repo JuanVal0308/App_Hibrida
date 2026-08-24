@@ -3,6 +3,8 @@
  */
 import { registrarUsuario, iniciarSesion } from './auth.js';
 import { irA } from './router.js';
+import { pedirPermisoUbicacion } from './geolocalizacion.js';
+import { mostrarAviso } from './ui.js';
 
 function limpiarErrores(form) {
   form.querySelectorAll('.field-error').forEach((e) => e.classList.remove('visible'));
@@ -32,7 +34,7 @@ function mostrarStatus(id, tipo, texto) {
 
 export function iniciarAuth() {
   const formReg = document.getElementById('registro-form');
-  formReg?.addEventListener('submit', (ev) => {
+  formReg?.addEventListener('submit', async (ev) => {
     ev.preventDefault();
     limpiarErrores(formReg);
 
@@ -54,7 +56,16 @@ export function iniciarAuth() {
       return;
     }
 
-    mostrarStatus('registro-status', 'success', 'Cuenta creada. Entrando...');
+    const quiereUbicacion = document.getElementById('reg-ubicacion')?.checked;
+    if (quiereUbicacion) {
+      mostrarStatus('registro-status', 'success', 'Cuenta creada. Pedimos permiso de ubicación…');
+      const geo = await pedirPermisoUbicacion();
+      if (geo.mensaje) mostrarAviso(geo.mensaje, geo.ok ? 'success' : 'info');
+    } else {
+      mostrarAviso('Puedes activar la ubicación después con el botón del mapa.', 'info');
+    }
+
+    mostrarStatus('registro-status', 'success', 'Cuenta creada. Entrando…');
     const login = iniciarSesion({
       correo: document.getElementById('reg-correo').value,
       contrasena: document.getElementById('reg-contrasena').value,
@@ -63,7 +74,7 @@ export function iniciarAuth() {
   });
 
   const formLogin = document.getElementById('login-form');
-  formLogin?.addEventListener('submit', (ev) => {
+  formLogin?.addEventListener('submit', async (ev) => {
     ev.preventDefault();
     limpiarErrores(formLogin);
 
@@ -79,6 +90,7 @@ export function iniciarAuth() {
     }
 
     mostrarStatus('login-status', 'success', `¡Bienvenido, ${res.usuario.nombre}!`);
-    setTimeout(() => irA('mapa'), 500);
+    await pedirPermisoUbicacion();
+    setTimeout(() => irA('mapa'), 400);
   });
 }

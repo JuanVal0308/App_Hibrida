@@ -1,0 +1,8 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#10151b"/>
+  <path d="M400 80 L680 240 L680 420 L120 420 L120 240 Z" fill="#171d25" stroke="#58e08a" stroke-width="4"/>
+  <rect x="340" y="300" width="80" height="120" fill="#2a333e"/>
+  <rect x="180" y="260" width="70" height="70" fill="#4d8cff44" stroke="#93a0af"/>
+  <rect x="520" y="260" width="70" height="70" fill="#4d8cff44" stroke="#93a0af"/>
+  <text x="40" y="60" fill="#f2eee6" font-family="Segoe UI,sans-serif" font-size="28">Exterior</text>
+</svg>

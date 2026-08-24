@@ -1,7 +1,7 @@
 /**
  * Inventario de arriendos atrapados.
  */
-import { estadoJuego } from './juego.js';
+import { estadoJuego, obtenerArriendo } from './juego.js';
 import { irA } from './router.js';
 import { pintarDetalle } from './detalle.js';
 
@@ -26,19 +26,24 @@ export function pintarInventario() {
   lista.innerHTML = juego.capturas
     .slice()
     .reverse()
-    .map(
-      (c) => `
+    .map((c) => {
+      const full = obtenerArriendo(c.id);
+      const foto = full?.fotos?.[0] || '/fotos/apto-salon.svg';
+      const ficha = full
+        ? `${full.habitaciones} hab · ${full.banos} baños · ${full.metros} m²`
+        : c.rareza;
+      return `
       <button type="button" class="captura-card btn-animar" data-id="${c.id}">
         <div class="captura-thumb">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 20V10l8-6 8 6v10h-5v-6H9v6H4Z" stroke="currentColor" stroke-width="1.4"/></svg>
+          <img src="${foto}" alt="" />
         </div>
         <div class="captura-body">
           <p class="titulo">${c.titulo}</p>
-          <p class="meta">${c.barrio} · ${c.rareza}</p>
+          <p class="meta">${c.barrio} · ${ficha}</p>
         </div>
         <span class="captura-puntos">+${c.puntosGanados}</span>
-      </button>`
-    )
+      </button>`;
+    })
     .join('');
 
   lista.querySelectorAll('.captura-card').forEach((card) => {

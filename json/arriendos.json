@@ -9,11 +9,13 @@
     "habitaciones": 2,
     "banos": 2,
     "metros": 68,
+    "descripcion": "Apartamento luminoso cerca de Provenza. Ideal para pareja o roomies. Incluye cocina integral y balcón con vista a la ciudad.",
     "amenidades": ["Parqueadero", "Gimnasio"],
     "rareza": "raro",
     "puntos": 120,
-    "top": 28,
-    "left": 62
+    "lat": 6.2088,
+    "lng": -75.567,
+    "fotos": ["/fotos/apto-salon.svg", "/fotos/apto-cocina.svg", "/fotos/apto-habitacion.svg"]
   },
   {
     "id": "a2",
@@ -25,11 +27,13 @@
     "habitaciones": 3,
     "banos": 2,
     "metros": 110,
+    "descripcion": "Casa de dos pisos en Laureles con patio trasero y zona BBQ. Tranquila, a pocas cuadras de la 70.",
     "amenidades": ["Patio", "Zona BBQ"],
     "rareza": "epico",
     "puntos": 220,
-    "top": 52,
-    "left": 24
+    "lat": 6.2456,
+    "lng": -75.5955,
+    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-patio.svg", "/fotos/apto-habitacion.svg"]
   },
   {
     "id": "a3",
@@ -41,11 +45,13 @@
     "habitaciones": 1,
     "banos": 1,
     "metros": 28,
+    "descripcion": "Estudio amoblado compacto, perfecto para estudiante o persona sola. Servicios incluidos.",
     "amenidades": ["Amoblado"],
     "rareza": "comun",
     "puntos": 40,
-    "top": 68,
-    "left": 55
+    "lat": 6.1699,
+    "lng": -75.587,
+    "fotos": ["/fotos/celda-estudio.svg", "/fotos/apto-cocina.svg"]
   },
   {
     "id": "a4",
@@ -57,11 +63,13 @@
     "habitaciones": 2,
     "banos": 1,
     "metros": 55,
+    "descripcion": "Apartamento funcional en Belén con ascensor y buena iluminación natural. Cerca de comercio.",
     "amenidades": ["Ascensor"],
     "rareza": "comun",
     "puntos": 55,
-    "top": 35,
-    "left": 38
+    "lat": 6.231,
+    "lng": -75.596,
+    "fotos": ["/fotos/apto-salon.svg", "/fotos/apto-habitacion.svg"]
   },
   {
     "id": "a5",
@@ -73,11 +81,13 @@
     "habitaciones": 2,
     "banos": 2,
     "metros": 75,
+    "descripcion": "Apto moderno en Provenza con balcón amplio y parqueadero. Excelente para quienes buscan vida nocturna y cafés.",
     "amenidades": ["Balcón", "Parqueadero"],
     "rareza": "raro",
     "puntos": 150,
-    "top": 42,
-    "left": 72
+    "lat": 6.2095,
+    "lng": -75.5665,
+    "fotos": ["/fotos/apto-salon.svg", "/fotos/apto-cocina.svg", "/fotos/apto-habitacion.svg"]
   },
   {
     "id": "a6",
@@ -89,11 +99,13 @@
     "habitaciones": 3,
     "banos": 2,
     "metros": 95,
+    "descripcion": "Casa familiar en Sabaneta con garaje y terraza. Ambiente tranquilo y cerca al parque principal.",
     "amenidades": ["Garaje", "Terraza"],
     "rareza": "raro",
     "puntos": 140,
-    "top": 78,
-    "left": 30
+    "lat": 6.1515,
+    "lng": -75.616,
+    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-patio.svg"]
   },
   {
     "id": "a7",
@@ -105,11 +117,13 @@
     "habitaciones": 1,
     "banos": 1,
     "metros": 42,
+    "descripcion": "Apartamento céntrico a pasos del Metro. Ideal si te mueves mucho por la ciudad.",
     "amenidades": ["Cerca Metro"],
     "rareza": "comun",
     "puntos": 45,
-    "top": 20,
-    "left": 48
+    "lat": 6.2518,
+    "lng": -75.5636,
+    "fotos": ["/fotos/apto-salon.svg", "/fotos/apto-cocina.svg"]
   },
   {
     "id": "a8",
@@ -121,11 +135,13 @@
     "habitaciones": 3,
     "banos": 3,
     "metros": 140,
+    "descripcion": "Penthouse con vista, piscina y portería 24h. Captura épica para cazadores avanzados.",
     "amenidades": ["Piscina", "Vista", "Portería"],
     "rareza": "epico",
     "puntos": 300,
-    "top": 58,
-    "left": 78
+    "lat": 6.225,
+    "lng": -75.574,
+    "fotos": ["/fotos/apto-salon.svg", "/fotos/casa-patio.svg", "/fotos/apto-habitacion.svg"]
   },
   {
     "id": "a9",
@@ -137,11 +153,13 @@
     "habitaciones": 1,
     "banos": 1,
     "metros": 24,
+    "descripcion": "Celda amoblada con wifi cerca al estadio Atanasio. Económica y lista para habitar.",
     "amenidades": ["Amoblado", "Wifi"],
     "rareza": "comun",
     "puntos": 35,
-    "top": 48,
-    "left": 45
+    "lat": 6.2567,
+    "lng": -75.59,
+    "fotos": ["/fotos/celda-estudio.svg"]
   },
   {
     "id": "a10",
@@ -153,11 +171,13 @@
     "habitaciones": 2,
     "banos": 1,
     "metros": 60,
+    "descripcion": "Apartamento con balcón en La América. Buena relación precio-espacio.",
     "amenidades": ["Balcón"],
     "rareza": "comun",
     "puntos": 60,
-    "top": 40,
-    "left": 18
+    "lat": 6.251,
+    "lng": -75.61,
+    "fotos": ["/fotos/apto-salon.svg", "/fotos/apto-habitacion.svg"]
   },
   {
     "id": "a11",
@@ -169,11 +189,13 @@
     "habitaciones": 4,
     "banos": 3,
     "metros": 160,
+    "descripcion": "Casa amplia con jardín y parqueadero para dos carros. Zona residencial premium.",
     "amenidades": ["Jardín", "Parqueadero"],
     "rareza": "epico",
     "puntos": 280,
-    "top": 15,
-    "left": 80
+    "lat": 6.197,
+    "lng": -75.558,
+    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-patio.svg", "/fotos/apto-cocina.svg"]
   },
   {
     "id": "a12",
@@ -185,10 +207,12 @@
     "habitaciones": 2,
     "banos": 1,
     "metros": 48,
+    "descripcion": "Apto económico cerca de universidades. Buena opción para estudiantes.",
     "amenidades": ["Cerca Universidad"],
     "rareza": "comun",
     "puntos": 42,
-    "top": 12,
-    "left": 22
+    "lat": 6.275,
+    "lng": -75.59,
+    "fotos": ["/fotos/apto-salon.svg", "/fotos/apto-cocina.svg"]
   }
 ]

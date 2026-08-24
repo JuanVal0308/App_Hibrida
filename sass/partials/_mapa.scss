@@ -54,92 +54,69 @@
   min-height: 260px;
 }
 
-.map-grid {
+.leaflet-map {
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(var(--card-2) 1px, transparent 1px),
-    linear-gradient(90deg, var(--card-2) 1px, transparent 1px);
-  background-size: 24px 24px;
-  opacity: 0.6;
-}
-
-.map-label {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--text-faint);
-  font-size: 13px;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-.radar-anillo {
-  --radar-diametro: 70%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: var(--radar-diametro);
-  height: var(--radar-diametro);
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  border: 1px dashed rgba(77, 140, 255, 0.55);
-  background: radial-gradient(circle, rgba(77, 140, 255, 0.12) 0%, transparent 70%);
-  pointer-events: none;
   z-index: 1;
-  animation: radar-pulso 2.8s ease-in-out infinite;
+  background: #0d1117;
 }
 
-@keyframes radar-pulso {
-  0%,
-  100% {
-    opacity: 0.55;
-  }
-  50% {
-    opacity: 1;
-  }
+.leaflet-container {
+  font: inherit;
+  background: #0d1117;
 }
 
-.jugador-marker {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.pin-leaflet {
+  background: transparent !important;
+  border: none !important;
+}
+
+.pin-leaflet__dot {
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 4px auto 0;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  border: 2px solid #f2eee6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+}
+
+.pin-usuario {
+  background: transparent !important;
+  border: none !important;
+}
+
+.pin-usuario__dot {
+  display: block;
   width: 18px;
   height: 18px;
   border-radius: 50%;
   background: #4d8cff;
   border: 3px solid #f2eee6;
-  box-shadow: 0 0 0 6px rgba(77, 140, 255, 0.25);
-  z-index: 2;
+  box-shadow: 0 0 0 6px rgba(77, 140, 255, 0.28);
+}
+
+.leaflet-div-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.captura-flash {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(16, 21, 27, 0.55);
   pointer-events: none;
 }
 
-.pin {
-  position: absolute;
+.captura-texto {
+  font-family: var(--font-display);
+  font-size: 28px;
   color: var(--accent);
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  z-index: 3;
-  transform: translate(-50%, -100%);
-
-  &.atrapado {
-    color: var(--text-faint);
-    opacity: 0.45;
-  }
-
-  &.raro {
-    color: #c084fc;
-  }
-
-  &.epico {
-    color: #58e08a;
-  }
 }
 
 .preview-sheet {
@@ -151,6 +128,8 @@
   margin: 10px -16px 0;
   display: block;
   color: inherit;
+  position: relative;
+  z-index: 6;
 
   &.oculto {
     display: none;
@@ -172,16 +151,20 @@
 }
 
 .preview-thumb {
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   border-radius: var(--radius-sm);
   background: var(--card-2);
   border: 1px solid var(--card-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-faint);
+  overflow: hidden;
   flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 }
 
 .preview-info {
@@ -195,9 +178,10 @@
   }
 
   .preview-meta {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--text-dim);
     margin: 0;
+    line-height: 1.35;
   }
 }
 
@@ -206,6 +190,11 @@
   color: var(--accent);
   font-weight: 600;
   white-space: nowrap;
+}
+
+.preview-desc {
+  margin: 10px 0 0;
+  line-height: 1.4;
 }
 
 .preview-acciones {
@@ -220,4 +209,8 @@
     padding: 10px 12px;
     font-size: 13px;
   }
+}
+
+.permiso-hint {
+  margin: -4px 0 12px;
 }

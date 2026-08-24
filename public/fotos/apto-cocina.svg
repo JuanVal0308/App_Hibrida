@@ -1,0 +1,8 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#171d25"/>
+  <rect x="60" y="220" width="680" height="40" fill="#2a333e"/>
+  <rect x="80" y="140" width="120" height="80" fill="#10151b" stroke="#93a0af"/>
+  <rect x="220" y="140" width="120" height="80" fill="#10151b" stroke="#93a0af"/>
+  <rect x="520" y="120" width="180" height="100" rx="6" fill="#1c232c" stroke="#ffb648" stroke-width="2"/>
+  <text x="40" y="60" fill="#f2eee6" font-family="Segoe UI,sans-serif" font-size="28">Cocina</text>
+</svg>

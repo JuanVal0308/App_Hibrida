@@ -11,7 +11,7 @@
   {
     "id": "radio_plus",
     "nombre": "Radar extendido",
-    "descripcion": "Aumenta el radio de búsqueda en el mapa (+1).",
+    "descripcion": "Aumenta el radio de captura GPS en +350 metros.",
     "costo": 100,
     "efecto": { "radio": 1 },
     "unica": false,

@@ -1,0 +1,7 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#1c232c"/>
+  <rect x="140" y="200" width="420" height="180" rx="12" fill="#10151b" stroke="#c084fc" stroke-width="3"/>
+  <rect x="180" y="230" width="340" height="40" fill="#2a333e"/>
+  <circle cx="650" cy="120" r="50" fill="#ffb64822"/>
+  <text x="40" y="60" fill="#f2eee6" font-family="Segoe UI,sans-serif" font-size="28">Habitacion</text>
+</svg>
