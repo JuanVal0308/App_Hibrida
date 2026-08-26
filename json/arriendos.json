@@ -15,7 +15,7 @@
     "puntos": 120,
     "lat": 6.2088,
     "lng": -75.567,
-    "fotos": ["/fotos/apto-salon.svg", "/fotos/apto-cocina.svg", "/fotos/apto-habitacion.svg"]
+    "fotos": ["/fotos/fachada-moderna.svg", "/fotos/apto-salon.svg", "/fotos/apto-balcon.svg"]
   },
   {
     "id": "a2",
@@ -33,7 +33,7 @@
     "puntos": 220,
     "lat": 6.2456,
     "lng": -75.5955,
-    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-patio.svg", "/fotos/apto-habitacion.svg"]
+    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-patio.svg", "/fotos/casa-terraza.svg"]
   },
   {
     "id": "a3",
@@ -51,7 +51,7 @@
     "puntos": 40,
     "lat": 6.1699,
     "lng": -75.587,
-    "fotos": ["/fotos/celda-estudio.svg", "/fotos/apto-cocina.svg"]
+    "fotos": ["/fotos/celda-amoblada.svg", "/fotos/celda-estudio.svg"]
   },
   {
     "id": "a4",
@@ -69,7 +69,7 @@
     "puntos": 55,
     "lat": 6.231,
     "lng": -75.596,
-    "fotos": ["/fotos/apto-salon.svg", "/fotos/apto-habitacion.svg"]
+    "fotos": ["/fotos/apto-habitacion.svg", "/fotos/apto-cocina.svg"]
   },
   {
     "id": "a5",
@@ -87,7 +87,7 @@
     "puntos": 150,
     "lat": 6.2095,
     "lng": -75.5665,
-    "fotos": ["/fotos/apto-salon.svg", "/fotos/apto-cocina.svg", "/fotos/apto-habitacion.svg"]
+    "fotos": ["/fotos/apto-balcon.svg", "/fotos/apto-salon.svg", "/fotos/vista-ciudad.svg"]
   },
   {
     "id": "a6",
@@ -105,7 +105,7 @@
     "puntos": 140,
     "lat": 6.1515,
     "lng": -75.616,
-    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-patio.svg"]
+    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-terraza.svg", "/fotos/casa-patio.svg"]
   },
   {
     "id": "a7",
@@ -123,7 +123,7 @@
     "puntos": 45,
     "lat": 6.2518,
     "lng": -75.5636,
-    "fotos": ["/fotos/apto-salon.svg", "/fotos/apto-cocina.svg"]
+    "fotos": ["/fotos/vista-ciudad.svg", "/fotos/apto-cocina.svg"]
   },
   {
     "id": "a8",
@@ -141,7 +141,7 @@
     "puntos": 300,
     "lat": 6.225,
     "lng": -75.574,
-    "fotos": ["/fotos/apto-salon.svg", "/fotos/casa-patio.svg", "/fotos/apto-habitacion.svg"]
+    "fotos": ["/fotos/vista-ciudad.svg", "/fotos/apto-balcon.svg", "/fotos/apto-bano.svg"]
   },
   {
     "id": "a9",
@@ -159,7 +159,7 @@
     "puntos": 35,
     "lat": 6.2567,
     "lng": -75.59,
-    "fotos": ["/fotos/celda-estudio.svg"]
+    "fotos": ["/fotos/celda-estudio.svg", "/fotos/celda-amoblada.svg"]
   },
   {
     "id": "a10",
@@ -177,7 +177,7 @@
     "puntos": 60,
     "lat": 6.251,
     "lng": -75.61,
-    "fotos": ["/fotos/apto-salon.svg", "/fotos/apto-habitacion.svg"]
+    "fotos": ["/fotos/apto-balcon.svg", "/fotos/apto-habitacion.svg"]
   },
   {
     "id": "a11",
@@ -195,7 +195,7 @@
     "puntos": 280,
     "lat": 6.197,
     "lng": -75.558,
-    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-patio.svg", "/fotos/apto-cocina.svg"]
+    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-patio.svg", "/fotos/casa-terraza.svg"]
   },
   {
     "id": "a12",
@@ -213,6 +213,114 @@
     "puntos": 42,
     "lat": 6.275,
     "lng": -75.59,
-    "fotos": ["/fotos/apto-salon.svg", "/fotos/apto-cocina.svg"]
+    "fotos": ["/fotos/apto-salon.svg", "/fotos/apto-bano.svg"]
+  },
+  {
+    "id": "a13",
+    "titulo": "Apto Los Colores",
+    "barrio": "Los Colores",
+    "tipo": "apto",
+    "precio": 1350000,
+    "precioTexto": "$1.35M",
+    "habitaciones": 2,
+    "banos": 1,
+    "metros": 52,
+    "descripcion": "Apartamento bien ubicado en Los Colores, cerca de estación del Metro. Buena opción para moverse por la ciudad.",
+    "amenidades": ["Cerca Metro", "Ascensor"],
+    "rareza": "comun",
+    "puntos": 50,
+    "lat": 6.262,
+    "lng": -75.568,
+    "fotos": ["/fotos/fachada-moderna.svg", "/fotos/apto-habitacion.svg"]
+  },
+  {
+    "id": "a14",
+    "titulo": "Casa Itagüí",
+    "barrio": "Itagüí",
+    "tipo": "casa",
+    "precio": 2200000,
+    "precioTexto": "$2.2M",
+    "habitaciones": 3,
+    "banos": 2,
+    "metros": 88,
+    "descripcion": "Casa en Itagüí con patio y zona de parrilla. Ambiente familiar y acceso rápido al sur del valle.",
+    "amenidades": ["Patio", "Zona BBQ"],
+    "rareza": "raro",
+    "puntos": 130,
+    "lat": 6.1845,
+    "lng": -75.599,
+    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-patio.svg", "/fotos/casa-terraza.svg"]
+  },
+  {
+    "id": "a15",
+    "titulo": "Celda Manila",
+    "barrio": "Manila",
+    "tipo": "celda",
+    "precio": 920000,
+    "precioTexto": "$920K",
+    "habitaciones": 1,
+    "banos": 1,
+    "metros": 26,
+    "descripcion": "Estudio amoblado en Manila, zona tranquila cerca de El Poblado. Ideal para profesional joven.",
+    "amenidades": ["Amoblado", "Wifi"],
+    "rareza": "comun",
+    "puntos": 38,
+    "lat": 6.212,
+    "lng": -75.572,
+    "fotos": ["/fotos/celda-amoblada.svg", "/fotos/apto-cocina.svg"]
+  },
+  {
+    "id": "a16",
+    "titulo": "Apto Buenos Aires",
+    "barrio": "Buenos Aires",
+    "tipo": "apto",
+    "precio": 1750000,
+    "precioTexto": "$1.75M",
+    "habitaciones": 2,
+    "banos": 2,
+    "metros": 62,
+    "descripcion": "Apartamento amplio en Buenos Aires con balcón y buena ventilación. Cerca de la 33 y comercio local.",
+    "amenidades": ["Balcón", "Parqueadero"],
+    "rareza": "raro",
+    "puntos": 95,
+    "lat": 6.238,
+    "lng": -75.582,
+    "fotos": ["/fotos/apto-balcon.svg", "/fotos/apto-salon.svg", "/fotos/apto-bano.svg"]
+  },
+  {
+    "id": "a17",
+    "titulo": "Casa Guayabal",
+    "barrio": "Guayabal",
+    "tipo": "casa",
+    "precio": 3100000,
+    "precioTexto": "$3.1M",
+    "habitaciones": 3,
+    "banos": 2,
+    "metros": 105,
+    "descripcion": "Casa en Guayabal con terraza y garaje. Zona residencial con acceso al Metro.",
+    "amenidades": ["Terraza", "Garaje"],
+    "rareza": "raro",
+    "puntos": 165,
+    "lat": 6.218,
+    "lng": -75.602,
+    "fotos": ["/fotos/casa-terraza.svg", "/fotos/casa-exterior.svg", "/fotos/casa-patio.svg"]
+  },
+  {
+    "id": "a18",
+    "titulo": "Apto Castilla",
+    "barrio": "Castilla",
+    "tipo": "apto",
+    "precio": 1180000,
+    "precioTexto": "$1.18M",
+    "habitaciones": 2,
+    "banos": 1,
+    "metros": 50,
+    "descripcion": "Apto económico en Castilla con buena conexión vial. Perfecto para quien busca precio accesible.",
+    "amenidades": ["Ascensor"],
+    "rareza": "comun",
+    "puntos": 48,
+    "lat": 6.288,
+    "lng": -75.578,
+    "fotos": ["/fotos/fachada-moderna.svg", "/fotos/apto-cocina.svg"]
   }
 ]
