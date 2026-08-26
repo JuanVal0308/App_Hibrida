@@ -13,6 +13,7 @@ const ESTADO_JUEGO_INICIAL = {
   radio: 1,
   bonusCaptura: 0,
   mejorasCompradas: [],
+  rotacion: null,
 };
 
 function correoValido(correo) {
@@ -126,6 +127,7 @@ export function obtenerJuego() {
     ...u.juego,
     capturas: u.juego?.capturas || [],
     mejorasCompradas: u.juego?.mejorasCompradas || [],
+    rotacion: u.juego?.rotacion || null,
   };
 }
 
