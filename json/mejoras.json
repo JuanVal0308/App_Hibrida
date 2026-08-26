@@ -3,7 +3,7 @@
     "id": "slots_extra",
     "nombre": "Mochila ampliada",
     "descripcion": "Suma +3 slots a tu inventario de capturas.",
-    "costo": 80,
+    "costo": 50,
     "efecto": { "slots": 3 },
     "unica": false,
     "maxCompras": 5
@@ -12,7 +12,7 @@
     "id": "radio_plus",
     "nombre": "Radar extendido",
     "descripcion": "Aumenta el radio de captura GPS en +350 metros.",
-    "costo": 100,
+    "costo": 65,
     "efecto": { "radio": 1 },
     "unica": false,
     "maxCompras": 3
@@ -21,7 +21,7 @@
     "id": "bonus_captura",
     "nombre": "Llave dorada",
     "descripcion": "+15 puntos extra en cada captura.",
-    "costo": 150,
+    "costo": 95,
     "efecto": { "bonusCaptura": 15 },
     "unica": true,
     "maxCompras": 1
@@ -30,7 +30,7 @@
     "id": "slots_elite",
     "nombre": "Bóveda de arriendos",
     "descripcion": "Suma +5 slots de una sola vez.",
-    "costo": 200,
+    "costo": 125,
     "efecto": { "slots": 5 },
     "unica": true,
     "maxCompras": 1
@@ -39,7 +39,7 @@
     "id": "iman_puntos",
     "nombre": "Imán de puntos",
     "descripcion": "+25 puntos extra en cada captura (una sola compra).",
-    "costo": 180,
+    "costo": 110,
     "efecto": { "bonusCaptura": 25 },
     "unica": true,
     "maxCompras": 1
