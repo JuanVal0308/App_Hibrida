@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#1a2530"/><stop offset="1" stop-color="#0f1419"/></linearGradient></defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect x="0" y="280" width="800" height="220" fill="#2a3540"/>
+  <rect x="60" y="120" width="680" height="160" fill="#171d25" stroke="#4d8cff" stroke-width="3"/>
+  <rect x="100" y="160" width="200" height="100" fill="#4d8cff33" stroke="#93a0af"/>
+  <line x1="60" y1="280" x2="740" y2="280" stroke="#ffb648" stroke-width="4"/>
+  <rect x="500" y="200" width="180" height="80" fill="#10151b" stroke="#566373"/>
+  <circle cx="680" cy="100" r="40" fill="#ffb64855"/>
+  <path d="M620 380 L680 320 L740 380" stroke="#58e08a" stroke-width="3" fill="none"/>
+  <text x="40" y="55" fill="#f2eee6" font-family="Segoe UI,sans-serif" font-size="28">Balcón</text>
+</svg>

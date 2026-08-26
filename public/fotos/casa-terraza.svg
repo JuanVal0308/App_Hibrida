@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#101820"/>
+  <rect x="0" y="350" width="800" height="150" fill="#1e844933"/>
+  <path d="M200 350 L400 180 L600 350 Z" fill="#171d25" stroke="#58e08a" stroke-width="3"/>
+  <rect x="340" y="260" width="80" height="90" fill="#2a333e"/>
+  <rect x="250" y="380" width="300" height="20" fill="#566373"/>
+  <rect x="280" y="320" width="60" height="60" fill="#ffb64844" stroke="#ffb648"/>
+  <rect x="460" y="320" width="60" height="60" fill="#ffb64844" stroke="#ffb648"/>
+  <circle cx="650" cy="90" r="45" fill="#ffb64855"/>
+  <text x="40" y="55" fill="#f2eee6" font-family="Segoe UI,sans-serif" font-size="28">Terraza</text>
+</svg>

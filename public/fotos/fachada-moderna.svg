@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#0f1419"/>
+  <rect x="120" y="60" width="560" height="400" fill="#171d25" stroke="#4d8cff" stroke-width="4"/>
+  <rect x="160" y="100" width="100" height="80" fill="#4d8cff44"/>
+  <rect x="280" y="100" width="100" height="80" fill="#4d8cff44"/>
+  <rect x="400" y="100" width="100" height="80" fill="#4d8cff44"/>
+  <rect x="520" y="100" width="100" height="80" fill="#4d8cff44"/>
+  <rect x="160" y="200" width="100" height="80" fill="#4d8cff33"/>
+  <rect x="280" y="200" width="100" height="80" fill="#4d8cff33"/>
+  <rect x="400" y="200" width="100" height="80" fill="#4d8cff33"/>
+  <rect x="520" y="200" width="100" height="80" fill="#4d8cff33"/>
+  <rect x="340" y="320" width="120" height="140" fill="#2a333e"/>
+  <rect x="0" y="460" width="800" height="40" fill="#1e844922"/>
+  <text x="40" y="55" fill="#f2eee6" font-family="Segoe UI,sans-serif" font-size="28">Fachada moderna</text>
+</svg>
