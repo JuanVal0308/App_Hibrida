@@ -1,16 +1,56 @@
 /**
- * Lógica del juego: puntos, captura y estado del jugador.
+ * Lógica del juego: puntos, captura, rotación de spawns y estado del jugador.
  */
 import { obtenerJuego, guardarJuego } from './auth.js';
 import arriendosData from '../json/arriendos.json';
 import mejorasData from '../json/mejoras.json';
 
-export function listarArriendos() {
+export const ROTACION_INTERVAL_MS = 20 * 60 * 1000;
+const SPAWN_VISIBLE = 8;
+const SPAWN_CAMBIO_MIN = 2;
+const SPAWN_CAMBIO_MAX = 3;
+
+const MEDELLIN_BOUNDS = {
+  latMin: 6.12,
+  latMax: 6.32,
+  lngMin: -75.65,
+  lngMax: -75.53,
+};
+
+/** Catálogo completo (inventario, detalle, datos fijos). */
+export function catalogoArriendos() {
   return arriendosData;
 }
 
+/** Arriendos visibles en el mapa con posición de spawn activa. */
+export function listarArriendos() {
+  const juego = estadoJuego();
+  asegurarRotacion(juego);
+  const rot = juego.rotacion;
+  return rot.visibleIds
+    .map((id) => {
+      const base = catalogoArriendos().find((a) => a.id === id);
+      if (!base) return null;
+      const pos = rot.posiciones[id];
+      if (pos) return { ...base, lat: pos.lat, lng: pos.lng };
+      return base;
+    })
+    .filter(Boolean);
+}
+
 export function obtenerArriendo(id) {
-  return arriendosData.find((a) => a.id === id) || null;
+  return catalogoArriendos().find((a) => a.id === id) || null;
+}
+
+/** Arriendo con coordenadas del spawn activo (mapa / captura). */
+export function obtenerArriendoEnMapa(id) {
+  return listarArriendos().find((a) => a.id === id) || obtenerArriendo(id);
+}
+
+export function idsVisiblesEnMapa() {
+  const juego = estadoJuego();
+  asegurarRotacion(juego);
+  return new Set(juego.rotacion.visibleIds);
 }
 
 export function listarMejorasCatalogo() {
@@ -25,8 +65,180 @@ export function idsAtrapados() {
   return new Set(estadoJuego().capturas.map((c) => c.id));
 }
 
+function randomBetween(min, max) {
+  return min + Math.random() * (max - min);
+}
+
+function randomInt(min, max) {
+  return Math.floor(randomBetween(min, max + 1));
+}
+
+function shuffle(lista) {
+  const copia = [...lista];
+  for (let i = copia.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copia[i], copia[j]] = [copia[j], copia[i]];
+  }
+  return copia;
+}
+
+/** Desplaza un pin 300–800 m alrededor de su barrio (clamp al valle). */
+export function calcularPosicionSpawn(arriendo) {
+  const distM = randomBetween(300, 800);
+  const angulo = randomBetween(0, 2 * Math.PI);
+  const dLat = (distM * Math.cos(angulo)) / 111320;
+  const dLng = (distM * Math.sin(angulo)) / (111320 * Math.cos((arriendo.lat * Math.PI) / 180));
+  const lat = Math.max(MEDELLIN_BOUNDS.latMin, Math.min(MEDELLIN_BOUNDS.latMax, arriendo.lat + dLat));
+  const lng = Math.max(MEDELLIN_BOUNDS.lngMin, Math.min(MEDELLIN_BOUNDS.lngMax, arriendo.lng + dLng));
+  return { lat, lng };
+}
+
+function seedRotacionInicial(juego) {
+  const ids = shuffle(catalogoArriendos().map((a) => a.id)).slice(0, SPAWN_VISIBLE);
+  const posiciones = {};
+  ids.forEach((id) => {
+    const base = obtenerArriendo(id);
+    if (base) posiciones[id] = calcularPosicionSpawn(base);
+  });
+  juego.rotacion = {
+    visibleIds: ids,
+    posiciones,
+    nextAt: Date.now() + ROTACION_INTERVAL_MS,
+  };
+  guardarJuego(juego);
+}
+
+export function asegurarRotacion(juego = estadoJuego()) {
+  if (!juego.rotacion?.visibleIds?.length) {
+    seedRotacionInicial(juego);
+    return juego.rotacion;
+  }
+
+  const catalogoIds = new Set(catalogoArriendos().map((a) => a.id));
+  juego.rotacion.visibleIds = juego.rotacion.visibleIds.filter((id) => catalogoIds.has(id));
+  juego.rotacion.posiciones = juego.rotacion.posiciones || {};
+
+  const visibles = new Set(juego.rotacion.visibleIds);
+  if (juego.rotacion.visibleIds.length < SPAWN_VISIBLE) {
+    const faltantes = shuffle(
+      catalogoArriendos()
+        .filter((a) => !visibles.has(a.id))
+        .map((a) => a.id)
+    ).slice(0, SPAWN_VISIBLE - juego.rotacion.visibleIds.length);
+
+    faltantes.forEach((id) => {
+      juego.rotacion.visibleIds.push(id);
+      const base = obtenerArriendo(id);
+      if (base) juego.rotacion.posiciones[id] = calcularPosicionSpawn(base);
+    });
+    guardarJuego(juego);
+  }
+
+  juego.rotacion.visibleIds.forEach((id) => {
+    if (!juego.rotacion.posiciones[id]) {
+      const base = obtenerArriendo(id);
+      if (base) juego.rotacion.posiciones[id] = calcularPosicionSpawn(base);
+    }
+  });
+
+  if (!juego.rotacion.nextAt) {
+    juego.rotacion.nextAt = Date.now() + ROTACION_INTERVAL_MS;
+    guardarJuego(juego);
+  }
+
+  return juego.rotacion;
+}
+
+export function rotarSpawns() {
+  const juego = estadoJuego();
+  asegurarRotacion(juego);
+  const atrapados = idsAtrapados();
+  const rot = juego.rotacion;
+  const visibles = [...rot.visibleIds];
+
+  const removibles = visibles.filter((id) => !atrapados.has(id));
+  const quitarCount = Math.min(randomInt(SPAWN_CAMBIO_MIN, SPAWN_CAMBIO_MAX), removibles.length);
+  const aQuitar = shuffle(removibles).slice(0, quitarCount);
+  const nuevosVisibles = visibles.filter((id) => !aQuitar.includes(id));
+
+  const visiblesSet = new Set(nuevosVisibles);
+  const disponibles = catalogoArriendos()
+    .filter((a) => !visiblesSet.has(a.id))
+    .map((a) => a.id);
+  const agregarCount = Math.min(randomInt(SPAWN_CAMBIO_MIN, SPAWN_CAMBIO_MAX), disponibles.length);
+  const aAgregar = shuffle(disponibles).slice(0, agregarCount);
+
+  aQuitar.forEach((id) => {
+    delete rot.posiciones[id];
+  });
+
+  aAgregar.forEach((id) => {
+    nuevosVisibles.push(id);
+    const base = obtenerArriendo(id);
+    if (base) rot.posiciones[id] = calcularPosicionSpawn(base);
+  });
+
+  rot.visibleIds = nuevosVisibles;
+  rot.nextAt = Date.now() + ROTACION_INTERVAL_MS;
+  guardarJuego(juego);
+
+  return { quitados: aQuitar, agregados: aAgregar };
+}
+
+export function verificarRotacionPendiente() {
+  const juego = estadoJuego();
+  asegurarRotacion(juego);
+  if (Date.now() >= juego.rotacion.nextAt) {
+    return rotarSpawns();
+  }
+  return null;
+}
+
+export function msHastaRotacion() {
+  const juego = estadoJuego();
+  asegurarRotacion(juego);
+  return Math.max(0, juego.rotacion.nextAt - Date.now());
+}
+
+export function formatearCuentaRotacion() {
+  const totalSec = Math.floor(msHastaRotacion() / 1000);
+  const min = Math.floor(totalSec / 60);
+  const sec = totalSec % 60;
+  return `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+}
+
+let timerRotacion = null;
+
+export function iniciarRotacionTimer(onRotacion) {
+  if (timerRotacion) clearInterval(timerRotacion);
+
+  verificarRotacionPendiente();
+
+  timerRotacion = setInterval(() => {
+    const res = verificarRotacionPendiente();
+    if (res && onRotacion) onRotacion(res);
+  }, 30000);
+
+  return timerRotacion;
+}
+
+export function detenerRotacionTimer() {
+  if (timerRotacion) {
+    clearInterval(timerRotacion);
+    timerRotacion = null;
+  }
+}
+
+export function forzarRotacion() {
+  const res = rotarSpawns();
+  return res;
+}
+
 export function puedeAtrapar(id) {
   const juego = estadoJuego();
+  if (!idsVisiblesEnMapa().has(id)) {
+    return { ok: false, motivo: 'Este arriendo ya no está en el mapa.' };
+  }
   if (juego.capturas.some((c) => c.id === id)) {
     return { ok: false, motivo: 'Ya atrapaste este arriendo.' };
   }
@@ -104,4 +316,8 @@ export function mejoraAgotada(mejoraId) {
   const veces = conteoMejora(estadoJuego(), mejoraId);
   if (mejora.unica) return veces >= 1;
   return veces >= (mejora.maxCompras || 1);
+}
+
+if (import.meta.env.DEV) {
+  window.__forzarRotacion = forzarRotacion;
 }
