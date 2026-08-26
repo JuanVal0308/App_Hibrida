@@ -1,5 +1,5 @@
 /**
- * Mapa Leaflet: muestra TODOS los arriendos; la captura sí depende del radio GPS.
+ * Mapa Leaflet: muestra arriendos del ciclo activo; la captura depende del radio GPS.
  */
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -18,10 +18,15 @@ import {
 import {
   listarArriendos,
   idsAtrapados,
+  idsVisiblesEnMapa,
   atraparArriendo,
   puedeAtrapar,
   estadoJuego,
   obtenerArriendo,
+  obtenerArriendoEnMapa,
+  formatearCuentaRotacion,
+  iniciarRotacionTimer,
+  verificarRotacionPendiente,
 } from './juego.js';
 
 let seleccionId = null;
@@ -32,6 +37,7 @@ let capaUsuario = null;
 let capaRadar = null;
 let capaPins = null;
 let mapaListo = false;
+let hudTick = null;
 
 /** Radio de captura en metros según nivel de mejora. */
 export function radioMetros() {
@@ -45,7 +51,8 @@ function actualizarHud() {
   const pos = obtenerPosicion();
   if (hud) {
     const modo = pos.demo ? 'demo MDE' : pos.aproximada ? 'aprox.' : 'GPS';
-    hud.textContent = `${juego.puntos} pts · ${radioMetros()} m · ${modo}`;
+    const cuenta = formatearCuentaRotacion();
+    hud.textContent = `${juego.puntos} pts · ${radioMetros()} m · rota ${cuenta} · ${modo}`;
   }
 }
 
@@ -77,7 +84,7 @@ function estaEnRangoId(arriendo) {
   return distanciaMetros(yo, { lat: arriendo.lat, lng: arriendo.lng }) <= radioMetros();
 }
 
-/** Filtro de lista (tipo / barrio). Siempre se muestran en el mapa. */
+/** Filtro de lista (tipo / barrio) sobre el ciclo activo. */
 function arriendosFiltrados() {
   return listarArriendos().filter((a) => {
     const tipoOk = filtroTipo === 'todos' || a.tipo === filtroTipo;
@@ -145,9 +152,15 @@ function fotoPrincipal(arriendo) {
 }
 
 function mostrarPreview(id) {
-  const a = obtenerArriendo(id);
+  const a = obtenerArriendoEnMapa(id);
   const sheet = document.getElementById('preview-sheet');
   if (!a || !sheet) return;
+
+  if (!idsVisiblesEnMapa().has(id)) {
+    ocultarPreview();
+    mostrarAviso('Este arriendo ya no está en el mapa.', 'info');
+    return;
+  }
 
   seleccionId = id;
   const yo = obtenerPosicion();
@@ -155,7 +168,7 @@ function mostrarPreview(id) {
   const enRango = metros <= radioMetros();
 
   const thumb = document.getElementById('preview-thumb');
-  const src = fotoPrincipal(a);
+  const src = fotoPrincipal(obtenerArriendo(id) || a);
   thumb.innerHTML = `<img src="${src}" alt="${a.titulo}" width="56" height="56" onerror="this.src='/fotos/apto-salon.svg'" />`;
 
   document.getElementById('preview-titulo').textContent = a.titulo;
@@ -203,7 +216,7 @@ function flashCaptura() {
 
 function ejecutarAtrapar() {
   if (!seleccionId) return;
-  const a = obtenerArriendo(seleccionId);
+  const a = obtenerArriendoEnMapa(seleccionId);
   if (!a) return;
 
   if (!estaEnRangoId(a)) {
@@ -234,6 +247,25 @@ function ejecutarAtrapar() {
     import('./perfil.js').then((m) => m.pintarPerfil()),
     import('./tienda.js').then((m) => m.pintarTienda()),
   ]);
+}
+
+function alRotarSpawns(res) {
+  if (seleccionId && res?.quitados?.includes(seleccionId)) {
+    ocultarPreview();
+  }
+
+  if (res?.agregados?.length) {
+    const n = res.agregados.length;
+    mostrarAviso(`Rotación del mapa: ${n} arriendo${n > 1 ? 's' : ''} nuevo${n > 1 ? 's' : ''} en el radar.`, 'info');
+  }
+
+  actualizarHud();
+  renderPins();
+}
+
+function iniciarHudTick() {
+  if (hudTick) clearInterval(hudTick);
+  hudTick = setInterval(actualizarHud, 30000);
 }
 
 export function abrirDetalleDesdeMapa(id) {
@@ -268,7 +300,6 @@ function crearMapa() {
   renderPins();
   mapaListo = true;
 
-  // Ajustar vista a todos los pins + usuario
   const grupo = L.featureGroup([
     ...(capaPins ? capaPins.getLayers() : []),
     ...(capaUsuario ? [capaUsuario] : []),
@@ -301,9 +332,10 @@ export async function asegurarUbicacion(mostrarMensaje = true) {
 }
 
 export function iniciarMapa() {
-  // Por defecto ya estamos en Medellín demo hasta que llegue el GPS
   usarMedellinDemo();
   actualizarHud();
+  iniciarHudTick();
+  iniciarRotacionTimer(alRotarSpawns);
 
   document.getElementById('tipo-chips')?.addEventListener('click', (ev) => {
     const chip = ev.target.closest('.chip');
@@ -336,10 +368,11 @@ export function iniciarMapa() {
 }
 
 export async function refrescarMapa() {
+  const rotacion = verificarRotacionPendiente();
+  if (rotacion) alRotarSpawns(rotacion);
   actualizarHud();
   if (!mapaListo) {
     crearMapa();
-    // No bloqueamos el mapa esperando GPS: primero se ven los pins
     pedirPermisoUbicacion().then((res) => {
       if (res.mensaje) mostrarAviso(res.mensaje, res.ok ? 'success' : 'info');
       actualizarHud();
