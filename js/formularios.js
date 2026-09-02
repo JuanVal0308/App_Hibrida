@@ -3,7 +3,6 @@
  */
 import { registrarUsuario, iniciarSesion } from './auth.js';
 import { irA } from './router.js';
-import { pedirPermisoUbicacion } from './geolocalizacion.js';
 import { mostrarAviso } from './ui.js';
 
 function limpiarErrores(form) {
@@ -56,21 +55,12 @@ export function iniciarAuth() {
       return;
     }
 
-    const quiereUbicacion = document.getElementById('reg-ubicacion')?.checked;
-    if (quiereUbicacion) {
-      mostrarStatus('registro-status', 'success', 'Cuenta creada. Pedimos permiso de ubicación…');
-      const geo = await pedirPermisoUbicacion();
-      if (geo.mensaje) mostrarAviso(geo.mensaje, geo.ok ? 'success' : 'info');
-    } else {
-      mostrarAviso('Puedes activar la ubicación después con el botón del mapa.', 'info');
-    }
-
     mostrarStatus('registro-status', 'success', 'Cuenta creada. Entrando…');
     const login = iniciarSesion({
       correo: document.getElementById('reg-correo').value,
       contrasena: document.getElementById('reg-contrasena').value,
     });
-    setTimeout(() => irA(login.ok ? 'mapa' : 'login'), 500);
+    setTimeout(() => irA(login.ok ? 'radar' : 'login'), 500);
   });
 
   const formLogin = document.getElementById('login-form');
@@ -90,7 +80,6 @@ export function iniciarAuth() {
     }
 
     mostrarStatus('login-status', 'success', `¡Bienvenido, ${res.usuario.nombre}!`);
-    await pedirPermisoUbicacion();
-    setTimeout(() => irA('mapa'), 400);
+    setTimeout(() => irA('radar'), 400);
   });
 }

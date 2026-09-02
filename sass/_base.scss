@@ -27,6 +27,41 @@ body {
   overflow: hidden;
 }
 
+// En pantallas anchas (escritorio) simulamos un marco de celular
+// alrededor de la app en lugar de estirarla a todo el ancho.
+@media (min-width: 640px) {
+  body {
+    align-items: center;
+    min-height: 100vh;
+    padding: 32px 0;
+  }
+
+  .app {
+    height: 860px;
+    max-height: calc(100vh - 64px);
+    min-height: 0;
+    border: 10px solid #111;
+    border-radius: 44px;
+    box-shadow:
+      0 0 0 2px #2a2a2a,
+      0 24px 60px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+  }
+
+  .app::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 22px;
+    background: #111;
+    border-radius: 0 0 16px 16px;
+    z-index: 20;
+  }
+}
+
 .vista {
   flex: 1;
   display: flex;

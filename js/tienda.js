@@ -47,7 +47,7 @@ export function pintarTienda() {
       Promise.all([
         import('./inventario.js').then((m) => m.pintarInventario()),
         import('./perfil.js').then((m) => m.pintarPerfil()),
-        import('./mapa.js').then((m) => m.refrescarMapa()),
+        import('./radar.js').then((m) => m.refrescarRadar()),
       ]);
     });
   });

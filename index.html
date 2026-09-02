@@ -108,22 +108,17 @@
             <input type="checkbox" id="reg-terminos" name="acepto-terminos" required>
             Acepto Términos (uso local)
           </label>
-          <label class="checkbox-row terms-row">
-            <input type="checkbox" id="reg-ubicacion" name="acepto-ubicacion" checked>
-            Permitir ubicación para el mapa (GPS)
-          </label>
-          <p class="small muted permiso-hint">Al crear la cuenta pediremos permiso de ubicación para mostrar arriendos cerca de ti.</p>
           <button type="submit" class="btn-primary btn-animar" id="registro-submit">Crear cuenta</button>
           <p class="login-hint">¿Ya tienes? <button type="button" class="link" data-ir="login">Inicia sesión</button></p>
         </form>
       </div>
     </section>
 
-    <!-- MAPA / CAPTURA -->
-    <section class="vista" id="vista-mapa" data-vista="mapa" hidden>
+    <!-- RADAR / CAPTURA -->
+    <section class="vista" id="vista-radar" data-vista="radar" hidden>
       <div class="search-page">
         <div class="mapa-hud">
-          <span class="eyebrow">Mapa · rotación cada 20 min</span>
+          <span class="eyebrow">Radar · rotación cada 20 min</span>
           <span class="puntos-badge" id="hud-puntos">0 pts</span>
         </div>
         <div class="search-bar">
@@ -131,11 +126,8 @@
             <span class="search-icon">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
             </span>
-            <input type="search" id="buscar-barrio" placeholder="Buscar barrio...">
+            <input type="search" id="buscar-barrio" placeholder="Buscar zona...">
           </div>
-          <button type="button" class="icon-btn btn-animar" id="btn-ubicacion" aria-label="Actualizar ubicación">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          </button>
           <button type="button" class="icon-btn btn-animar" id="btn-filtros" aria-label="Tienda" data-ir="tienda">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M7 12h10M10 17h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           </button>
@@ -146,8 +138,8 @@
           <button type="button" class="chip" data-tipo="casa">Casas</button>
           <button type="button" class="chip" data-tipo="celda">Celdas</button>
         </div>
-        <div class="map-area" id="map-area">
-          <div id="leaflet-map" class="leaflet-map"></div>
+        <div class="radar-area" id="radar-area">
+          <div class="radar-zonas" id="radar-zonas"></div>
           <div id="captura-flash" class="captura-flash" hidden>
             <span class="captura-texto animate__animated">¡Atrapado!</span>
           </div>
@@ -181,8 +173,8 @@
         <div class="capturas-lista" id="capturas-lista"></div>
         <div class="vacio-estado" id="inventario-vacio" hidden>
           <p>Aún no has atrapado ningún arriendo.</p>
-          <p class="small muted">Sal al mapa, toca un pin y pulsa Atrapar para ganar puntos.</p>
-          <button type="button" class="btn-primary btn-animar" data-ir="mapa">Ir al mapa</button>
+          <p class="small muted">Ve al radar, escanea una zona y pulsa Atrapar para ganar puntos.</p>
+          <button type="button" class="btn-primary btn-animar" data-ir="radar">Ir al radar</button>
         </div>
       </div>
     </section>
@@ -251,7 +243,7 @@
           </div>
           <div class="stat-card">
             <span class="stat-valor" id="perfil-radio">1</span>
-            <span class="stat-label">Radio</span>
+            <span class="stat-label">Radar</span>
           </div>
         </div>
         <div class="perfil-info" id="perfil-info">
@@ -264,9 +256,9 @@
 
     <!-- NAV INFERIOR -->
     <nav class="bottom-nav" id="bottom-nav" hidden>
-      <button type="button" class="nav-item active btn-animar" data-ir="mapa">
+      <button type="button" class="nav-item active btn-animar" data-ir="radar">
         <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        Mapa
+        Radar
       </button>
       <button type="button" class="nav-item btn-animar" data-ir="inventario">
         <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2.4 4.5 6 4.5c2 0 3.6 1.1 4.5 2.5C11.4 5.6 13 4.5 15 4.5c3.6 0 5.5 3.5 4 7.2C19.5 16.4 12 21 12 21Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>

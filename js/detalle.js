@@ -83,7 +83,7 @@ export function pintarDetalle(id) {
 
 export function iniciarDetalle() {
   document.getElementById('btn-detalle-volver')?.addEventListener('click', () => {
-    const origen = window.__detalleOrigen || 'mapa';
-    irA(origen === 'inventario' ? 'inventario' : 'mapa');
+    const origen = window.__detalleOrigen || 'radar';
+    irA(origen === 'inventario' ? 'inventario' : 'radar');
   });
 }
