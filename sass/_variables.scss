@@ -1,21 +1,28 @@
-// Tokens de diseño Renta Ya — tema claro
+// Tokens de diseño Renta Ya — tema claro.
+// Paleta neutra + UN solo color de acento ($accent). $danger/$success son
+// colores de estado (error/éxito), no acentos: se usan solo para feedback,
+// nunca para decorar elementos interactivos.
 $bg: #f7fafd;
 $card: #ffffff;
 $card-2: #edf3fa;
 $card-border: #dce6f0;
 
-// Azul pastel: $accent es el tono "de trabajo" (texto, botones, iconos
-// activos) — pasa AA (~5.3:1 sobre blanco). $accent-soft es el pastel
-// clarito propiamente dicho, para toques decorativos donde no hay
-// texto encima (halo de foco, anillo de radar).
+// $accent es el único acento de marca: botones primarios, chips/nav activos,
+// enlaces, precios, insignias de rareza. Verificado con contraste AA
+// (>= 4.5:1) sobre $bg (5.06:1), $card (5.30:1) y $card-2 (4.74:1).
 $accent: #3e6ea3;
 $accent-soft: #a9c9ea;
-$accent-dim: rgba(62, 110, 163, 0.12);
+// Alpha bajado de .12 a .08: con .12 el texto $accent sobre este fondo
+// pasaba ~4.3:1 (no cumple AA); con .08 sube a ~4.6-4.9:1.
+$accent-dim: rgba(62, 110, 163, 0.08);
 $accent-ink: #ffffff;
 
 $text: #1b2430;
 $text-dim: #5b6472;
-$text-faint: #8b94a3;
+// Antes #8b94a3 (2.9:1 sobre $bg: no pasa ni el mínimo de 3:1 para
+// elementos no textuales). Oscurecido a #64707f (4.8:1) para que
+// placeholders e iconos también sean legibles.
+$text-faint: #64707f;
 
 $input-bg: #f7fafd;
 $input-border: #c7d4e3;
@@ -28,17 +35,23 @@ $success: #1e8449;
 $success-bg: rgba(30, 132, 73, 0.08);
 $success-border: rgba(30, 132, 73, 0.22);
 
-// Rareza "raro" de los arriendos (independiente del acento principal).
-// "Épico" reutiliza $success.
-$rareza-raro: #8656c4;
-$rareza-raro-border: rgba(134, 86, 196, 0.35);
-
 $radius-sm: 10px;
 $radius: 14px;
 $radius-lg: 20px;
 $font-display: 'FrauncesLocal', 'Fraunces', Georgia, serif;
 $font-body: 'SpaceGroteskLocal', 'Space Grotesk', system-ui, sans-serif;
 $page-max: 420px;
+
+// Escala de espaciado — usar siempre estas variables (o var(--space-*))
+// para padding/gap de contenedores en vez de valores px sueltos.
+$spacing-xs: 0.25rem; // 4px
+$spacing-sm: 0.5rem; // 8px
+$spacing-md: 1rem; // 16px
+$spacing-lg: 1.5rem; // 24px
+$spacing-xl: 2rem; // 32px
+
+// Espacio de respiración bajo listas largas cuando hay bottom-nav visible.
+$nav-clearance: 6rem; // 96px
 
 :root {
   --bg: #{$bg};
@@ -60,12 +73,16 @@ $page-max: 420px;
   --success: #{$success};
   --success-bg: #{$success-bg};
   --success-border: #{$success-border};
-  --rareza-raro: #{$rareza-raro};
-  --rareza-raro-border: #{$rareza-raro-border};
   --radius-sm: #{$radius-sm};
   --radius: #{$radius};
   --radius-lg: #{$radius-lg};
   --font-display: #{$font-display};
   --font-body: #{$font-body};
   --page-max: #{$page-max};
+  --space-xs: #{$spacing-xs};
+  --space-sm: #{$spacing-sm};
+  --space-md: #{$spacing-md};
+  --space-lg: #{$spacing-lg};
+  --space-xl: #{$spacing-xl};
+  --nav-clearance: #{$nav-clearance};
 }

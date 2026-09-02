@@ -19,7 +19,12 @@ body {
 .app {
   width: 100%;
   max-width: var(--page-max);
-  min-height: 100vh;
+  // Alto FIJO del viewport (no solo min-height): así .vista (flex:1 +
+  // overflow-y:auto) hace su propio scroll interno y .bottom-nav, como
+  // hermano de flex, queda siempre visible sin scrollear la página.
+  // dvh evita el salto por la barra de direcciones en móviles.
+  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   background: var(--bg);
@@ -60,6 +65,13 @@ body {
     border-radius: 0 0 16px 16px;
     z-index: 20;
   }
+
+  // El "notch" decorativo de arriba ocupa hasta top:10px + height:22px = 32px.
+  // Sin este respiro, el header de cada vista queda tapado por él en este
+  // breakpoint (el resto del tiempo el notch no se renderiza).
+  .vista:not(.es-auth) {
+    padding-top: $spacing-xl;
+  }
 }
 
 .vista {
@@ -72,7 +84,7 @@ body {
 
 .vista.es-auth {
   justify-content: center;
-  padding: 32px 16px;
+  padding: $spacing-xl $spacing-md;
 }
 
 .page {
@@ -154,6 +166,7 @@ body {
 .icon-btn {
   width: 38px;
   height: 38px;
+  min-width: 38px;
   border-radius: 50%;
   border: 1px solid var(--card-border);
   background: var(--card);
@@ -176,7 +189,9 @@ h1.title {
 }
 
 .eyebrow {
-  font-size: 12px;
+  // clamp: en viewports angostos (320-360px) baja hasta 10px para no
+  // forzar el salto de línea contra el badge de puntos que la acompaña.
+  font-size: clamp(0.625rem, 2.6vw, 0.75rem);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-dim);
@@ -311,7 +326,7 @@ h1.title {
 .chip-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: $spacing-sm;
 }
 
 .chip {
@@ -412,13 +427,14 @@ h1.title {
 .puntos-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
+  gap: $spacing-xs;
+  padding: $spacing-xs $spacing-sm;
   border-radius: 999px;
   background: var(--accent-dim);
   color: var(--accent);
   font-size: 13px;
   font-weight: 600;
+  max-width: 100%;
 }
 
 .shell-placeholder {

@@ -2,12 +2,12 @@
 
 .aviso-global {
   position: fixed;
-  top: 16px;
+  top: $spacing-md;
   left: 50%;
   transform: translateX(-50%) translateY(-120%);
   z-index: 9999;
-  max-width: min(360px, calc(100vw - 32px));
-  padding: 12px 16px;
+  max-width: min(360px, calc(100vw - #{$spacing-xl}));
+  padding: $spacing-sm $spacing-md;
   border-radius: var(--radius);
   background: var(--card);
   border: 1px solid var(--card-border);

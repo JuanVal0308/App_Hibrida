@@ -7,7 +7,7 @@
   justify-content: space-around;
   background: var(--card);
   border-top: 1px solid var(--card-border);
-  padding: 10px 8px calc(10px + env(safe-area-inset-bottom));
+  padding: $spacing-sm $spacing-sm calc(#{$spacing-sm} + env(safe-area-inset-bottom));
   z-index: 30;
 }
 

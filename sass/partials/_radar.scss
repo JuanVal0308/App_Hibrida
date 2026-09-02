@@ -2,7 +2,7 @@
 @use '../mixins' as *;
 
 .search-page {
-  padding: 16px 16px 0;
+  padding: $spacing-lg $spacing-lg 0;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -35,14 +35,19 @@
 }
 
 .search-page .chip-group {
-  margin: 14px 0;
+  margin: $spacing-md 0;
 }
 
+// flex-wrap + gap: en viewports angostos (320-360px) el badge de puntos
+// no cabe junto al eyebrow en una sola fila; en vez de recortarse o
+// desbordar, baja limpio a una segunda línea alineada a la izquierda.
 .mapa-hud {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  gap: $spacing-xs $spacing-sm;
+  margin-bottom: $spacing-sm;
 }
 
 // Contenedor scrolleable de zonas (reemplaza el antiguo lienzo de Leaflet).
@@ -51,28 +56,30 @@
   position: relative;
   min-height: 260px;
   overflow-y: auto;
-  padding-bottom: 12px;
+  padding-bottom: $nav-clearance;
 }
 
 .radar-zonas {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: $spacing-sm;
 }
 
 .radar-vacio {
   text-align: center;
-  padding: 32px 12px;
+  padding: $spacing-xl $spacing-md;
 }
 
 .zona-card {
   @include tarjeta;
-  padding: 14px;
+  padding: $spacing-md;
 }
 
 .zona-cabecera {
   @include flex-entre;
-  margin-bottom: 4px;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+  margin-bottom: $spacing-xs;
 }
 
 .zona-nombre {
@@ -164,12 +171,16 @@
   }
 }
 
+// El color inline (por rareza) lo pinta radar.js; se homogeneíza aquí a
+// un único acento para no romper la paleta neutra. La rareza sigue
+// visible en el texto ("tipo · +N pts") y en la insignia de detalle.
 .zona-item-dot {
   width: 12px;
   height: 12px;
   border-radius: 50%;
   flex-shrink: 0;
-  box-shadow: 0 0 0 3px rgba($accent, 0.12);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+  background: var(--accent) !important;
 }
 
 .zona-item-info {
@@ -217,8 +228,10 @@
   border: 1px solid var(--card-border);
   border-top-left-radius: var(--radius-lg);
   border-top-right-radius: var(--radius-lg);
-  padding: 10px 16px 14px;
-  margin: 10px -16px 0;
+  padding: $spacing-sm $spacing-lg $spacing-md;
+  // Contrarresta el padding lateral de .search-page para que la hoja
+  // llegue de borde a borde; debe coincidir con ese mismo valor.
+  margin: $spacing-sm (-$spacing-lg) 0;
   display: block;
   color: inherit;
   position: relative;
@@ -234,13 +247,13 @@
   height: 4px;
   border-radius: 2px;
   background: var(--input-border);
-  margin: 0 auto 12px;
+  margin: 0 auto $spacing-sm;
 }
 
 .preview-card {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: $spacing-sm;
 }
 
 .preview-thumb {

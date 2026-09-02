@@ -9,7 +9,7 @@
 
 .auth-form {
   @include tarjeta;
-  padding: 28px 24px 24px;
+  padding: $spacing-lg;
 
   h1 {
     font-family: var(--font-display);
@@ -72,8 +72,8 @@
 .registro-header {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 20px 24px 8px;
+  gap: $spacing-sm;
+  padding: $spacing-lg $spacing-lg $spacing-sm;
 
   h1 {
     font-family: var(--font-display);
@@ -85,7 +85,7 @@
 
 .registro-body {
   flex: 1;
-  padding: 12px 24px 32px;
+  padding: $spacing-sm $spacing-lg $spacing-xl;
 
   .field {
     margin-bottom: 22px;

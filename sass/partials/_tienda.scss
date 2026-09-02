@@ -2,12 +2,12 @@
 
 .tienda-page,
 .perfil-page {
-  padding: 20px 20px 96px;
+  padding: $spacing-lg $spacing-lg $nav-clearance;
 }
 
 .tienda-header,
 .perfil-header {
-  margin-bottom: 20px;
+  margin-bottom: $spacing-lg;
 
   h1 {
     margin: 0 0 6px;
@@ -106,5 +106,19 @@
     &:last-child {
       margin-bottom: 0;
     }
+  }
+}
+
+// Mismo acento que "Comprar"/"Atrapar" (.btn-primary), en vez del
+// outline neutro por defecto de .btn-outline.
+#btn-cerrar-sesion {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+
+  &:hover {
+    filter: brightness(1.05);
+    border-color: var(--accent);
+    color: var(--accent-ink);
   }
 }
