@@ -109,6 +109,33 @@
   }
 }
 
+.perfil-ajustes {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.ajuste-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-md;
+}
+
+.ajuste-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ajuste-label {
+  font-weight: 600;
+  font-size: 14px;
+}
+
 // Mismo acento que "Comprar"/"Atrapar" (.btn-primary), en vez del
 // outline neutro por defecto de .btn-outline.
 #btn-cerrar-sesion {

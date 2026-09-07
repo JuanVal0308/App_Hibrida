@@ -86,3 +86,32 @@ $nav-clearance: 6rem; // 96px
   --space-xl: #{$spacing-xl};
   --nav-clearance: #{$nav-clearance};
 }
+
+// Modo oscuro — mismas variables, reasignadas. Se activa poniendo
+// data-tema="oscuro" en <html> (ver js/tema.js, alternado desde Perfil).
+// Contraste verificado AA sobre --bg y --card: texto 16.1/14.2:1,
+// text-dim 8.3/7.4:1, text-faint 5.4/4.7:1, accent 6.6/5.9:1.
+// accent-ink pasa a oscuro porque el accent aquí es más claro (para
+// destacar sobre fondos oscuros) y el blanco ya no tendría contraste
+// suficiente como texto DE BOTÓN sobre él.
+:root[data-tema='oscuro'] {
+  --bg: #12161c;
+  --card: #1c222b;
+  --card-2: #242c36;
+  --card-border: #333d49;
+  --accent: #6ea0d8;
+  --accent-soft: #8fb8e6;
+  --accent-dim: rgba(110, 160, 216, 0.12);
+  --accent-ink: #10161d;
+  --text: #eef2f7;
+  --text-dim: #a7b1bd;
+  --text-faint: #828d9a;
+  --input-bg: #1c222b;
+  --input-border: #3a4552;
+  --danger: #e8988e;
+  --danger-bg: rgba(232, 152, 142, 0.12);
+  --danger-border: rgba(232, 152, 142, 0.35);
+  --success: #6cc797;
+  --success-bg: rgba(108, 199, 151, 0.12);
+  --success-border: rgba(108, 199, 151, 0.35);
+}

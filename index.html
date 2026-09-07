@@ -2,6 +2,19 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <script>
+    // Aplica el modo oscuro guardado ANTES de pintar nada, para evitar
+    // un parpadeo claro→oscuro al cargar. Debe leer localStorage con el
+    // mismo formato que js/storage.js (JSON.stringify).
+    (function () {
+      try {
+        var valor = JSON.parse(localStorage.getItem('rentaya_tema') || '"claro"');
+        if (valor === 'oscuro') {
+          document.documentElement.setAttribute('data-tema', 'oscuro');
+        }
+      } catch (e) {}
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#f7fafd">
   <meta name="description" content="Renta Ya — captura arriendos en Medellín, gana puntos y mejora tu inventario. App offline.">
@@ -249,6 +262,18 @@
         <div class="perfil-info" id="perfil-info">
           <p><strong>Nombre:</strong> <span id="perfil-nombre">—</span></p>
           <p><strong>Correo:</strong> <span id="perfil-correo">—</span></p>
+        </div>
+        <div class="perfil-ajustes">
+          <div class="ajuste-row">
+            <div class="ajuste-info">
+              <span class="ajuste-label">Modo oscuro</span>
+              <span class="small muted">Cambia la apariencia de toda la app</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="switch-tema" aria-label="Activar modo oscuro">
+              <span class="switch-track"><span class="switch-thumb"></span></span>
+            </label>
+          </div>
         </div>
         <button type="button" class="btn-outline btn-animar" id="btn-cerrar-sesion">Cerrar sesión</button>
       </div>

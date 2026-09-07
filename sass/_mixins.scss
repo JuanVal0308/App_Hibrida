@@ -19,13 +19,15 @@
   transition: transform 0.1s ease, filter 0.15s ease;
 }
 
+// Usan var(--x) (no $x) a propósito: deben reaccionar al modo oscuro
+// en tiempo real, y $x quedaría fijo al valor de compilación (claro).
 @mixin tarjeta {
-  background: $card;
-  border: 1px solid $card-border;
+  background: var(--card);
+  border: 1px solid var(--card-border);
   border-radius: $radius-lg;
 }
 
 @mixin foco-acento {
-  border-color: $accent;
-  box-shadow: 0 0 0 3px $accent-dim;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
 }
