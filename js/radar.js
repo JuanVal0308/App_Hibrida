@@ -16,6 +16,9 @@ import {
   formatearCuentaRotacion,
   iniciarRotacionTimer,
   verificarRotacionPendiente,
+  obtenerZonasEscaneadas,
+  marcarZonaEscaneada,
+  limpiarZonasEscaneadas,
 } from './juego.js';
 
 let seleccionId = null;
@@ -23,7 +26,8 @@ let filtroTipo = 'todos';
 let filtroZona = '';
 let escaneoEnCurso = null;
 let hudTick = null;
-const zonasEscaneadas = new Set();
+let cooldownHasta = 0;
+let cooldownTick = null;
 
 /** Nivel de radar (mejora "Radar extendido"): acorta el tiempo de escaneo. */
 function nivelRadar() {
@@ -32,6 +36,36 @@ function nivelRadar() {
 
 function duracionEscaneoMs() {
   return Math.max(500, 1200 - (nivelRadar() - 1) * 150);
+}
+
+function duracionCooldownMs() {
+  return Math.max(2000, 8000 - (nivelRadar() - 1) * 1500);
+}
+
+function cooldownRestanteMs() {
+  return Math.max(0, cooldownHasta - Date.now());
+}
+
+function enCooldown() {
+  return cooldownRestanteMs() > 0;
+}
+
+function activarCooldown() {
+  cooldownHasta = Date.now() + duracionCooldownMs();
+  iniciarCooldownTick();
+}
+
+function iniciarCooldownTick() {
+  if (cooldownTick) clearInterval(cooldownTick);
+  cooldownTick = setInterval(() => {
+    if (enCooldown()) {
+      renderZonas();
+    } else {
+      clearInterval(cooldownTick);
+      cooldownTick = null;
+      renderZonas();
+    }
+  }, 500);
 }
 
 function actualizarHud() {
@@ -72,12 +106,28 @@ function colorRareza(rareza) {
   return '#3e6ea3';
 }
 
+function fotoPrincipal(arriendo) {
+  const fotos = arriendo?.fotos || [];
+  return fotos[0] || '/fotos/apto-salon.svg';
+}
+
+function etiquetaEscanear(escaneando) {
+  if (escaneando) return 'Escaneando…';
+  if (enCooldown()) {
+    const seg = Math.ceil(cooldownRestanteMs() / 1000);
+    return `Espera ${seg}s`;
+  }
+  return 'Escanear zona';
+}
+
 function renderZonas() {
   const cont = document.getElementById('radar-zonas');
   if (!cont) return;
 
   const zonas = zonasFiltradas();
   const atrapados = idsAtrapados();
+  const escaneadas = obtenerZonasEscaneadas();
+  const bloqueado = enCooldown();
 
   if (!zonas.size) {
     cont.innerHTML = '<p class="radar-vacio small muted">No hay zonas con señales activas ahora mismo.</p>';
@@ -86,10 +136,11 @@ function renderZonas() {
 
   cont.innerHTML = [...zonas.entries()]
     .map(([barrio, items]) => {
-      const escaneada = zonasEscaneadas.has(barrio);
+      const escaneada = escaneadas.has(barrio);
       const escaneando = escaneoEnCurso === barrio;
 
       if (!escaneada) {
+        const deshabilitado = escaneando || bloqueado;
         return `
           <article class="zona-card ${escaneando ? 'escaneando' : ''}" data-zona="${barrio}">
             <div class="zona-cabecera">
@@ -101,8 +152,8 @@ function renderZonas() {
               <span class="zona-radar-anillo"></span>
               <span class="zona-radar-punto"></span>
             </div>
-            <button type="button" class="btn-outline btn-animar btn-escanear" data-escanear="${barrio}" ${escaneando ? 'disabled' : ''}>
-              ${escaneando ? 'Escaneando…' : 'Escanear zona'}
+            <button type="button" class="btn-outline btn-animar btn-escanear" data-escanear="${barrio}" ${deshabilitado ? 'disabled' : ''}>
+              ${etiquetaEscanear(escaneando)}
             </button>
           </article>`;
       }
@@ -119,8 +170,13 @@ function renderZonas() {
             ${items
               .map((a) => {
                 const atrapado = atrapados.has(a.id);
+                const full = obtenerArriendo(a.id) || a;
+                const foto = fotoPrincipal(full);
                 return `
                 <button type="button" class="zona-item animate__animated animate__zoomIn ${atrapado ? 'atrapado' : ''}" data-id="${a.id}">
+                  <span class="zona-item-thumb">
+                    <img src="${foto}" alt="" loading="lazy" onerror="this.src='/fotos/apto-salon.svg'" />
+                  </span>
                   <span class="zona-item-dot" style="background:${colorRareza(a.rareza)}"></span>
                   <span class="zona-item-info">
                     <span class="zona-item-titulo">${a.titulo}</span>
@@ -145,20 +201,17 @@ function renderZonas() {
 }
 
 function escanearZona(barrio) {
-  if (!barrio || zonasEscaneadas.has(barrio) || escaneoEnCurso) return;
+  const escaneadas = obtenerZonasEscaneadas();
+  if (!barrio || escaneadas.has(barrio) || escaneoEnCurso || enCooldown()) return;
   escaneoEnCurso = barrio;
   renderZonas();
 
   setTimeout(() => {
-    zonasEscaneadas.add(barrio);
+    marcarZonaEscaneada(barrio);
     escaneoEnCurso = null;
+    activarCooldown();
     renderZonas();
   }, duracionEscaneoMs());
-}
-
-function fotoPrincipal(arriendo) {
-  const fotos = arriendo.fotos || [];
-  return fotos[0] || '/fotos/apto-salon.svg';
 }
 
 function mostrarPreview(id) {
@@ -253,8 +306,7 @@ function alRotarSpawns(res) {
   }
 
   if (res?.quitados?.length || res?.agregados?.length) {
-    // Las señales cambiaron: hay que volver a escanear las zonas.
-    zonasEscaneadas.clear();
+    limpiarZonasEscaneadas();
     const n = res?.agregados?.length || 0;
     if (n) {
       mostrarAviso(`Rotación del radar: ${n} señal${n > 1 ? 'es' : ''} nueva${n > 1 ? 's' : ''} detectada${n > 1 ? 's' : ''}.`, 'info');
@@ -267,7 +319,7 @@ function alRotarSpawns(res) {
 
 function iniciarHudTick() {
   if (hudTick) clearInterval(hudTick);
-  hudTick = setInterval(actualizarHud, 30000);
+  hudTick = setInterval(actualizarHud, 1000);
 }
 
 export function abrirDetalleDesdeRadar(id) {
@@ -286,6 +338,8 @@ export function iniciarRadar() {
   iniciarHudTick();
   iniciarRotacionTimer(alRotarSpawns);
 
+  document.querySelector('#preview-sheet .sheet-handle')?.addEventListener('click', ocultarPreview);
+
   document.getElementById('tipo-chips')?.addEventListener('click', (ev) => {
     const chip = ev.target.closest('.chip');
     if (!chip) return;
@@ -302,7 +356,6 @@ export function iniciarRadar() {
 
   document.getElementById('btn-atrapar')?.addEventListener('click', ejecutarAtrapar);
   document.getElementById('btn-ver-detalle')?.addEventListener('click', () => abrirDetalleDesdeRadar());
-
   document.getElementById('btn-detalle-atrapar')?.addEventListener('click', () => {
     seleccionId = window.__detalleId;
     ejecutarAtrapar();
