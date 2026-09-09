@@ -10,8 +10,8 @@
   },
   {
     "id": "radio_plus",
-    "nombre": "Radar extendido",
-    "descripcion": "Mejora tu radar: los escaneos de zona son más rápidos.",
+    "nombre": "Búsqueda ampliada",
+    "descripcion": "Mejora tu alcance: facilita el acceso a más propiedades.",
     "costo": 65,
     "efecto": { "radio": 1 },
     "unica": false,
@@ -20,7 +20,7 @@
   {
     "id": "senales_extra",
     "nombre": "Antena reforzada",
-    "descripcion": "Detecta +2 señales extra en el ciclo activo del radar.",
+    "descripcion": "Detecta +2 propiedades extra en el ciclo activo.",
     "costo": 70,
     "efecto": { "senales": 2 },
     "unica": false,
