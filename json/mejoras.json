@@ -18,6 +18,15 @@
     "maxCompras": 3
   },
   {
+    "id": "senales_extra",
+    "nombre": "Antena reforzada",
+    "descripcion": "Detecta +2 señales extra en el ciclo activo del radar.",
+    "costo": 70,
+    "efecto": { "senales": 2 },
+    "unica": false,
+    "maxCompras": 3
+  },
+  {
     "id": "bonus_captura",
     "nombre": "Llave dorada",
     "descripcion": "+15 puntos extra en cada captura.",
