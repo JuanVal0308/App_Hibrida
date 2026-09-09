@@ -50,6 +50,13 @@ npm run preview  # previsualiza dist/
 
 ## Empaquetado para Android
 
+### 0. Instalación inicial (REQUERIDO)
+```bash
+npm install
+```
+
+Esto instala todas las dependencias, incluyendo Capacitor CLI.
+
 ### 1. Build web (requerido primero)
 ```bash
 npm run build
@@ -60,7 +67,7 @@ npm run build
 npm run cap:add:android
 ```
 
-Esto crea la carpeta `android/` con el proyecto de Android Studio.
+Esto crea la carpeta `android/` con el proyecto de Android Studio. **Nota:** `android/` está en `.gitignore` y debe generarse localmente por cada desarrollador.
 
 ### 3. Sincronizar cambios
 Cada vez que modifiques código web, ejecuta:
@@ -80,6 +87,8 @@ O todo en uno (build + sync + open):
 npm run android:dev
 ```
 
+**Importante:** Si es tu primera vez, ejecuta `npm run cap:add:android` antes de `android:dev`.
+
 ### 5. Firmar y empaquetar
 En Android Studio:
 1. **APK de prueba:** Build → Build Bundle(s) / APK(s) → Build APK(s)
@@ -88,13 +97,14 @@ En Android Studio:
    - Completa alias, contraseñas y datos del keystore
    - El AAB firmado queda en `android/app/release/`
 
-**Nota sobre keystores:** Este repo NO incluye keystores por seguridad. Cada desarrollador/equipo debe generar el suyo localmente y **no** subirlo a git.
+**Nota sobre keystores:** Este repo NO incluye keystores por seguridad. Cada desarrollador/equipo debe generar el suyo localmente y **no** subirlo a git. La configuración en `capacitor.config.js` tiene los campos de keystore en `undefined` intencionalmente.
 
 ### Troubleshooting Android
 
 - Si `npx cap add android` falla con error de SDK, asegúrate de tener Android Studio instalado y configurado con SDK 33+
-- Si no tienes Android SDK en tu VM local, aún puedes preparar el proyecto: haz commit de `capacitor.config.ts` y sigue los pasos de sincronización en tu máquina de desarrollo con Android Studio
+- Si no tienes Android SDK en tu VM local, aún puedes preparar el proyecto: haz commit de `capacitor.config.js` y sigue los pasos de sincronización en tu máquina de desarrollo con Android Studio
 - Para depurar en dispositivo físico: Habilita "Opciones de desarrollador" y "Depuración USB" en tu Android
+- **Error "Could not find web assets"**: Asegúrate de ejecutar `npm run build` antes de `cap sync`
 
 ## Si `npm install` falla
 
