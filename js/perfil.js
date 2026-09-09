@@ -2,7 +2,7 @@
  * Vista de perfil del cazador.
  */
 import { obtenerUsuarioActual, cerrarSesion } from './auth.js';
-import { estadoJuego } from './juego.js';
+import { estadoJuego, formatearCuentaRotacion } from './juego.js';
 import { irA } from './router.js';
 import { esOscuro, establecerTema } from './tema.js';
 
@@ -17,6 +17,11 @@ export function pintarPerfil() {
   document.getElementById('perfil-capturas').textContent = String(juego.capturas.length);
   document.getElementById('perfil-slots').textContent = String(juego.slots);
   document.getElementById('perfil-radio').textContent = String(juego.radio);
+
+  const rotacion = document.getElementById('perfil-rotacion');
+  if (rotacion) {
+    rotacion.textContent = `Próxima rotación del radar: ${formatearCuentaRotacion()}`;
+  }
 
   const switchTema = document.getElementById('switch-tema');
   if (switchTema) switchTema.checked = esOscuro();
