@@ -97,12 +97,12 @@ En Android Studio:
    - Completa alias, contraseñas y datos del keystore
    - El AAB firmado queda en `android/app/release/`
 
-**Nota sobre keystores:** Este repo NO incluye keystores por seguridad. Cada desarrollador/equipo debe generar el suyo localmente y **no** subirlo a git. La configuración en `capacitor.config.js` tiene los campos de keystore en `undefined` intencionalmente.
+**Nota sobre keystores:** Este repo NO incluye keystores por seguridad. Cada desarrollador/equipo debe generar el suyo localmente y **no** subirlo a git.
 
 ### Troubleshooting Android
 
 - Si `npx cap add android` falla con error de SDK, asegúrate de tener Android Studio instalado y configurado con SDK 33+
-- Si no tienes Android SDK en tu VM local, aún puedes preparar el proyecto: haz commit de `capacitor.config.js` y sigue los pasos de sincronización en tu máquina de desarrollo con Android Studio
+- Si no tienes Android SDK en tu VM local, aún puedes preparar el proyecto: haz commit de `capacitor.config.json` y sigue los pasos de sincronización en tu máquina de desarrollo con Android Studio
 - Para depurar en dispositivo físico: Habilita "Opciones de desarrollador" y "Depuración USB" en tu Android
 - **Error "Could not find web assets"**: Asegúrate de ejecutar `npm run build` antes de `cap sync`
 
