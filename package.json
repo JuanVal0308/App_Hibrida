@@ -9,28 +9,39 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "cap:sync": "cap sync",
+    "cap:open:android": "cap open android",
+    "cap:add:android": "cap add android",
+    "android:dev": "npm run build && npm run cap:sync && npm run cap:open:android"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SaraDiaz2011/App_Hibrida.git"
+    "url": "git+https://github.com/JuanVal0308/App_Hibrida.git"
   },
   "keywords": [
     "renta-ya",
     "vite",
     "sass",
     "spa",
-    "offline"
+    "offline",
+    "capacitor",
+    "android"
   ],
   "license": "ISC",
   "type": "module",
   "bugs": {
-    "url": "https://github.com/SaraDiaz2011/App_Hibrida/issues"
+    "url": "https://github.com/JuanVal0308/App_Hibrida/issues"
   },
-  "homepage": "https://github.com/SaraDiaz2011/App_Hibrida#readme",
+  "homepage": "https://github.com/JuanVal0308/App_Hibrida#readme",
   "devDependencies": {
     "sass": "^1.86.0",
     "sass-embedded": "^1.103.1",
     "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.1",
+    "@capacitor/cli": "^8.5.1",
+    "@capacitor/core": "^8.5.1"
   }
 }

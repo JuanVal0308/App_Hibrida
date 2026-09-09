@@ -1,6 +1,6 @@
 /**
- * Radar de zonas: sustituye al mapa GPS. Sin coordenadas ni red: agrupa los
- * arriendos del ciclo activo por barrio y los revela al "escanear" la zona.
+ * Lista de arriendos: navegación directa sin radar ni escaneo de zonas.
+ * Muestra todos los arriendos activos en una lista filtrable y buscable.
  */
 import { irA } from './router.js';
 import { mostrarAviso } from './ui.js';
@@ -16,88 +16,38 @@ import {
   formatearCuentaRotacion,
   iniciarRotacionTimer,
   verificarRotacionPendiente,
-  obtenerZonasEscaneadas,
-  marcarZonaEscaneada,
-  limpiarZonasEscaneadas,
 } from './juego.js';
 
 let seleccionId = null;
 let filtroTipo = 'todos';
 let filtroZona = '';
-let escaneoEnCurso = null;
 let hudTick = null;
-let cooldownHasta = 0;
-let cooldownTick = null;
-
-/** Nivel de radar (mejora "Radar extendido"): acorta el tiempo de escaneo. */
-function nivelRadar() {
-  return estadoJuego().radio || 1;
-}
-
-function duracionEscaneoMs() {
-  return Math.max(500, 1200 - (nivelRadar() - 1) * 150);
-}
-
-function duracionCooldownMs() {
-  return Math.max(2000, 8000 - (nivelRadar() - 1) * 1500);
-}
-
-function cooldownRestanteMs() {
-  return Math.max(0, cooldownHasta - Date.now());
-}
-
-function enCooldown() {
-  return cooldownRestanteMs() > 0;
-}
-
-function activarCooldown() {
-  cooldownHasta = Date.now() + duracionCooldownMs();
-  iniciarCooldownTick();
-}
-
-function iniciarCooldownTick() {
-  if (cooldownTick) clearInterval(cooldownTick);
-  cooldownTick = setInterval(() => {
-    if (enCooldown()) {
-      renderZonas();
-    } else {
-      clearInterval(cooldownTick);
-      cooldownTick = null;
-      renderZonas();
-    }
-  }, 500);
-}
 
 function actualizarHud() {
   const juego = estadoJuego();
   const hud = document.getElementById('hud-puntos');
   if (!hud) return;
   const cuenta = formatearCuentaRotacion();
-  hud.textContent = `${juego.puntos} pts · rota ${cuenta} · radar nv.${nivelRadar()}`;
+  const nivel = juego.radio || 1;
+  hud.textContent = `${juego.puntos} pts · rota ${cuenta} · alcance nv.${nivel}`;
 }
 
 function arriendosFiltrados() {
-  return listarArriendos().filter((a) => filtroTipo === 'todos' || a.tipo === filtroTipo);
-}
-
-function agruparPorZona(lista) {
-  const zonas = new Map();
-  lista.forEach((a) => {
-    if (!zonas.has(a.barrio)) zonas.set(a.barrio, []);
-    zonas.get(a.barrio).push(a);
-  });
-  return zonas;
-}
-
-function zonasFiltradas() {
-  const zonas = agruparPorZona(arriendosFiltrados());
+  let lista = listarArriendos();
+  
+  if (filtroTipo !== 'todos') {
+    lista = lista.filter((a) => a.tipo === filtroTipo);
+  }
+  
   const termino = filtroZona.trim().toLowerCase();
-  if (!termino) return zonas;
-  const filtradas = new Map();
-  zonas.forEach((items, barrio) => {
-    if (barrio.toLowerCase().includes(termino)) filtradas.set(barrio, items);
-  });
-  return filtradas;
+  if (termino) {
+    lista = lista.filter((a) => 
+      a.titulo.toLowerCase().includes(termino) || 
+      a.barrio.toLowerCase().includes(termino)
+    );
+  }
+  
+  return lista;
 }
 
 function colorRareza(rareza) {
@@ -111,107 +61,58 @@ function fotoPrincipal(arriendo) {
   return fotos[0] || '/fotos/apto-salon.svg';
 }
 
-function etiquetaEscanear(escaneando) {
-  if (escaneando) return 'Escaneando…';
-  if (enCooldown()) {
-    const seg = Math.ceil(cooldownRestanteMs() / 1000);
-    return `Espera ${seg}s`;
-  }
-  return 'Escanear zona';
-}
-
-function renderZonas() {
+function renderLista() {
   const cont = document.getElementById('radar-zonas');
   if (!cont) return;
 
-  const zonas = zonasFiltradas();
+  const lista = arriendosFiltrados();
   const atrapados = idsAtrapados();
-  const escaneadas = obtenerZonasEscaneadas();
-  const bloqueado = enCooldown();
 
-  if (!zonas.size) {
-    cont.innerHTML = '<p class="radar-vacio small muted">No hay zonas con señales activas ahora mismo.</p>';
+  if (!lista.length) {
+    cont.innerHTML = '<p class="lista-vacio small muted">No se encontraron propiedades con los filtros actuales.</p>';
     return;
   }
 
-  cont.innerHTML = [...zonas.entries()]
-    .map(([barrio, items]) => {
-      const escaneada = escaneadas.has(barrio);
-      const escaneando = escaneoEnCurso === barrio;
-
-      if (!escaneada) {
-        const deshabilitado = escaneando || bloqueado;
-        return `
-          <article class="zona-card ${escaneando ? 'escaneando' : ''}" data-zona="${barrio}">
-            <div class="zona-cabecera">
-              <span class="zona-nombre">${barrio}</span>
-              <span class="zona-badge">${items.length} señal${items.length === 1 ? '' : 'es'}</span>
-            </div>
-            <div class="zona-radar-visual" aria-hidden="true">
-              <span class="zona-radar-anillo"></span>
-              <span class="zona-radar-anillo"></span>
-              <span class="zona-radar-punto"></span>
-            </div>
-            <button type="button" class="btn-outline btn-animar btn-escanear" data-escanear="${barrio}" ${deshabilitado ? 'disabled' : ''}>
-              ${etiquetaEscanear(escaneando)}
-            </button>
-          </article>`;
-      }
-
-      const pendientes = items.filter((a) => !atrapados.has(a.id)).length;
-
+  cont.innerHTML = lista
+    .map((a) => {
+      const atrapado = atrapados.has(a.id);
+      const full = obtenerArriendo(a.id) || a;
+      const foto = fotoPrincipal(full);
+      
       return `
-        <article class="zona-card escaneada">
-          <div class="zona-cabecera">
-            <span class="zona-nombre">${barrio}</span>
-            <span class="zona-badge">${pendientes}/${items.length} disponibles</span>
+        <article class="propiedad-card ${atrapado ? 'atrapada' : ''}" data-id="${a.id}">
+          <div class="prop-thumb">
+            <img src="${foto}" alt="${a.titulo}" loading="lazy" onerror="this.src='/fotos/apto-salon.svg'" />
+            <span class="prop-rareza-dot" style="background:${colorRareza(a.rareza)}"></span>
           </div>
-          <div class="zona-items">
-            ${items
-              .map((a) => {
-                const atrapado = atrapados.has(a.id);
-                const full = obtenerArriendo(a.id) || a;
-                const foto = fotoPrincipal(full);
-                return `
-                <button type="button" class="zona-item animate__animated animate__zoomIn ${atrapado ? 'atrapado' : ''}" data-id="${a.id}">
-                  <span class="zona-item-thumb">
-                    <img src="${foto}" alt="" loading="lazy" onerror="this.src='/fotos/apto-salon.svg'" />
-                  </span>
-                  <span class="zona-item-dot" style="background:${colorRareza(a.rareza)}"></span>
-                  <span class="zona-item-info">
-                    <span class="zona-item-titulo">${a.titulo}</span>
-                    <span class="zona-item-meta">${a.tipo} · +${a.puntos} pts</span>
-                  </span>
-                  ${atrapado ? '<span class="zona-item-check">✓</span>' : ''}
-                </button>`;
-              })
-              .join('')}
+          <div class="prop-info">
+            <div class="prop-header">
+              <h3 class="prop-titulo">${a.titulo}</h3>
+              <span class="prop-precio">${a.precioTexto}</span>
+            </div>
+            <p class="prop-ubicacion small muted">${a.barrio}</p>
+            <div class="prop-meta">
+              <span class="prop-tipo">${a.tipo}</span>
+              <span>·</span>
+              <span>${a.habitaciones} hab</span>
+              <span>·</span>
+              <span>${a.banos} baños</span>
+              <span>·</span>
+              <span>${a.metros} m²</span>
+            </div>
+            <div class="prop-footer">
+              <span class="prop-rareza ${a.rareza}">${a.rareza}</span>
+              <span class="prop-puntos">+${a.puntos} pts</span>
+            </div>
           </div>
+          ${atrapado ? '<span class="prop-check">✓ Atrapado</span>' : ''}
         </article>`;
     })
     .join('');
 
-  cont.querySelectorAll('[data-escanear]').forEach((btn) => {
-    btn.addEventListener('click', () => escanearZona(btn.getAttribute('data-escanear')));
-  });
-
-  cont.querySelectorAll('.zona-item').forEach((el) => {
+  cont.querySelectorAll('.propiedad-card').forEach((el) => {
     el.addEventListener('click', () => mostrarPreview(el.getAttribute('data-id')));
   });
-}
-
-function escanearZona(barrio) {
-  const escaneadas = obtenerZonasEscaneadas();
-  if (!barrio || escaneadas.has(barrio) || escaneoEnCurso || enCooldown()) return;
-  escaneoEnCurso = barrio;
-  renderZonas();
-
-  setTimeout(() => {
-    marcarZonaEscaneada(barrio);
-    escaneoEnCurso = null;
-    activarCooldown();
-    renderZonas();
-  }, duracionEscaneoMs());
 }
 
 function mostrarPreview(id) {
@@ -221,8 +122,8 @@ function mostrarPreview(id) {
 
   if (!idsVisiblesEnMapa().has(id)) {
     ocultarPreview();
-    mostrarAviso('Esta señal ya no está activa en el radar.', 'info');
-    renderZonas();
+    mostrarAviso('Esta propiedad ya no está disponible en el ciclo actual.', 'info');
+    renderLista();
     return;
   }
 
@@ -291,7 +192,7 @@ function ejecutarAtrapar() {
   flashCaptura();
   mostrarAviso(`¡Atrapado! +${res.puntosGanados} pts`, 'success');
   actualizarHud();
-  renderZonas();
+  renderLista();
   mostrarPreview(seleccionId);
   Promise.all([
     import('./inventario.js').then((m) => m.pintarInventario()),
@@ -306,15 +207,14 @@ function alRotarSpawns(res) {
   }
 
   if (res?.quitados?.length || res?.agregados?.length) {
-    limpiarZonasEscaneadas();
     const n = res?.agregados?.length || 0;
     if (n) {
-      mostrarAviso(`Rotación del radar: ${n} señal${n > 1 ? 'es' : ''} nueva${n > 1 ? 's' : ''} detectada${n > 1 ? 's' : ''}.`, 'info');
+      mostrarAviso(`Rotación: ${n} propiedad${n > 1 ? 'es' : ''} nueva${n > 1 ? 's' : ''} disponible${n > 1 ? 's' : ''}.`, 'info');
     }
   }
 
   actualizarHud();
-  renderZonas();
+  renderLista();
 }
 
 function iniciarHudTick() {
@@ -346,12 +246,12 @@ export function iniciarRadar() {
     document.querySelectorAll('#tipo-chips .chip').forEach((c) => c.classList.remove('active'));
     chip.classList.add('active');
     filtroTipo = chip.getAttribute('data-tipo') || 'todos';
-    renderZonas();
+    renderLista();
   });
 
   document.getElementById('buscar-barrio')?.addEventListener('input', (ev) => {
     filtroZona = ev.target.value;
-    renderZonas();
+    renderLista();
   });
 
   document.getElementById('btn-atrapar')?.addEventListener('click', ejecutarAtrapar);
@@ -369,5 +269,5 @@ export function refrescarRadar() {
     return;
   }
   actualizarHud();
-  renderZonas();
+  renderLista();
 }

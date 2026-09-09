@@ -1,0 +1,8 @@
+{
+  "appId": "com.rentaya.app",
+  "appName": "Renta Ya",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}

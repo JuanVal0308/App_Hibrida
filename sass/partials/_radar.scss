@@ -50,7 +50,7 @@
   margin-bottom: $spacing-sm;
 }
 
-// Contenedor scrolleable de zonas (reemplaza el antiguo lienzo de Leaflet).
+// Contenedor scrolleable de propiedades (reemplaza el antiguo radar de zonas).
 .radar-area {
   flex: 1;
   position: relative;
@@ -65,120 +65,40 @@
   gap: $spacing-sm;
 }
 
-.radar-vacio {
+.lista-vacio {
   text-align: center;
   padding: $spacing-xl $spacing-md;
 }
 
-.zona-card {
+// Tarjeta de propiedad en lista directa
+.propiedad-card {
   @include tarjeta;
   padding: $spacing-md;
-}
-
-.zona-cabecera {
-  @include flex-entre;
-  flex-wrap: wrap;
-  gap: $spacing-xs;
-  margin-bottom: $spacing-xs;
-}
-
-.zona-nombre {
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.zona-badge {
-  font-size: 11px;
-  color: var(--text-dim);
-  background: var(--card-2);
-  border-radius: 999px;
-  padding: 3px 9px;
-}
-
-// Radar "pulso" que simula un barrido/búsqueda mientras se escanea la zona.
-.zona-radar-visual {
-  @include flex-centro;
-  position: relative;
-  width: 64px;
-  height: 64px;
-  margin: 6px auto 10px;
-}
-
-.zona-radar-anillo {
-  position: absolute;
-  inset: 0;
-  border: 2px solid var(--accent-soft);
-  border-radius: 50%;
-  opacity: 0;
-}
-
-.zona-card.escaneando .zona-radar-anillo {
-  animation: radar-ping 1.1s ease-out infinite;
-
-  &:nth-child(2) {
-    animation-delay: 0.35s;
-  }
-}
-
-.zona-radar-punto {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 6px var(--accent-dim);
-}
-
-@keyframes radar-ping {
-  0% {
-    transform: scale(0.4);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(1.7);
-    opacity: 0;
-  }
-}
-
-.btn-escanear {
-  margin-top: 2px;
-}
-
-.zona-items {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-.zona-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  background: var(--card-2);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-sm);
-  padding: 10px 12px;
+  gap: $spacing-md;
   cursor: pointer;
-  text-align: left;
+  transition: border-color 0.2s, transform 0.1s;
 
   &:hover {
     border-color: var(--accent);
+    transform: translateY(-1px);
   }
 
-  &.atrapado {
-    opacity: 0.55;
+  &.atrapada {
+    opacity: 0.65;
+    position: relative;
   }
 }
 
-.zona-item-thumb {
-  width: 40px;
-  height: 40px;
+.prop-thumb {
+  width: 80px;
+  height: 80px;
   border-radius: var(--radius-sm);
-  background: var(--card);
+  background: var(--card-2);
   border: 1px solid var(--card-border);
   overflow: hidden;
   flex-shrink: 0;
+  position: relative;
 
   img {
     width: 100%;
@@ -188,39 +108,105 @@
   }
 }
 
-// El color inline (por rareza) lo pinta radar.js; se homogeneíza aquí a
-// un único acento para no romper la paleta neutra. La rareza sigue
-// visible en el texto ("tipo · +N pts") y en la insignia de detalle.
-.zona-item-dot {
+.prop-rareza-dot {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  flex-shrink: 0;
-  box-shadow: 0 0 0 3px var(--accent-dim);
-  background: var(--accent) !important;
+  box-shadow: 0 0 0 2px var(--card);
 }
 
-.zona-item-info {
+.prop-info {
   flex: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
+  gap: 4px;
 }
 
-.zona-item-titulo {
-  font-size: 13px;
+.prop-header {
+  @include flex-entre;
+  align-items: flex-start;
+  gap: $spacing-xs;
+  flex-wrap: wrap;
+}
+
+.prop-titulo {
   font-weight: 600;
+  font-size: 14px;
+  margin: 0;
 }
 
-.zona-item-meta {
+.prop-precio {
+  font-family: var(--font-display);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.prop-ubicacion {
+  margin: 0;
+}
+
+.prop-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 11px;
   color: var(--text-dim);
   text-transform: capitalize;
 }
 
-.zona-item-check {
-  color: var(--success);
-  font-weight: 700;
+.prop-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+.prop-rareza {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: capitalize;
+  font-weight: 500;
+
+  &.comun {
+    background: var(--card-2);
+    color: var(--text-dim);
+  }
+
+  &.raro {
+    background: rgba(134, 86, 196, 0.15);
+    color: #8656c4;
+  }
+
+  &.epico {
+    background: rgba(30, 132, 73, 0.15);
+    color: #1e8449;
+  }
+}
+
+.prop-puntos {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.prop-check {
+  position: absolute;
+  top: $spacing-md;
+  right: $spacing-md;
+  background: var(--success);
+  color: white;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 600;
 }
 
 .captura-flash {
