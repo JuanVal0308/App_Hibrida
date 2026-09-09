@@ -1,6 +1,13 @@
-# RentaGo — SPA de captura de arriendos
+# RentaGo — Aplicación híbrida de captura de arriendos
 
-Aplicación híbrida 100% offline tipo Pokémon GO: escanea zonas (barrios) de Medellín con un radar simulado —sin mapas, tiles ni geolocalización real—, atrapa arriendos, gana puntos y gástalos en mejoras (más slots, radar, bonus). Incluye modo claro/oscuro.
+Aplicación híbrida (Capacitor + Android) 100% offline tipo Pokémon GO: escanea zonas (barrios) de Medellín con un radar simulado —sin mapas, tiles ni geolocalización real—, atrapa arriendos, gana puntos y gástalos en mejoras (más slots, radar, bonus). Incluye modo claro/oscuro.
+
+## 📱 Plataforma
+
+- **Web**: SPA moderna con soporte offline
+- **Android**: Aplicación nativa usando Capacitor 8.5
+- **Package ID**: `com.rentaya.app`
+- **App Name**: RentaGo
 
 **Autores del proyecto:**
 Sara Valentina Ochoa
@@ -14,12 +21,30 @@ Pablo Hurtado
 
 ## Comandos
 
+### Desarrollo Web
+
 ```bash
 npm install
 npm run dev      # desarrollo con Vite
 npm run build    # minifica Sass/JS → dist/
 npm run preview  # previsualiza dist/
 ```
+
+### Desarrollo Android (Capacitor)
+
+```bash
+# Sincronizar cambios web → Android
+npx cap sync
+
+# Abrir proyecto Android en Android Studio
+npx cap open android
+
+# O construir desde línea de comando
+cd android
+./gradlew assembleDebug
+```
+
+**Nota**: El directorio `android/` está en `.gitignore`. Usa `npx cap add android` para regenerarlo si no existe.
 
 ## Si `npm install` falla
 
