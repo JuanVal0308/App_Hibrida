@@ -1,0 +1,45 @@
+@use '../variables' as *;
+
+.app-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--card);
+  border-bottom: 1px solid var(--card-border);
+  padding: $spacing-md $spacing-lg;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.95);
+
+  :root[data-tema='oscuro'] & {
+    background: rgba(28, 34, 43, 0.95);
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .logo-icon {
+    color: var(--accent);
+  }
+
+  .logo-text {
+    font-family: var(--font-display);
+  }
+}
+
+// Ajustar padding de vistas para compensar el header
+.vista:not(.es-auth) {
+  padding-top: 0;
+}

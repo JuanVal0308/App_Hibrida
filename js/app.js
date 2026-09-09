@@ -1,5 +1,5 @@
 /**
- * Orquestador de la SPA Renta Ya.
+ * Orquestador de la SPA RentaGo.
  */
 import { configurarNavegacion, irA, alCambiarVista, esVistaPrivada } from './router.js';
 import { haySesion } from './auth.js';
@@ -9,6 +9,7 @@ import { pintarInventario, iniciarInventario } from './inventario.js';
 import { pintarTienda } from './tienda.js';
 import { pintarPerfil, iniciarPerfil } from './perfil.js';
 import { iniciarDetalle } from './detalle.js';
+import { inicializarActualizar } from './actualizar.js';
 
 function protegerRutas(nombre) {
   if (esVistaPrivada(nombre) && !haySesion()) {
@@ -30,6 +31,7 @@ function alMostrar(nombre) {
     window.__detalleOrigen = 'inventario';
     pintarInventario();
   }
+  if (nombre === 'actualizar') inicializarActualizar();
   if (nombre === 'tienda') pintarTienda();
   if (nombre === 'perfil') pintarPerfil();
   if (nombre === 'detalle') window.__detalleOrigen = window.__detalleOrigen || 'radar';

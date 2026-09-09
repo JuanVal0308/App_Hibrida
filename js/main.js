@@ -1,5 +1,5 @@
 /**
- * Renta Ya — punto de entrada Vite.
+ * RentaGo — punto de entrada Vite.
  * Importa estilos Sass y Animate.css local; arranca el router.
  */
 import '../sass/main.scss';

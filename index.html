@@ -17,11 +17,20 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#f7fafd">
-  <meta name="description" content="Renta Ya — captura arriendos en Medellín, gana puntos y mejora tu inventario. App offline.">
-  <title>Renta Ya · Captura de arriendos</title>
+  <meta name="description" content="RentaGo — captura arriendos en Medellín, gana puntos y mejora tu inventario. App offline.">
+  <title>RentaGo · Captura de arriendos</title>
 </head>
 <body>
   <div class="app sin-nav" id="app">
+    <!-- HEADER CON LOGO -->
+    <header class="app-header" id="app-header" hidden>
+      <div class="logo-container">
+        <svg class="logo-icon" width="28" height="28" viewBox="0 0 24 24" fill="none">
+          <path d="M12 3 3 10.5V21h6v-6h6v6h6V10.5L12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" fill="currentColor" fill-opacity="0.1"/>
+        </svg>
+        <span class="logo-text">RentaGo</span>
+      </div>
+    </header>
 
     <!-- ONBOARDING -->
     <section class="vista es-auth" id="vista-onboarding" data-vista="onboarding" hidden>
@@ -58,7 +67,7 @@
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
               <path d="M12 3 3 10.5V21h6v-6h6v6h6V10.5L12 3Z" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round"/>
             </svg>
-            Renta Ya
+            RentaGo
           </span>
           <svg class="brand-underline" height="6" viewBox="0 0 96 6" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4c14-4 30 3 46 0s30-4 46 0" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round"/>
@@ -245,7 +254,7 @@
       <div class="perfil-page">
         <div class="perfil-header">
           <h1>Perfil cazador</h1>
-          <p class="small muted">Tu progreso en Renta Ya</p>
+          <p class="small muted">Tu progreso en RentaGo</p>
         </div>
         <div class="perfil-stats">
           <div class="stat-card">
@@ -286,6 +295,55 @@
       </div>
     </section>
 
+    <!-- ACTUALIZAR -->
+    <section class="vista" id="vista-actualizar" data-vista="actualizar" hidden>
+      <div class="actualizar-page">
+        <div class="actualizar-header">
+          <h1>Actualizar zonas</h1>
+          <p class="small muted">Descarga nuevas zonas y apartamentos cuando estés conectado a internet.</p>
+        </div>
+        <div class="estado-conexion" id="estado-conexion">
+          <div class="estado-card">
+            <svg class="estado-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm0-4V8h2v5h-2z" fill="currentColor"/>
+            </svg>
+            <div class="estado-info">
+              <span class="estado-label" id="estado-label">Verificando conexión...</span>
+              <span class="small muted" id="estado-descripcion">—</span>
+            </div>
+          </div>
+        </div>
+        <div id="zona-contenido" class="zona-contenido" hidden>
+          <div class="seccion-header">
+            <h2>Zonas disponibles</h2>
+            <p class="small muted">Selecciona las zonas que deseas descargar</p>
+          </div>
+          <div class="zona-lista" id="zona-lista"></div>
+          <button type="button" class="btn-primary btn-animar" id="btn-descargar-zonas" disabled>
+            Descargar seleccionadas
+          </button>
+          <div class="seccion-header mt-xl">
+            <h2>Zonas descargadas</h2>
+            <p class="small muted">Zonas instaladas en tu dispositivo</p>
+          </div>
+          <div class="zona-descargada-lista" id="zona-descargada-lista"></div>
+          <div class="vacio-estado" id="zona-descargada-vacio" hidden>
+            <p class="small muted">No hay zonas descargadas.</p>
+          </div>
+        </div>
+        <div id="zona-offline" class="zona-offline" hidden>
+          <div class="offline-card">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+              <path d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82L8.6 22.5l3.4-1.47 3.4 1.46 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72l-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z" stroke="var(--text-dim)" stroke-width="1.5" fill="none"/>
+              <line x1="2" y1="2" x2="22" y2="22" stroke="var(--text-dim)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <p><strong>Sin conexión a internet</strong></p>
+            <p class="small muted">Las actualizaciones requieren conexión a internet. La app funciona normalmente con las zonas ya descargadas.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- NAV INFERIOR -->
     <nav class="bottom-nav" id="bottom-nav" hidden>
       <button type="button" class="nav-item active btn-animar" data-ir="radar">
@@ -295,6 +353,10 @@
       <button type="button" class="nav-item btn-animar" data-ir="inventario">
         <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2.4 4.5 6 4.5c2 0 3.6 1.1 4.5 2.5C11.4 5.6 13 4.5 15 4.5c3.6 0 5.5 3.5 4 7.2C19.5 16.4 12 21 12 21Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
         Capturas
+      </button>
+      <button type="button" class="nav-item btn-animar" data-ir="actualizar">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg>
+        Actualizar
       </button>
       <button type="button" class="nav-item btn-animar" data-ir="tienda">
         <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16l-1.5 12h-13L4 7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 7V5a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="2"/></svg>
