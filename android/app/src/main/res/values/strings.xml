@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">RentaGo</string>
+    <string name="title_activity_main">RentaGo</string>
+    <string name="package_name">com.rentago.app</string>
+    <string name="custom_url_scheme">com.rentago.app</string>
+</resources>
