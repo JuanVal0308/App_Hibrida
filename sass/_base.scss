@@ -340,11 +340,19 @@ h1.title {
   font-size: 13px;
   cursor: pointer;
   user-select: none;
+  transition: all 0.2s ease;
+  font-weight: 500;
 
   &.active {
     border-color: var(--accent);
-    color: var(--accent);
-    background: var(--accent-dim);
+    color: var(--accent-ink);
+    background: var(--accent);
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(62, 110, 163, 0.25);
+    
+    [data-tema='oscuro'] & {
+      box-shadow: 0 2px 8px rgba(110, 160, 216, 0.3);
+    }
   }
 }
 

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin de Zonas · Renta Ya</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f7fafd;
+      color: #1b2430;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 24px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+      color: #3e6ea3;
+    }
+
+    .subtitle {
+      color: #5b6472;
+      font-size: 14px;
+    }
+
+    .panel {
+      background: #ffffff;
+      padding: 24px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-bottom: 16px;
+      color: #1b2430;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #c7d4e3;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      background: #f7fafd;
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #3e6ea3;
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: #2e5a8a;
+    }
+
+    .btn-secondary {
+      background: #edf3fa;
+      color: #3e6ea3;
+    }
+
+    .btn-secondary:hover {
+      background: #dce6f0;
+    }
+
+    .btn-danger {
+      background: #c0392b;
+      color: #ffffff;
+    }
+
+    .btn-danger:hover {
+      background: #a02a1f;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .zona-item,
+    .apto-item {
+      background: #f7fafd;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      border: 1px solid #dce6f0;
+    }
+
+    .zona-item h3,
+    .apto-item h3 {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .zona-item p,
+    .apto-item p {
+      font-size: 13px;
+      color: #5b6472;
+      margin-bottom: 8px;
+    }
+
+    .item-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .item-actions button {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #5b6472;
+    }
+
+    .alert {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    .alert-success {
+      background: rgba(30, 132, 73, 0.08);
+      color: #1e8449;
+      border: 1px solid rgba(30, 132, 73, 0.22);
+    }
+
+    .alert-info {
+      background: rgba(62, 110, 163, 0.08);
+      color: #3e6ea3;
+      border: 1px solid rgba(62, 110, 163, 0.22);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .mt-2 {
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Admin de Zonas · Renta Ya</h1>
+      <p class="subtitle">Administra zonas y apartamentos para la app móvil</p>
+    </header>
+
+    <div id="alertContainer"></div>
+
+    <!-- Panel de Zonas -->
+    <div class="panel">
+      <h2>Zonas</h2>
+      <div class="form-group">
+        <label>Nombre de la zona</label>
+        <input type="text" id="zonaNombre" placeholder="Ej: Envigado Sur">
+      </div>
+      <div class="form-group">
+        <label>Descripción</label>
+        <input type="text" id="zonaDesc" placeholder="Apartamentos y casas en el sur de Envigado">
+      </div>
+      <button class="btn btn-primary" onclick="agregarZona()">Agregar Zona</button>
+
+      <div class="mt-2" id="zonasLista"></div>
+    </div>
+
+    <!-- Panel de Apartamentos -->
+    <div class="panel">
+      <h2>Apartamentos</h2>
+      <div class="form-group">
+        <label>Zona</label>
+        <select id="aptoZona">
+          <option value="">Selecciona una zona</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Título</label>
+        <input type="text" id="aptoTitulo" placeholder="Ej: Apto Moderno Centro">
+      </div>
+      <div class="form-group">
+        <label>Barrio</label>
+        <input type="text" id="aptoBarrio" placeholder="Ej: Envigado Sur">
+      </div>
+      <div class="form-group">
+        <label>Tipo</label>
+        <select id="aptoTipo">
+          <option value="apto">Apartamento</option>
+          <option value="casa">Casa</option>
+          <option value="celda">Celda/Estudio</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Precio (COP)</label>
+        <input type="number" id="aptoPrecio" placeholder="2100000">
+      </div>
+      <div class="form-group">
+        <label>Habitaciones</label>
+        <input type="number" id="aptoHabitaciones" placeholder="2">
+      </div>
+      <div class="form-group">
+        <label>Baños</label>
+        <input type="number" id="aptoBanos" placeholder="2">
+      </div>
+      <div class="form-group">
+        <label>Metros cuadrados</label>
+        <input type="number" id="aptoMetros" placeholder="68">
+      </div>
+      <div class="form-group">
+        <label>Descripción</label>
+        <textarea id="aptoDescripcion" placeholder="Apartamento luminoso cerca de..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Rareza</label>
+        <select id="aptoRareza">
+          <option value="comun">Común</option>
+          <option value="raro">Raro</option>
+          <option value="epico">Épico</option>
+          <option value="legendario">Legendario</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" onclick="agregarApartamento()">Agregar Apartamento</button>
+
+      <div class="mt-2" id="aptosLista"></div>
+    </div>
+
+    <!-- Panel de Exportación -->
+    <div class="panel">
+      <h2>Exportar Paquetes</h2>
+      <div class="alert alert-info">
+        Genera paquetes de zona para que la app móvil pueda descargarlos. Los archivos se guardan en tu navegador y se pueden descargar.
+      </div>
+      <button class="btn btn-secondary" onclick="generarCatalogo()">Descargar Catálogo (catalogo.json)</button>
+      <button class="btn btn-secondary" onclick="generarTodosPaquetes()">Descargar Todos los Paquetes</button>
+    </div>
+  </div>
+
+  <script>
+    // Estado de la aplicación
+    let zonas = [];
+    let zonasCounter = 1;
+
+    // Cargar estado desde localStorage
+    function cargarEstado() {
+      const stored = localStorage.getItem('rentaya_admin_zonas');
+      if (stored) {
+        const data = JSON.parse(stored);
+        zonas = data.zonas || [];
+        zonasCounter = data.counter || 1;
+      }
+    }
+
+    // Guardar estado en localStorage
+    function guardarEstado() {
+      localStorage.setItem('rentaya_admin_zonas', JSON.stringify({
+        zonas,
+        counter: zonasCounter
+      }));
+    }
+
+    // Mostrar alerta
+    function mostrarAlerta(mensaje, tipo = 'success') {
+      const container = document.getElementById('alertContainer');
+      const alert = document.createElement('div');
+      alert.className = `alert alert-${tipo}`;
+      alert.textContent = mensaje;
+      container.appendChild(alert);
+      setTimeout(() => alert.remove(), 3000);
+    }
+
+    // Agregar zona
+    function agregarZona() {
+      const nombre = document.getElementById('zonaNombre').value.trim();
+      const desc = document.getElementById('zonaDesc').value.trim();
+
+      if (!nombre) {
+        alert('Ingresa el nombre de la zona');
+        return;
+      }
+
+      const zona = {
+        id: `zona-${zonasCounter++}`,
+        nombre,
+        descripcion: desc || `Zona ${nombre}`,
+        apartamentos: []
+      };
+
+      zonas.push(zona);
+      guardarEstado();
+      renderZonas();
+      renderSelectZonas();
+      
+      document.getElementById('zonaNombre').value = '';
+      document.getElementById('zonaDesc').value = '';
+      
+      mostrarAlerta(`Zona "${nombre}" agregada`);
+    }
+
+    // Eliminar zona
+    function eliminarZona(id) {
+      if (!confirm('¿Eliminar esta zona y todos sus apartamentos?')) return;
+      zonas = zonas.filter(z => z.id !== id);
+      guardarEstado();
+      renderZonas();
+      renderSelectZonas();
+      mostrarAlerta('Zona eliminada');
+    }
+
+    // Agregar apartamento
+    function agregarApartamento() {
+      const zonaId = document.getElementById('aptoZona').value;
+      if (!zonaId) {
+        alert('Selecciona una zona');
+        return;
+      }
+
+      const titulo = document.getElementById('aptoTitulo').value.trim();
+      const barrio = document.getElementById('aptoBarrio').value.trim();
+      const tipo = document.getElementById('aptoTipo').value;
+      const precio = parseInt(document.getElementById('aptoPrecio').value) || 0;
+      const habitaciones = parseInt(document.getElementById('aptoHabitaciones').value) || 1;
+      const banos = parseInt(document.getElementById('aptoBanos').value) || 1;
+      const metros = parseInt(document.getElementById('aptoMetros').value) || 50;
+      const descripcion = document.getElementById('aptoDescripcion').value.trim();
+      const rareza = document.getElementById('aptoRareza').value;
+
+      if (!titulo || !barrio || precio <= 0) {
+        alert('Completa todos los campos obligatorios');
+        return;
+      }
+
+      const zona = zonas.find(z => z.id === zonaId);
+      if (!zona) return;
+
+      const precioFormateado = precio >= 1000000 
+        ? `$${(precio / 1000000).toFixed(1)}M`
+        : `$${Math.round(precio / 1000)}K`;
+
+      const puntosBase = {
+        comun: 50,
+        raro: 120,
+        epico: 220,
+        legendario: 400
+      };
+
+      const apartamento = {
+        id: `${zonaId}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        titulo,
+        barrio,
+        tipo,
+        precio,
+        precioTexto: precioFormateado,
+        habitaciones,
+        banos,
+        metros,
+        descripcion: descripcion || `${tipo === 'apto' ? 'Apartamento' : tipo === 'casa' ? 'Casa' : 'Estudio'} en ${barrio}.`,
+        amenidades: [],
+        rareza,
+        puntos: puntosBase[rareza] || 50,
+        lat: 6.2088 + (Math.random() - 0.5) * 0.1,
+        lng: -75.567 + (Math.random() - 0.5) * 0.1,
+        fotos: ['/fotos/fachada-moderna.svg']
+      };
+
+      zona.apartamentos.push(apartamento);
+      guardarEstado();
+      renderApartamentos();
+      
+      // Limpiar formulario
+      document.getElementById('aptoTitulo').value = '';
+      document.getElementById('aptoBarrio').value = '';
+      document.getElementById('aptoPrecio').value = '';
+      document.getElementById('aptoHabitaciones').value = '';
+      document.getElementById('aptoBanos').value = '';
+      document.getElementById('aptoMetros').value = '';
+      document.getElementById('aptoDescripcion').value = '';
+      
+      mostrarAlerta(`Apartamento "${titulo}" agregado a ${zona.nombre}`);
+    }
+
+    // Eliminar apartamento
+    function eliminarApartamento(zonaId, aptoId) {
+      const zona = zonas.find(z => z.id === zonaId);
+      if (!zona) return;
+      
+      zona.apartamentos = zona.apartamentos.filter(a => a.id !== aptoId);
+      guardarEstado();
+      renderApartamentos();
+      mostrarAlerta('Apartamento eliminado');
+    }
+
+    // Renderizar zonas
+    function renderZonas() {
+      const container = document.getElementById('zonasLista');
+      
+      if (zonas.length === 0) {
+        container.innerHTML = '<div class="empty-state">No hay zonas creadas</div>';
+        return;
+      }
+
+      container.innerHTML = zonas.map(zona => `
+        <div class="zona-item">
+          <h3>${zona.nombre}</h3>
+          <p>${zona.descripcion} · ${zona.apartamentos.length} apartamento(s)</p>
+          <div class="item-actions">
+            <button class="btn btn-secondary" onclick="generarPaquete('${zona.id}')">Descargar Paquete</button>
+            <button class="btn btn-danger" onclick="eliminarZona('${zona.id}')">Eliminar</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Renderizar select de zonas
+    function renderSelectZonas() {
+      const select = document.getElementById('aptoZona');
+      const actual = select.value;
+      
+      select.innerHTML = '<option value="">Selecciona una zona</option>' +
+        zonas.map(z => `<option value="${z.id}">${z.nombre}</option>`).join('');
+      
+      if (actual) select.value = actual;
+    }
+
+    // Renderizar apartamentos
+    function renderApartamentos() {
+      const container = document.getElementById('aptosLista');
+      const zonaActual = document.getElementById('aptoZona').value;
+      
+      if (!zonaActual) {
+        container.innerHTML = '<div class="empty-state">Selecciona una zona para ver sus apartamentos</div>';
+        return;
+      }
+
+      const zona = zonas.find(z => z.id === zonaActual);
+      if (!zona || zona.apartamentos.length === 0) {
+        container.innerHTML = '<div class="empty-state">No hay apartamentos en esta zona</div>';
+        return;
+      }
+
+      container.innerHTML = zona.apartamentos.map(apto => `
+        <div class="apto-item">
+          <h3>${apto.titulo}</h3>
+          <p>${apto.barrio} · ${apto.precioTexto} · ${apto.habitaciones} hab, ${apto.banos} baño(s) · ${apto.rareza}</p>
+          <div class="item-actions">
+            <button class="btn btn-danger" onclick="eliminarApartamento('${zona.id}', '${apto.id}')">Eliminar</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Generar catálogo
+    function generarCatalogo() {
+      const catalogo = zonas.map(z => ({
+        id: z.id,
+        nombre: z.nombre,
+        descripcion: z.descripcion,
+        cantidadApartamentos: z.apartamentos.length
+      }));
+
+      descargarJSON(catalogo, 'catalogo.json');
+      mostrarAlerta('Catálogo generado');
+    }
+
+    // Generar paquete de zona
+    function generarPaquete(zonaId) {
+      const zona = zonas.find(z => z.id === zonaId);
+      if (!zona) return;
+
+      // Genera código JavaScript que exporta la zona
+      const codigo = `// Paquete de zona: ${zona.nombre}
+exports.zonaId = "${zona.id}";
+exports.zonaNombre = "${zona.nombre}";
+exports.apartamentos = ${JSON.stringify(zona.apartamentos, null, 2)};`;
+
+      descargarTexto(codigo, `zona-${zona.id}.js`);
+      mostrarAlerta(`Paquete "${zona.nombre}" generado`);
+    }
+
+    // Generar todos los paquetes
+    function generarTodosPaquetes() {
+      if (zonas.length === 0) {
+        alert('No hay zonas para exportar');
+        return;
+      }
+
+      zonas.forEach(zona => {
+        generarPaquete(zona.id);
+      });
+      
+      generarCatalogo();
+      mostrarAlerta(`${zonas.length} paquete(s) generados`);
+    }
+
+    // Utilidad: descargar JSON
+    function descargarJSON(data, filename) {
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      descargarBlob(blob, filename);
+    }
+
+    // Utilidad: descargar texto
+    function descargarTexto(texto, filename) {
+      const blob = new Blob([texto], { type: 'text/javascript' });
+      descargarBlob(blob, filename);
+    }
+
+    // Utilidad: descargar blob
+    function descargarBlob(blob, filename) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Event listeners
+    document.getElementById('aptoZona').addEventListener('change', renderApartamentos);
+
+    // Inicializar
+    cargarEstado();
+    renderZonas();
+    renderSelectZonas();
+    renderApartamentos();
+  </script>
+</body>
+</html>

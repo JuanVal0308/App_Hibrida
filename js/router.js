@@ -2,7 +2,7 @@
  * Router SPA: muestra/oculta vistas con Animate.css.
  */
 
-const VISTAS_CON_NAV = new Set(['radar', 'inventario', 'tienda', 'perfil']);
+const VISTAS_CON_NAV = new Set(['radar', 'inventario', 'actualizar', 'tienda', 'perfil']);
 const VISTAS_PUBLICAS = new Set(['onboarding', 'login', 'registro']);
 
 let vistaActual = null;

@@ -4,6 +4,7 @@
 import { obtenerJuego, guardarJuego } from './auth.js';
 import arriendosData from '../json/arriendos.json';
 import mejorasData from '../json/mejoras.json';
+import { obtenerZonasDescargadas } from './actualizar.js';
 
 export const ROTACION_INTERVAL_MS = 20 * 60 * 1000;
 const SPAWN_BASE = 8;
@@ -17,9 +18,18 @@ const MEDELLIN_BOUNDS = {
   lngMax: -75.53,
 };
 
-/** Catálogo completo (inventario, detalle, datos fijos). */
+/** Catálogo completo (inventario, detalle, datos fijos + zonas descargadas). */
 export function catalogoArriendos() {
-  return arriendosData;
+  const zonasDescargadas = obtenerZonasDescargadas();
+  const apartamentosExtra = [];
+  
+  Object.values(zonasDescargadas).forEach(zona => {
+    if (zona.apartamentos && Array.isArray(zona.apartamentos)) {
+      apartamentosExtra.push(...zona.apartamentos);
+    }
+  });
+  
+  return [...arriendosData, ...apartamentosExtra];
 }
 
 /** Arriendos visibles en el mapa con posición de spawn activa. */
