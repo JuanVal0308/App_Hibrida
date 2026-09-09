@@ -2,7 +2,7 @@
  * Router SPA: muestra/oculta vistas con Animate.css.
  */
 
-const VISTAS_CON_NAV = new Set(['radar', 'inventario', 'tienda', 'perfil']);
+const VISTAS_CON_NAV = new Set(['radar', 'inventario', 'actualizar', 'tienda', 'perfil']);
 const VISTAS_PUBLICAS = new Set(['onboarding', 'login', 'registro']);
 
 let vistaActual = null;
@@ -43,7 +43,9 @@ export function configurarNavegacion() {
 function actualizarNav(nombre) {
   const app = document.getElementById('app');
   const nav = document.getElementById('bottom-nav');
+  const header = document.getElementById('app-header');
   const conNav = VISTAS_CON_NAV.has(nombre);
+  const esPublica = VISTAS_PUBLICAS.has(nombre);
 
   if (app) {
     app.classList.toggle('sin-nav', !conNav);
@@ -55,6 +57,11 @@ function actualizarNav(nombre) {
       const dest = item.getAttribute('data-ir');
       item.classList.toggle('active', dest === nombre);
     });
+  }
+
+  // Muestra el header en vistas privadas, oculto en auth
+  if (header) {
+    header.hidden = esPublica;
   }
 }
 

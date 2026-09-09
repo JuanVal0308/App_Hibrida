@@ -1,5 +1,5 @@
 /**
- * Wrappers de localStorage para Renta Ya (offline).
+ * Wrappers de localStorage para RentaGo (offline).
  */
 
 const PREFIJO = 'rentaya_';

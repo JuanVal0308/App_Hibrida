@@ -1,0 +1,8 @@
+[
+  {
+    "id": "zona-ejemplo",
+    "nombre": "Zona Ejemplo",
+    "descripcion": "Apartamentos de ejemplo para probar la descarga",
+    "cantidadApartamentos": 2
+  }
+]

@@ -1,5 +1,8 @@
 {
-  "appId": "com.rentago.app",
-  "appName": "RentaGo",
-  "webDir": "dist"
+    "appId": "com.rentago.app",
+    "appName": "RentaGo",
+    "webDir": "dist",
+    "server": {
+          "androidScheme": "https"
+    }
 }

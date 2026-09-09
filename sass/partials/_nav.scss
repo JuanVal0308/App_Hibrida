@@ -24,14 +24,23 @@
   cursor: pointer;
   padding: 4px 10px;
   font-family: var(--font-body);
+  border-radius: $radius-sm;
+  transition: all 0.2s ease;
 
   &.active {
     color: var(--accent);
+    background: var(--accent-dim);
+    font-weight: 600;
+    
+    svg {
+      transform: scale(1.1);
+    }
   }
 
   svg {
     width: 20px;
     height: 20px;
+    transition: transform 0.2s ease;
   }
 }
 
