@@ -11,6 +11,7 @@ Pablo Hurtado
 
 - Node.js 18+ y npm
 - Sin internet en runtime (tras instalar dependencias)
+- Android Studio (para compilar la app Android con Capacitor)
 
 ## Comandos
 
@@ -19,7 +20,26 @@ npm install
 npm run dev      # desarrollo con Vite
 npm run build    # minifica Sass/JS → dist/
 npm run preview  # previsualiza dist/
+npm run sync     # sincroniza dist/ con Capacitor (Android)
 ```
+
+## Capacitor / Android
+
+La app está configurada como aplicación híbrida con **Capacitor**:
+
+- **Package ID:** `com.rentago.app`
+- **Display Name:** RentaGo
+- **Configuración:** `capacitor.config.json`
+
+Para compilar la app Android:
+
+```bash
+npm run build    # genera dist/ desde los fuentes
+npm run sync     # copia dist/ a android/app/src/main/assets/public/
+npx cap open android  # abre Android Studio
+```
+
+El **applicationId** `com.rentago.app` permite crear un nuevo listing en Google Play Store (el paquete anterior `com.rentaya.app` no está disponible).
 
 ## Si `npm install` falla
 
