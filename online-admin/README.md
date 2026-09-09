@@ -1,6 +1,6 @@
-# Admin de Zonas · Renta Ya
+# Admin de Zonas · RentaGo
 
-Aplicación web para administrar zonas y apartamentos que pueden descargarse en la app móvil Renta Ya.
+Aplicación web para administrar zonas y apartamentos que pueden descargarse en la app móvil RentaGo.
 
 ## Uso
 

@@ -1,7 +1,7 @@
 {
   "name": "app_hibrida",
   "version": "1.0.0",
-  "description": "Renta Ya - SPA offline de captura de arriendos",
+  "description": "RentaGo - SPA offline de captura de arriendos",
   "author": "Juan Pablo <juanpa.martinezro@gmail.com>",
   "engines": {
     "node": ">=18"
@@ -16,6 +16,7 @@
     "url": "git+https://github.com/SaraDiaz2011/App_Hibrida.git"
   },
   "keywords": [
+    "rentago",
     "renta-ya",
     "vite",
     "sass",

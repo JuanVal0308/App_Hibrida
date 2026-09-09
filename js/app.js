@@ -1,5 +1,5 @@
 /**
- * Orquestador de la SPA Renta Ya.
+ * Orquestador de la SPA RentaGo.
  */
 import { configurarNavegacion, irA, alCambiarVista, esVistaPrivada } from './router.js';
 import { haySesion } from './auth.js';

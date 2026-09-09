@@ -1,4 +1,4 @@
-# Renta Ya — SPA de captura de arriendos
+# RentaGo — SPA de captura de arriendos
 
 Aplicación híbrida 100% offline tipo Pokémon GO: escanea zonas (barrios) de Medellín con un radar simulado —sin mapas, tiles ni geolocalización real—, atrapa arriendos, gana puntos y gástalos en mejoras (más slots, radar, bonus). Incluye modo claro/oscuro.
 

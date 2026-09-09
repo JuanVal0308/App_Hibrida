@@ -1,10 +1,11 @@
-// Renta Ya — hoja principal (importa parciales Sass)
+// RentaGo — hoja principal (importa parciales Sass)
 @use 'fonts';
 @use 'variables';
 @use 'mixins';
 @use 'reset';
 @use 'base';
 @use 'animaciones';
+@use 'partials/header';
 @use 'partials/onboarding';
 @use 'partials/auth';
 @use 'partials/radar';
