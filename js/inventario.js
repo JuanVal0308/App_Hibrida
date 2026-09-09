@@ -5,11 +5,22 @@ import { estadoJuego, obtenerArriendo } from './juego.js';
 import { irA } from './router.js';
 import { pintarDetalle } from './detalle.js';
 
+let filtroTipo = 'todos';
+
+function capturasFiltradas(juego) {
+  if (filtroTipo === 'todos') return juego.capturas;
+  return juego.capturas.filter((c) => {
+    const full = obtenerArriendo(c.id);
+    return (full?.tipo || c.tipo) === filtroTipo;
+  });
+}
+
 export function pintarInventario() {
   const juego = estadoJuego();
   const lista = document.getElementById('capturas-lista');
   const vacio = document.getElementById('inventario-vacio');
   const slots = document.getElementById('slots-info');
+  const capturas = capturasFiltradas(juego);
 
   if (slots) slots.textContent = `${juego.capturas.length} / ${juego.slots}`;
 
@@ -21,9 +32,14 @@ export function pintarInventario() {
     return;
   }
 
-  if (vacio) vacio.hidden = true;
+  if (vacio) vacio.hidden = capturas.length > 0;
 
-  lista.innerHTML = juego.capturas
+  if (!capturas.length) {
+    lista.innerHTML = '<p class="small muted inventario-sin-filtro">Ninguna captura coincide con este filtro.</p>';
+    return;
+  }
+
+  lista.innerHTML = capturas
     .slice()
     .reverse()
     .map((c) => {
@@ -54,5 +70,16 @@ export function pintarInventario() {
       pintarDetalle(id);
       irA('detalle');
     });
+  });
+}
+
+export function iniciarInventario() {
+  document.getElementById('inv-tipo-chips')?.addEventListener('click', (ev) => {
+    const chip = ev.target.closest('.chip');
+    if (!chip) return;
+    document.querySelectorAll('#inv-tipo-chips .chip').forEach((c) => c.classList.remove('active'));
+    chip.classList.add('active');
+    filtroTipo = chip.getAttribute('data-tipo') || 'todos';
+    pintarInventario();
   });
 }

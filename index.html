@@ -183,6 +183,12 @@
           <h1>Mis capturas</h1>
           <span class="slots-info" id="slots-info">0 / 5</span>
         </div>
+        <div class="chip-group" id="inv-tipo-chips">
+          <button type="button" class="chip active" data-tipo="todos">Todos</button>
+          <button type="button" class="chip" data-tipo="apto">Aptos</button>
+          <button type="button" class="chip" data-tipo="casa">Casas</button>
+          <button type="button" class="chip" data-tipo="celda">Celdas</button>
+        </div>
         <div class="capturas-lista" id="capturas-lista"></div>
         <div class="vacio-estado" id="inventario-vacio" hidden>
           <p>Aún no has atrapado ningún arriendo.</p>
@@ -262,6 +268,7 @@
         <div class="perfil-info" id="perfil-info">
           <p><strong>Nombre:</strong> <span id="perfil-nombre">—</span></p>
           <p><strong>Correo:</strong> <span id="perfil-correo">—</span></p>
+          <p class="small muted" id="perfil-rotacion">Próxima rotación del radar: --:--</p>
         </div>
         <div class="perfil-ajustes">
           <div class="ajuste-row">

@@ -5,7 +5,7 @@ import { configurarNavegacion, irA, alCambiarVista, esVistaPrivada } from './rou
 import { haySesion } from './auth.js';
 import { iniciarAuth } from './formularios.js';
 import { iniciarRadar, refrescarRadar } from './radar.js';
-import { pintarInventario } from './inventario.js';
+import { pintarInventario, iniciarInventario } from './inventario.js';
 import { pintarTienda } from './tienda.js';
 import { pintarPerfil, iniciarPerfil } from './perfil.js';
 import { iniciarDetalle } from './detalle.js';
@@ -39,6 +39,7 @@ export function iniciarApp() {
   configurarNavegacion();
   iniciarAuth();
   iniciarRadar();
+  iniciarInventario();
   iniciarDetalle();
   iniciarPerfil();
 

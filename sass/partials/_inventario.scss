@@ -10,13 +10,22 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: $spacing-xs;
-  margin-bottom: $spacing-md;
+  margin-bottom: $spacing-sm;
 
   h1 {
     margin: 0;
     font-size: 20px;
     font-family: var(--font-display);
   }
+}
+
+.inventario-page .chip-group {
+  margin-bottom: $spacing-md;
+}
+
+.inventario-sin-filtro {
+  text-align: center;
+  padding: 24px 12px;
 }
 
 .slots-info {
