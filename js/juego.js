@@ -6,7 +6,7 @@ import arriendosData from '../json/arriendos.json';
 import mejorasData from '../json/mejoras.json';
 
 export const ROTACION_INTERVAL_MS = 20 * 60 * 1000;
-const SPAWN_VISIBLE = 8;
+const SPAWN_BASE = 8;
 const SPAWN_CAMBIO_MIN = 2;
 const SPAWN_CAMBIO_MAX = 3;
 
@@ -73,6 +73,11 @@ function randomInt(min, max) {
   return Math.floor(randomBetween(min, max + 1));
 }
 
+function spawnVisibleCount(juego) {
+  const senalesExtra = (juego.mejorasCompradas || []).filter((id) => id === 'senales_extra').length * 2;
+  return SPAWN_BASE + senalesExtra;
+}
+
 function shuffle(lista) {
   const copia = [...lista];
   for (let i = copia.length - 1; i > 0; i -= 1) {
@@ -94,7 +99,8 @@ export function calcularPosicionSpawn(arriendo) {
 }
 
 function seedRotacionInicial(juego) {
-  const ids = shuffle(catalogoArriendos().map((a) => a.id)).slice(0, SPAWN_VISIBLE);
+  const visibles = spawnVisibleCount(juego);
+  const ids = shuffle(catalogoArriendos().map((a) => a.id)).slice(0, visibles);
   const posiciones = {};
   ids.forEach((id) => {
     const base = obtenerArriendo(id);
@@ -103,6 +109,7 @@ function seedRotacionInicial(juego) {
   juego.rotacion = {
     visibleIds: ids,
     posiciones,
+    zonasEscaneadas: [],
     nextAt: Date.now() + ROTACION_INTERVAL_MS,
   };
   guardarJuego(juego);
@@ -117,14 +124,18 @@ export function asegurarRotacion(juego = estadoJuego()) {
   const catalogoIds = new Set(catalogoArriendos().map((a) => a.id));
   juego.rotacion.visibleIds = juego.rotacion.visibleIds.filter((id) => catalogoIds.has(id));
   juego.rotacion.posiciones = juego.rotacion.posiciones || {};
+  if (!Array.isArray(juego.rotacion.zonasEscaneadas)) {
+    juego.rotacion.zonasEscaneadas = [];
+  }
 
   const visibles = new Set(juego.rotacion.visibleIds);
-  if (juego.rotacion.visibleIds.length < SPAWN_VISIBLE) {
+  const objetivo = spawnVisibleCount(juego);
+  if (juego.rotacion.visibleIds.length < objetivo) {
     const faltantes = shuffle(
       catalogoArriendos()
         .filter((a) => !visibles.has(a.id))
         .map((a) => a.id)
-    ).slice(0, SPAWN_VISIBLE - juego.rotacion.visibleIds.length);
+    ).slice(0, objetivo - juego.rotacion.visibleIds.length);
 
     faltantes.forEach((id) => {
       juego.rotacion.visibleIds.push(id);
@@ -179,6 +190,7 @@ export function rotarSpawns() {
   });
 
   rot.visibleIds = nuevosVisibles;
+  rot.zonasEscaneadas = [];
   rot.nextAt = Date.now() + ROTACION_INTERVAL_MS;
   guardarJuego(juego);
 
@@ -234,10 +246,32 @@ export function forzarRotacion() {
   return res;
 }
 
+export function obtenerZonasEscaneadas() {
+  const juego = estadoJuego();
+  asegurarRotacion(juego);
+  return new Set(juego.rotacion.zonasEscaneadas || []);
+}
+
+export function marcarZonaEscaneada(barrio) {
+  const juego = estadoJuego();
+  asegurarRotacion(juego);
+  if (!juego.rotacion.zonasEscaneadas.includes(barrio)) {
+    juego.rotacion.zonasEscaneadas.push(barrio);
+    guardarJuego(juego);
+  }
+}
+
+export function limpiarZonasEscaneadas() {
+  const juego = estadoJuego();
+  if (!juego.rotacion) return;
+  juego.rotacion.zonasEscaneadas = [];
+  guardarJuego(juego);
+}
+
 export function puedeAtrapar(id) {
   const juego = estadoJuego();
   if (!idsVisiblesEnMapa().has(id)) {
-    return { ok: false, motivo: 'Este arriendo ya no está en el mapa.' };
+    return { ok: false, motivo: 'Esta señal ya no está activa en el radar.' };
   }
   if (juego.capturas.some((c) => c.id === id)) {
     return { ok: false, motivo: 'Ya atrapaste este arriendo.' };
@@ -307,6 +341,9 @@ export function comprarMejora(mejoraId) {
   }
 
   guardarJuego(juego);
+  if (mejora.efecto.senales) {
+    asegurarRotacion(juego);
+  }
   return { ok: true, juego, mejora };
 }
 
