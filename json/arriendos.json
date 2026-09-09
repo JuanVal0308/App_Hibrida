@@ -322,5 +322,41 @@
     "lat": 6.288,
     "lng": -75.578,
     "fotos": ["/fotos/fachada-moderna.svg", "/fotos/apto-cocina.svg"]
+  },
+  {
+    "id": "a19",
+    "titulo": "Apto Laureles Estadio",
+    "barrio": "Laureles Estadio",
+    "tipo": "apto",
+    "precio": 1920000,
+    "precioTexto": "$1.92M",
+    "habitaciones": 2,
+    "banos": 2,
+    "metros": 64,
+    "descripcion": "Apartamento en Laureles Estadio, cerca al estadio y la 70. Buena ventilación y zona social activa.",
+    "amenidades": ["Parqueadero", "Ascensor"],
+    "rareza": "raro",
+    "puntos": 105,
+    "lat": 6.252,
+    "lng": -75.588,
+    "fotos": ["/fotos/apto-salon.svg", "/fotos/apto-balcon.svg"]
+  },
+  {
+    "id": "a20",
+    "titulo": "Celda Lleras",
+    "barrio": "Lleras",
+    "tipo": "celda",
+    "precio": 1150000,
+    "precioTexto": "$1.15M",
+    "habitaciones": 1,
+    "banos": 1,
+    "metros": 30,
+    "descripcion": "Estudio amoblado en Lleras, ideal para quien busca vida nocturna y cercanía a Provenza.",
+    "amenidades": ["Amoblado", "Wifi"],
+    "rareza": "comun",
+    "puntos": 52,
+    "lat": 6.2105,
+    "lng": -75.5685,
+    "fotos": ["/fotos/celda-amoblada.svg", "/fotos/vista-ciudad.svg"]
   }
 ]
