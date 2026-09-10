@@ -1,0 +1,77 @@
+// Paquete de zona: El Poblado
+exports.zonaId = "zona-el-poblado";
+exports.zonaNombre = "El Poblado";
+exports.apartamentos = [
+  {
+    "id": "a1",
+    "titulo": "Apto El Poblado",
+    "barrio": "El Poblado",
+    "tipo": "apto",
+    "precio": 2100000,
+    "precioTexto": "$2.1M",
+    "habitaciones": 2,
+    "banos": 2,
+    "metros": 68,
+    "descripcion": "Apartamento luminoso cerca de Provenza. Ideal para pareja o roomies. Incluye cocina integral y balcón con vista a la ciudad.",
+    "amenidades": ["Parqueadero", "Gimnasio"],
+    "rareza": "raro",
+    "puntos": 120,
+    "lat": 6.2088,
+    "lng": -75.567,
+    "fotos": ["/fotos/fachada-moderna.svg", "/fotos/apto-salon.svg", "/fotos/apto-balcon.svg"]
+  },
+  {
+    "id": "a11",
+    "titulo": "Casa El Tesoro",
+    "barrio": "El Tesoro",
+    "tipo": "casa",
+    "precio": 4500000,
+    "precioTexto": "$4.5M",
+    "habitaciones": 4,
+    "banos": 3,
+    "metros": 160,
+    "descripcion": "Casa amplia con jardín y parqueadero para dos carros. Zona residencial premium.",
+    "amenidades": ["Jardín", "Parqueadero"],
+    "rareza": "epico",
+    "puntos": 280,
+    "lat": 6.197,
+    "lng": -75.558,
+    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-patio.svg", "/fotos/casa-terraza.svg"]
+  },
+  {
+    "id": "a30",
+    "titulo": "Casa El Poblado Loma",
+    "barrio": "El Poblado",
+    "tipo": "casa",
+    "precio": 5800000,
+    "precioTexto": "$5.8M",
+    "habitaciones": 4,
+    "banos": 3,
+    "metros": 175,
+    "descripcion": "Casa de lujo en loma de El Poblado con jardín, piscina y vista espectacular.",
+    "amenidades": ["Piscina", "Jardín", "Vista"],
+    "rareza": "epico",
+    "puntos": 320,
+    "lat": 6.206,
+    "lng": -75.566,
+    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-patio.svg", "/fotos/vista-ciudad.svg"]
+  },
+  {
+    "id": "a31",
+    "titulo": "Apto El Poblado Parque",
+    "barrio": "El Poblado",
+    "tipo": "apto",
+    "precio": 2400000,
+    "precioTexto": "$2.4M",
+    "habitaciones": 2,
+    "banos": 2,
+    "metros": 72,
+    "descripcion": "Apartamento moderno cerca del Parque Lleras con parqueadero y gimnasio.",
+    "amenidades": ["Parqueadero", "Gimnasio"],
+    "rareza": "raro",
+    "puntos": 130,
+    "lat": 6.2095,
+    "lng": -75.5675,
+    "fotos": ["/fotos/fachada-moderna.svg", "/fotos/apto-salon.svg"]
+  }
+];

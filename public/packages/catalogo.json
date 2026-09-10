@@ -4,5 +4,71 @@
     "nombre": "Zona Ejemplo",
     "descripcion": "Apartamentos de ejemplo para probar la descarga",
     "cantidadApartamentos": 2
+  },
+  {
+    "id": "zona-la-mota",
+    "nombre": "La Mota",
+    "descripcion": "Propiedades en La Mota: casas, apartamentos y parqueaderos",
+    "cantidadApartamentos": 3
+  },
+  {
+    "id": "zona-itagui",
+    "nombre": "Itagüí",
+    "descripcion": "Propiedades en Itagüí: casas, apartamentos y parqueaderos",
+    "cantidadApartamentos": 4
+  },
+  {
+    "id": "zona-la-america",
+    "nombre": "La América",
+    "descripcion": "Propiedades en La América: casas, apartamentos y parqueaderos",
+    "cantidadApartamentos": 4
+  },
+  {
+    "id": "zona-el-poblado",
+    "nombre": "El Poblado",
+    "descripcion": "Propiedades premium en El Poblado: casas de lujo y apartamentos modernos",
+    "cantidadApartamentos": 4
+  },
+  {
+    "id": "zona-laureles",
+    "nombre": "Laureles",
+    "descripcion": "Propiedades en Laureles: casas, apartamentos y parqueaderos",
+    "cantidadApartamentos": 5
+  },
+  {
+    "id": "zona-envigado",
+    "nombre": "Envigado",
+    "descripcion": "Propiedades en Envigado: casas, apartamentos y parqueaderos",
+    "cantidadApartamentos": 4
+  },
+  {
+    "id": "zona-sabaneta",
+    "nombre": "Sabaneta",
+    "descripcion": "Propiedades en Sabaneta: casas, apartamentos y parqueaderos",
+    "cantidadApartamentos": 4
+  },
+  {
+    "id": "zona-belen",
+    "nombre": "Belén",
+    "descripcion": "Propiedades en Belén: casas y apartamentos",
+    "cantidadApartamentos": 3
+  },
+  {
+    "id": "zona-robledo",
+    "nombre": "Robledo",
+    "descripcion": "Propiedades en Robledo: casas, apartamentos y parqueaderos cerca de universidades",
+    "cantidadApartamentos": 4
+  },
+  {
+    "id": "zona-castilla",
+    "nombre": "Castilla",
+    "descripcion": "Propiedades en Castilla: casas y apartamentos con buen acceso al metro",
+    "cantidadApartamentos": 3
+  },
+  {
+    "id": "zona-buenos-aires",
+    "nombre": "Buenos Aires",
+    "descripcion": "Propiedades en Buenos Aires: casas, apartamentos y parqueaderos",
+    "cantidadApartamentos": 4
   }
 ]

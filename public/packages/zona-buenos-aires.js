@@ -1,0 +1,77 @@
+// Paquete de zona: Buenos Aires
+exports.zonaId = "zona-buenos-aires";
+exports.zonaNombre = "Buenos Aires";
+exports.apartamentos = [
+  {
+    "id": "a16",
+    "titulo": "Apto Buenos Aires",
+    "barrio": "Buenos Aires",
+    "tipo": "apto",
+    "precio": 1750000,
+    "precioTexto": "$1.75M",
+    "habitaciones": 2,
+    "banos": 2,
+    "metros": 62,
+    "descripcion": "Apartamento amplio en Buenos Aires con balcón y buena ventilación. Cerca de la 33 y comercio local.",
+    "amenidades": ["Balcón", "Parqueadero"],
+    "rareza": "raro",
+    "puntos": 95,
+    "lat": 6.238,
+    "lng": -75.582,
+    "fotos": ["/fotos/apto-balcon.svg", "/fotos/apto-salon.svg", "/fotos/apto-bano.svg"]
+  },
+  {
+    "id": "a49",
+    "titulo": "Casa Buenos Aires Colonial",
+    "barrio": "Buenos Aires",
+    "tipo": "casa",
+    "precio": 2850000,
+    "precioTexto": "$2.85M",
+    "habitaciones": 3,
+    "banos": 2,
+    "metros": 100,
+    "descripcion": "Casa colonial renovada en Buenos Aires con patio interior y terraza.",
+    "amenidades": ["Patio", "Terraza"],
+    "rareza": "raro",
+    "puntos": 155,
+    "lat": 6.2385,
+    "lng": -75.583,
+    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-patio.svg", "/fotos/casa-terraza.svg"]
+  },
+  {
+    "id": "a50",
+    "titulo": "Apto Buenos Aires La 33",
+    "barrio": "Buenos Aires",
+    "tipo": "apto",
+    "precio": 1650000,
+    "precioTexto": "$1.65M",
+    "habitaciones": 2,
+    "banos": 1,
+    "metros": 60,
+    "descripcion": "Apartamento sobre la 33 en Buenos Aires con balcón y parqueadero.",
+    "amenidades": ["Balcón", "Parqueadero"],
+    "rareza": "comun",
+    "puntos": 68,
+    "lat": 6.2378,
+    "lng": -75.5825,
+    "fotos": ["/fotos/apto-balcon.svg", "/fotos/apto-habitacion.svg"]
+  },
+  {
+    "id": "a51",
+    "titulo": "Parqueadero Buenos Aires",
+    "barrio": "Buenos Aires",
+    "tipo": "parqueadero",
+    "precio": 310000,
+    "precioTexto": "$310K",
+    "habitaciones": 0,
+    "banos": 0,
+    "metros": 13,
+    "descripcion": "Parqueadero cubierto en Buenos Aires. Vigilancia 24h.",
+    "amenidades": ["Cubierto", "Vigilancia"],
+    "rareza": "comun",
+    "puntos": 27,
+    "lat": 6.238,
+    "lng": -75.582,
+    "fotos": ["/fotos/fachada-moderna.svg"]
+  }
+];

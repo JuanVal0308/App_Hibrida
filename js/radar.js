@@ -59,13 +59,24 @@ function iniciarCooldownTick() {
   if (cooldownTick) clearInterval(cooldownTick);
   cooldownTick = setInterval(() => {
     if (enCooldown()) {
-      renderZonas();
+      actualizarBotonesEscanear();
     } else {
       clearInterval(cooldownTick);
       cooldownTick = null;
-      renderZonas();
+      actualizarBotonesEscanear();
     }
   }, 500);
+}
+
+function actualizarBotonesEscanear() {
+  const bloqueado = enCooldown();
+  const escaneando = escaneoEnCurso !== null;
+  document.querySelectorAll('.btn-escanear').forEach((btn) => {
+    const barrio = btn.getAttribute('data-escanear');
+    const estaEscaneando = escaneoEnCurso === barrio;
+    btn.disabled = estaEscaneando || bloqueado;
+    btn.textContent = etiquetaEscanear(estaEscaneando);
+  });
 }
 
 function actualizarHud() {
