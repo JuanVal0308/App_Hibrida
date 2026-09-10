@@ -1,0 +1,77 @@
+// Paquete de zona: Envigado
+exports.zonaId = "zona-envigado";
+exports.zonaNombre = "Envigado";
+exports.apartamentos = [
+  {
+    "id": "a3",
+    "titulo": "Celda Envigado",
+    "barrio": "Envigado",
+    "tipo": "celda",
+    "precio": 850000,
+    "precioTexto": "$850K",
+    "habitaciones": 1,
+    "banos": 1,
+    "metros": 28,
+    "descripcion": "Estudio amoblado compacto, perfecto para estudiante o persona sola. Servicios incluidos.",
+    "amenidades": ["Amoblado"],
+    "rareza": "comun",
+    "puntos": 40,
+    "lat": 6.1699,
+    "lng": -75.587,
+    "fotos": ["/fotos/celda-amoblada.svg", "/fotos/celda-estudio.svg"]
+  },
+  {
+    "id": "a38",
+    "titulo": "Casa Envigado Zúñiga",
+    "barrio": "Envigado",
+    "tipo": "casa",
+    "precio": 3250000,
+    "precioTexto": "$3.25M",
+    "habitaciones": 3,
+    "banos": 2,
+    "metros": 105,
+    "descripcion": "Casa moderna en Envigado con garaje y terraza. Cerca del parque y comercio.",
+    "amenidades": ["Garaje", "Terraza"],
+    "rareza": "raro",
+    "puntos": 170,
+    "lat": 6.171,
+    "lng": -75.588,
+    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-terraza.svg"]
+  },
+  {
+    "id": "a39",
+    "titulo": "Apto Envigado Centro",
+    "barrio": "Envigado",
+    "tipo": "apto",
+    "precio": 1620000,
+    "precioTexto": "$1.62M",
+    "habitaciones": 2,
+    "banos": 1,
+    "metros": 59,
+    "descripcion": "Apartamento céntrico en Envigado con balcón y cerca del metro.",
+    "amenidades": ["Balcón", "Cerca Metro"],
+    "rareza": "comun",
+    "puntos": 65,
+    "lat": 6.17,
+    "lng": -75.587,
+    "fotos": ["/fotos/apto-balcon.svg", "/fotos/apto-habitacion.svg"]
+  },
+  {
+    "id": "a40",
+    "titulo": "Parqueadero Envigado",
+    "barrio": "Envigado",
+    "tipo": "parqueadero",
+    "precio": 290000,
+    "precioTexto": "$290K",
+    "habitaciones": 0,
+    "banos": 0,
+    "metros": 12,
+    "descripcion": "Parqueadero cubierto en el centro de Envigado. Portería 24h.",
+    "amenidades": ["Cubierto", "Portería"],
+    "rareza": "comun",
+    "puntos": 24,
+    "lat": 6.1698,
+    "lng": -75.5868,
+    "fotos": ["/fotos/fachada-moderna.svg"]
+  }
+];

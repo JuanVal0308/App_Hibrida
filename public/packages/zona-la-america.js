@@ -1,0 +1,77 @@
+// Paquete de zona: La América
+exports.zonaId = "zona-la-america";
+exports.zonaNombre = "La América";
+exports.apartamentos = [
+  {
+    "id": "a10",
+    "titulo": "Apto La América",
+    "barrio": "La América",
+    "tipo": "apto",
+    "precio": 1650000,
+    "precioTexto": "$1.65M",
+    "habitaciones": 2,
+    "banos": 1,
+    "metros": 60,
+    "descripcion": "Apartamento con balcón en La América. Buena relación precio-espacio.",
+    "amenidades": ["Balcón"],
+    "rareza": "comun",
+    "puntos": 60,
+    "lat": 6.251,
+    "lng": -75.61,
+    "fotos": ["/fotos/apto-balcon.svg", "/fotos/apto-habitacion.svg"]
+  },
+  {
+    "id": "a27",
+    "titulo": "Casa La América Norte",
+    "barrio": "La América",
+    "tipo": "casa",
+    "precio": 2950000,
+    "precioTexto": "$2.95M",
+    "habitaciones": 3,
+    "banos": 2,
+    "metros": 102,
+    "descripcion": "Casa amplia en La América con patio y zona BBQ. Ambiente familiar tranquilo.",
+    "amenidades": ["Patio", "Zona BBQ"],
+    "rareza": "raro",
+    "puntos": 160,
+    "lat": 6.253,
+    "lng": -75.611,
+    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-patio.svg"]
+  },
+  {
+    "id": "a28",
+    "titulo": "Apto La América Occidente",
+    "barrio": "La América",
+    "tipo": "apto",
+    "precio": 1480000,
+    "precioTexto": "$1.48M",
+    "habitaciones": 2,
+    "banos": 1,
+    "metros": 56,
+    "descripcion": "Apartamento con vista en La América. Balcón amplio y cerca de centros comerciales.",
+    "amenidades": ["Balcón", "Cerca CC"],
+    "rareza": "comun",
+    "puntos": 58,
+    "lat": 6.252,
+    "lng": -75.612,
+    "fotos": ["/fotos/apto-balcon.svg", "/fotos/apto-salon.svg"]
+  },
+  {
+    "id": "a29",
+    "titulo": "Parqueadero La América",
+    "barrio": "La América",
+    "tipo": "parqueadero",
+    "precio": 300000,
+    "precioTexto": "$300K",
+    "habitaciones": 0,
+    "banos": 0,
+    "metros": 13,
+    "descripcion": "Parqueadero cubierto cerca de la avenida principal. Acceso fácil.",
+    "amenidades": ["Cubierto"],
+    "rareza": "comun",
+    "puntos": 26,
+    "lat": 6.251,
+    "lng": -75.6105,
+    "fotos": ["/fotos/fachada-moderna.svg"]
+  }
+];

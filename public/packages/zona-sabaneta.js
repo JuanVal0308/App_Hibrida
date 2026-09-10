@@ -1,0 +1,77 @@
+// Paquete de zona: Sabaneta
+exports.zonaId = "zona-sabaneta";
+exports.zonaNombre = "Sabaneta";
+exports.apartamentos = [
+  {
+    "id": "a6",
+    "titulo": "Casa Sabaneta",
+    "barrio": "Sabaneta",
+    "tipo": "casa",
+    "precio": 2600000,
+    "precioTexto": "$2.6M",
+    "habitaciones": 3,
+    "banos": 2,
+    "metros": 95,
+    "descripcion": "Casa familiar en Sabaneta con garaje y terraza. Ambiente tranquilo y cerca al parque principal.",
+    "amenidades": ["Garaje", "Terraza"],
+    "rareza": "raro",
+    "puntos": 140,
+    "lat": 6.1515,
+    "lng": -75.616,
+    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-terraza.svg", "/fotos/casa-patio.svg"]
+  },
+  {
+    "id": "a41",
+    "titulo": "Casa Sabaneta Sur",
+    "barrio": "Sabaneta",
+    "tipo": "casa",
+    "precio": 2750000,
+    "precioTexto": "$2.75M",
+    "habitaciones": 3,
+    "banos": 2,
+    "metros": 98,
+    "descripcion": "Casa acogedora en Sabaneta con patio y garaje. Ambiente familiar.",
+    "amenidades": ["Patio", "Garaje"],
+    "rareza": "raro",
+    "puntos": 150,
+    "lat": 6.1505,
+    "lng": -75.617,
+    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-patio.svg"]
+  },
+  {
+    "id": "a42",
+    "titulo": "Apto Sabaneta Parque",
+    "barrio": "Sabaneta",
+    "tipo": "apto",
+    "precio": 1450000,
+    "precioTexto": "$1.45M",
+    "habitaciones": 2,
+    "banos": 1,
+    "metros": 56,
+    "descripcion": "Apartamento cerca del parque principal de Sabaneta. Bien comunicado.",
+    "amenidades": ["Balcón"],
+    "rareza": "comun",
+    "puntos": 56,
+    "lat": 6.1518,
+    "lng": -75.6158,
+    "fotos": ["/fotos/apto-salon.svg", "/fotos/apto-balcon.svg"]
+  },
+  {
+    "id": "a43",
+    "titulo": "Parqueadero Sabaneta",
+    "barrio": "Sabaneta",
+    "tipo": "parqueadero",
+    "precio": 260000,
+    "precioTexto": "$260K",
+    "habitaciones": 0,
+    "banos": 0,
+    "metros": 11,
+    "descripcion": "Parqueadero descubierto cerca del metro de Sabaneta. Bien ubicado.",
+    "amenidades": ["Vigilancia"],
+    "rareza": "comun",
+    "puntos": 20,
+    "lat": 6.1512,
+    "lng": -75.616,
+    "fotos": ["/fotos/fachada-moderna.svg"]
+  }
+];

@@ -1,0 +1,77 @@
+// Paquete de zona: Itagüí
+exports.zonaId = "zona-itagui";
+exports.zonaNombre = "Itagüí";
+exports.apartamentos = [
+  {
+    "id": "a14",
+    "titulo": "Casa Itagüí",
+    "barrio": "Itagüí",
+    "tipo": "casa",
+    "precio": 2200000,
+    "precioTexto": "$2.2M",
+    "habitaciones": 3,
+    "banos": 2,
+    "metros": 88,
+    "descripcion": "Casa en Itagüí con patio y zona de parrilla. Ambiente familiar y acceso rápido al sur del valle.",
+    "amenidades": ["Patio", "Zona BBQ"],
+    "rareza": "raro",
+    "puntos": 130,
+    "lat": 6.1845,
+    "lng": -75.599,
+    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-patio.svg", "/fotos/casa-terraza.svg"]
+  },
+  {
+    "id": "a24",
+    "titulo": "Casa Itagüí Centro",
+    "barrio": "Itagüí",
+    "tipo": "casa",
+    "precio": 2450000,
+    "precioTexto": "$2.45M",
+    "habitaciones": 3,
+    "banos": 2,
+    "metros": 92,
+    "descripcion": "Casa en el centro de Itagüí con garaje y terraza. Cerca de comercio y transporte público.",
+    "amenidades": ["Garaje", "Terraza"],
+    "rareza": "raro",
+    "puntos": 140,
+    "lat": 6.1855,
+    "lng": -75.601,
+    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-terraza.svg"]
+  },
+  {
+    "id": "a25",
+    "titulo": "Apto Itagüí Sur",
+    "barrio": "Itagüí",
+    "tipo": "apto",
+    "precio": 1350000,
+    "precioTexto": "$1.35M",
+    "habitaciones": 2,
+    "banos": 1,
+    "metros": 54,
+    "descripcion": "Apartamento bien ubicado en Itagüí con parqueadero incluido. Buena opción familiar.",
+    "amenidades": ["Parqueadero", "Ascensor"],
+    "rareza": "comun",
+    "puntos": 55,
+    "lat": 6.183,
+    "lng": -75.598,
+    "fotos": ["/fotos/apto-habitacion.svg", "/fotos/apto-cocina.svg"]
+  },
+  {
+    "id": "a26",
+    "titulo": "Parqueadero Itagüí Centro",
+    "barrio": "Itagüí",
+    "tipo": "parqueadero",
+    "precio": 250000,
+    "precioTexto": "$250K",
+    "habitaciones": 0,
+    "banos": 0,
+    "metros": 11,
+    "descripcion": "Parqueadero techado en zona comercial de Itagüí. Vigilancia permanente.",
+    "amenidades": ["Cubierto", "Vigilancia"],
+    "rareza": "comun",
+    "puntos": 22,
+    "lat": 6.1848,
+    "lng": -75.6,
+    "fotos": ["/fotos/fachada-moderna.svg"]
+  }
+];

@@ -1,0 +1,77 @@
+// Paquete de zona: Robledo
+exports.zonaId = "zona-robledo";
+exports.zonaNombre = "Robledo";
+exports.apartamentos = [
+  {
+    "id": "a12",
+    "titulo": "Apto Robledo",
+    "barrio": "Robledo",
+    "tipo": "apto",
+    "precio": 980000,
+    "precioTexto": "$980K",
+    "habitaciones": 2,
+    "banos": 1,
+    "metros": 48,
+    "descripcion": "Apto económico cerca de universidades. Buena opción para estudiantes.",
+    "amenidades": ["Cerca Universidad"],
+    "rareza": "comun",
+    "puntos": 42,
+    "lat": 6.275,
+    "lng": -75.59,
+    "fotos": ["/fotos/apto-salon.svg", "/fotos/apto-bano.svg"]
+  },
+  {
+    "id": "a44",
+    "titulo": "Casa Robledo Pilarica",
+    "barrio": "Robledo",
+    "tipo": "casa",
+    "precio": 2350000,
+    "precioTexto": "$2.35M",
+    "habitaciones": 3,
+    "banos": 2,
+    "metros": 90,
+    "descripcion": "Casa en Robledo con garaje y patio. Cerca de universidades y comercio.",
+    "amenidades": ["Garaje", "Patio"],
+    "rareza": "raro",
+    "puntos": 135,
+    "lat": 6.276,
+    "lng": -75.591,
+    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-patio.svg"]
+  },
+  {
+    "id": "a45",
+    "titulo": "Apto Robledo Centro",
+    "barrio": "Robledo",
+    "tipo": "apto",
+    "precio": 1150000,
+    "precioTexto": "$1.15M",
+    "habitaciones": 2,
+    "banos": 1,
+    "metros": 50,
+    "descripcion": "Apartamento económico en Robledo. Buena opción para estudiantes.",
+    "amenidades": ["Ascensor"],
+    "rareza": "comun",
+    "puntos": 45,
+    "lat": 6.2755,
+    "lng": -75.5905,
+    "fotos": ["/fotos/apto-habitacion.svg", "/fotos/apto-cocina.svg"]
+  },
+  {
+    "id": "a46",
+    "titulo": "Parqueadero Robledo",
+    "barrio": "Robledo",
+    "tipo": "parqueadero",
+    "precio": 240000,
+    "precioTexto": "$240K",
+    "habitaciones": 0,
+    "banos": 0,
+    "metros": 11,
+    "descripcion": "Parqueadero cubierto en Robledo. Cerca de universidades.",
+    "amenidades": ["Cubierto"],
+    "rareza": "comun",
+    "puntos": 21,
+    "lat": 6.2752,
+    "lng": -75.5902,
+    "fotos": ["/fotos/fachada-moderna.svg"]
+  }
+];
