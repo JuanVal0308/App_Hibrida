@@ -18,7 +18,7 @@ exports.apartamentos = [
     "puntos": 50,
     "lat": 6.2288,
     "lng": -75.577,
-    "fotos": ["/fotos/fachada-moderna.svg"]
+    "fotos": ["/img/inmuebles/apto1.jpg"]
   },
   {
     "id": "ejemplo-2",
@@ -36,6 +36,6 @@ exports.apartamentos = [
     "puntos": 120,
     "lat": 6.2298,
     "lng": -75.578,
-    "fotos": ["/fotos/casa-exterior.svg"]
+    "fotos": ["/img/inmuebles/casa1.jpg"]
   }
 ];

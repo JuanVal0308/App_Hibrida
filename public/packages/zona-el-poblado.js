@@ -18,7 +18,7 @@ exports.apartamentos = [
     "puntos": 120,
     "lat": 6.2088,
     "lng": -75.567,
-    "fotos": ["/fotos/fachada-moderna.svg", "/fotos/apto-salon.svg", "/fotos/apto-balcon.svg"]
+    "fotos": ["/img/inmuebles/apto1.jpg", "/img/inmuebles/apto1.jpg", "/img/inmuebles/apto2.jpg"]
   },
   {
     "id": "a11",
@@ -36,7 +36,7 @@ exports.apartamentos = [
     "puntos": 280,
     "lat": 6.197,
     "lng": -75.558,
-    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-patio.svg", "/fotos/casa-terraza.svg"]
+    "fotos": ["/img/inmuebles/casa1.jpg", "/img/inmuebles/casa2.jpg", "/img/inmuebles/casa3.jpg"]
   },
   {
     "id": "a30",
@@ -54,7 +54,7 @@ exports.apartamentos = [
     "puntos": 320,
     "lat": 6.206,
     "lng": -75.566,
-    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-patio.svg", "/fotos/vista-ciudad.svg"]
+    "fotos": ["/img/inmuebles/casa1.jpg", "/img/inmuebles/casa2.jpg", "/img/inmuebles/apto2.jpg"]
   },
   {
     "id": "a31",
@@ -72,6 +72,24 @@ exports.apartamentos = [
     "puntos": 130,
     "lat": 6.2095,
     "lng": -75.5675,
-    "fotos": ["/fotos/fachada-moderna.svg", "/fotos/apto-salon.svg"]
+    "fotos": ["/img/inmuebles/apto1.jpg", "/img/inmuebles/apto1.jpg"]
+  },
+  {
+    "id": "a32",
+    "titulo": "Parqueadero Provenza",
+    "barrio": "Provenza",
+    "tipo": "parqueadero",
+    "precio": 450000,
+    "precioTexto": "$450K",
+    "habitaciones": 0,
+    "banos": 0,
+    "metros": 14,
+    "descripcion": "Parqueadero cubierto en zona de Provenza. Ideal para vida nocturna sin preocupaciones.",
+    "amenidades": ["Cubierto", "Vigilancia"],
+    "rareza": "raro",
+    "puntos": 35,
+    "lat": 6.2097,
+    "lng": -75.5668,
+    "fotos": ["/img/inmuebles/parking3.jpg"]
   }
 ];

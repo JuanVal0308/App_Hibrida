@@ -41,6 +41,7 @@ export async function verificarConexion() {
 
 /**
  * Obtiene el catálogo de zonas disponibles para descargar desde el servidor.
+ * Intenta primero desde el paquete local (funciona offline), luego desde remoto.
  */
 export async function obtenerCatalogoZonas() {
   try {
@@ -48,13 +49,22 @@ export async function obtenerCatalogoZonas() {
     if (!response.ok) throw new Error('No se pudo cargar el catálogo');
     return await response.json();
   } catch (error) {
-    console.error('Error cargando catálogo:', error);
+    console.error('Error cargando catálogo remoto, intentando local:', error);
+    try {
+      const localResponse = await fetch('/packages/catalogo.json');
+      if (localResponse.ok) {
+        return await localResponse.json();
+      }
+    } catch (localError) {
+      console.error('Error cargando catálogo local:', localError);
+    }
     return [];
   }
 }
 
 /**
  * Descarga un paquete de zona desde el servidor.
+ * Intenta primero desde el paquete local (funciona offline), luego desde remoto.
  * @param {string} zonaId 
  */
 export async function descargarZona(zonaId) {
@@ -65,7 +75,16 @@ export async function descargarZona(zonaId) {
     const codigo = await response.text();
     return codigo;
   } catch (error) {
-    console.error(`Error descargando zona ${zonaId}:`, error);
+    console.error(`Error descargando zona ${zonaId} remota, intentando local:`, error);
+    try {
+      const localResponse = await fetch(`/packages/zona-${zonaId}.js`);
+      if (localResponse.ok) {
+        const codigo = await localResponse.text();
+        return codigo;
+      }
+    } catch (localError) {
+      console.error(`Error descargando zona ${zonaId} local:`, localError);
+    }
     throw error;
   }
 }
