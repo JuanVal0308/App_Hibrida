@@ -2,8 +2,8 @@
  * Lógica del juego: puntos, captura, rotación de spawns y estado del jugador.
  */
 import { obtenerJuego, guardarJuego } from './auth.js';
-import arriendosData from '../json/arriendos.json';
-import mejorasData from '../json/mejoras.json';
+import arriendosData from '../public/json/arriendos.json';
+import mejorasData from '../public/json/mejoras.json';
 import { obtenerZonasDescargadas } from './actualizar.js';
 
 export const ROTACION_INTERVAL_MS = 20 * 60 * 1000;
