@@ -4,6 +4,7 @@
 
 import { leer, guardar } from './storage.js';
 import { mostrarAviso } from './ui.js';
+import { aplicarImagenesLocalesArray } from './imagenes-inmuebles.js';
 
 // URL base de los paquetes (GitHub Pages o configurable)
 // En producción (Capacitor Android/iOS), usar ruta relativa para acceder a assets empaquetados
@@ -114,12 +115,15 @@ export function aplicarPaqueteZona(zonaId, codigoPaquete) {
       throw new Error('Paquete inválido');
     }
     
-    // Guarda el paquete descargado
+    // Aplica imágenes locales a los apartamentos del paquete
+    const apartamentosConImagenes = aplicarImagenesLocalesArray(paquete.apartamentos);
+    
+    // Guarda el paquete descargado con imágenes locales
     const descargados = leer('zonas_descargadas', {});
     descargados[zonaId] = {
       zonaId: paquete.zonaId,
       zonaNombre: paquete.zonaNombre,
-      apartamentos: paquete.apartamentos,
+      apartamentos: apartamentosConImagenes,
       fechaDescarga: Date.now()
     };
     guardar('zonas_descargadas', descargados);

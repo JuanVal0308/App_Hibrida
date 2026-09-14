@@ -118,8 +118,15 @@ function colorRareza(rareza) {
 }
 
 function fotoPrincipal(arriendo) {
+  // Preferir fotosLocales (imágenes locales offline) sobre fotos remotas
+  const fotosLocales = arriendo?.fotosLocales || [];
+  if (fotosLocales.length > 0) {
+    return fotosLocales[0];
+  }
+  
+  // Fallback a fotos existentes
   const fotos = arriendo?.fotos || [];
-  return fotos[0] || '/fotos/apto-salon.svg';
+  return fotos[0] || '/img/inmuebles/apto1.jpg';
 }
 
 function etiquetaEscanear(escaneando) {
@@ -186,7 +193,7 @@ function renderZonas() {
                 return `
                 <button type="button" class="zona-item animate__animated animate__zoomIn ${atrapado ? 'atrapado' : ''}" data-id="${a.id}">
                   <span class="zona-item-thumb">
-                    <img src="${foto}" alt="" loading="lazy" onerror="this.src='/fotos/apto-salon.svg'" />
+                    <img src="${foto}" alt="" loading="lazy" onerror="this.src='/img/inmuebles/apto1.jpg'" />
                   </span>
                   <span class="zona-item-dot" style="background:${colorRareza(a.rareza)}"></span>
                   <span class="zona-item-info">
@@ -241,7 +248,7 @@ function mostrarPreview(id) {
 
   const thumb = document.getElementById('preview-thumb');
   const src = fotoPrincipal(obtenerArriendo(id) || a);
-  thumb.innerHTML = `<img src="${src}" alt="${a.titulo}" width="56" height="56" onerror="this.src='/fotos/apto-salon.svg'" />`;
+  thumb.innerHTML = `<img src="${src}" alt="${a.titulo}" width="56" height="56" onerror="this.src='/img/inmuebles/apto1.jpg'" />`;
 
   document.getElementById('preview-titulo').textContent = a.titulo;
   document.getElementById('preview-meta').textContent =
