@@ -1,5 +1,5 @@
 // Paquete de zona: Buenos Aires
-exports.zonaId = "zona-buenos-aires";
+exports.zonaId = "buenos-aires";
 exports.zonaNombre = "Buenos Aires";
 exports.apartamentos = [
   {

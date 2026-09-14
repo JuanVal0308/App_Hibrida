@@ -1,5 +1,5 @@
 // Paquete de zona: Laureles
-exports.zonaId = "zona-laureles";
+exports.zonaId = "laureles";
 exports.zonaNombre = "Laureles";
 exports.apartamentos = [
   {

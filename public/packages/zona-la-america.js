@@ -1,5 +1,5 @@
 // Paquete de zona: La América
-exports.zonaId = "zona-la-america";
+exports.zonaId = "la-america";
 exports.zonaNombre = "La América";
 exports.apartamentos = [
   {

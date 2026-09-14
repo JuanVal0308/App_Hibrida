@@ -1,5 +1,5 @@
 // Paquete de zona: Robledo
-exports.zonaId = "zona-robledo";
+exports.zonaId = "robledo";
 exports.zonaNombre = "Robledo";
 exports.apartamentos = [
   {

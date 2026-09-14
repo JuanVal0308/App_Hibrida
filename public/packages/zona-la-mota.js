@@ -1,5 +1,5 @@
 // Paquete de zona: La Mota
-exports.zonaId = "zona-la-mota";
+exports.zonaId = "la-mota";
 exports.zonaNombre = "La Mota";
 exports.apartamentos = [
   {
