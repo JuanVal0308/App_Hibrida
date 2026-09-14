@@ -2,9 +2,10 @@
  * Lógica del juego: puntos, captura, rotación de spawns y estado del jugador.
  */
 import { obtenerJuego, guardarJuego } from './auth.js';
-import arriendosData from '../json/arriendos.json';
-import mejorasData from '../json/mejoras.json';
+import arriendosData from '../public/json/arriendos.json';
+import mejorasData from '../public/json/mejoras.json';
 import { obtenerZonasDescargadas } from './actualizar.js';
+import { aplicarImagenesLocales } from './imagenes-inmuebles.js';
 
 export const ROTACION_INTERVAL_MS = 20 * 60 * 1000;
 const SPAWN_BASE = 8;
@@ -29,7 +30,9 @@ export function catalogoArriendos() {
     }
   });
   
-  return [...arriendosData, ...apartamentosExtra];
+  // Combinar base + zonas descargadas y aplicar imágenes locales
+  const catalogo = [...arriendosData, ...apartamentosExtra];
+  return catalogo.map(aplicarImagenesLocales);
 }
 
 /** Arriendos visibles en el mapa con posición de spawn activa. */

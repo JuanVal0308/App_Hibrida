@@ -4,7 +4,7 @@
 import { obtenerArriendo, idsAtrapados, puedeAtrapar } from './juego.js';
 import { irA } from './router.js';
 
-const FOTO_FALLBACK = '/fotos/apto-salon.svg';
+const FOTO_FALLBACK = '/img/inmuebles/apto1.jpg';
 
 export function pintarDetalle(id) {
   const a = obtenerArriendo(id);
@@ -22,9 +22,12 @@ export function pintarDetalle(id) {
   const desc = document.getElementById('detalle-descripcion');
   if (desc) desc.textContent = a.descripcion || '';
 
-  const fotos = (a.fotos && a.fotos.length ? a.fotos : [FOTO_FALLBACK]).map((f) =>
-    f.startsWith('/') ? f : `/${f}`
-  );
+  // Preferir fotosLocales (imágenes locales offline) sobre fotos remotas
+  let fotos = a.fotosLocales && a.fotosLocales.length > 0 
+    ? a.fotosLocales 
+    : (a.fotos && a.fotos.length ? a.fotos : [FOTO_FALLBACK]);
+  
+  fotos = fotos.map((f) => f.startsWith('/') ? f : `/${f}`);
 
   const galeria = document.getElementById('detalle-galeria');
   const hero = document.getElementById('detalle-hero');

@@ -44,7 +44,8 @@ export function pintarInventario() {
     .reverse()
     .map((c) => {
       const full = obtenerArriendo(c.id);
-      const foto = full?.fotos?.[0] || '/fotos/apto-salon.svg';
+      // Preferir fotosLocales (imágenes locales offline)
+      const foto = full?.fotosLocales?.[0] || full?.fotos?.[0] || '/img/inmuebles/apto1.jpg';
       const ficha = full
         ? `${full.habitaciones} hab · ${full.banos} baños · ${full.metros} m²`
         : c.rareza;
