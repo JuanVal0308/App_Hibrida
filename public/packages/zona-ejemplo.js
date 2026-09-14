@@ -1,5 +1,5 @@
 // Paquete de zona: Zona Ejemplo
-exports.zonaId = "zona-ejemplo";
+exports.zonaId = "ejemplo";
 exports.zonaNombre = "Zona Ejemplo";
 exports.apartamentos = [
   {

@@ -1,5 +1,5 @@
 // Paquete de zona: Itagüí
-exports.zonaId = "zona-itagui";
+exports.zonaId = "itagui";
 exports.zonaNombre = "Itagüí";
 exports.apartamentos = [
   {

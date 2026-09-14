@@ -1,5 +1,5 @@
 // Paquete de zona: El Poblado
-exports.zonaId = "zona-el-poblado";
+exports.zonaId = "el-poblado";
 exports.zonaNombre = "El Poblado";
 exports.apartamentos = [
   {

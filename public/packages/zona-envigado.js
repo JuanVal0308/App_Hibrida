@@ -1,5 +1,5 @@
 // Paquete de zona: Envigado
-exports.zonaId = "zona-envigado";
+exports.zonaId = "envigado";
 exports.zonaNombre = "Envigado";
 exports.apartamentos = [
   {

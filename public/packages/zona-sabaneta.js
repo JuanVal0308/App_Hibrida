@@ -1,5 +1,5 @@
 // Paquete de zona: Sabaneta
-exports.zonaId = "zona-sabaneta";
+exports.zonaId = "sabaneta";
 exports.zonaNombre = "Sabaneta";
 exports.apartamentos = [
   {

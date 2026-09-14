@@ -1,5 +1,5 @@
 // Paquete de zona: Belén
-exports.zonaId = "zona-belen";
+exports.zonaId = "belen";
 exports.zonaNombre = "Belén";
 exports.apartamentos = [
   {

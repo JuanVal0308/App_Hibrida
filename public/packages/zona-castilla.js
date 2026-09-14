@@ -1,5 +1,5 @@
 // Paquete de zona: Castilla
-exports.zonaId = "zona-castilla";
+exports.zonaId = "castilla";
 exports.zonaNombre = "Castilla";
 exports.apartamentos = [
   {

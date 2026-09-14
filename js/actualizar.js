@@ -101,10 +101,12 @@ export async function descargarZona(zonaId) {
 
 /**
  * Procesa y aplica un paquete de zona descargado.
+ * Si la zona ya existe, MERGE los apartamentos por ID (no reemplaza).
  * @param {string} zonaId 
  * @param {string} codigoPaquete 
+ * @param {boolean} esMerge - Si es true, fusiona con datos existentes
  */
-export function aplicarPaqueteZona(zonaId, codigoPaquete) {
+export function aplicarPaqueteZona(zonaId, codigoPaquete, esMerge = false) {
   try {
     // Evalúa el código del paquete de forma segura
     // El paquete debe exportar: { zonaId, zonaNombre, apartamentos: [...] }
@@ -118,13 +120,38 @@ export function aplicarPaqueteZona(zonaId, codigoPaquete) {
     // Aplica imágenes locales a los apartamentos del paquete
     const apartamentosConImagenes = aplicarImagenesLocalesArray(paquete.apartamentos);
     
-    // Guarda el paquete descargado con imágenes locales
     const descargados = leer('zonas_descargadas', {});
+    const zonaExistente = descargados[zonaId];
+    
+    let apartamentosFinales;
+    
+    if (esMerge && zonaExistente && zonaExistente.apartamentos) {
+      // MERGE: Combina apartamentos existentes con nuevos por ID
+      const apartamentosMap = new Map();
+      
+      // Primero agregar los existentes
+      zonaExistente.apartamentos.forEach(apt => {
+        apartamentosMap.set(apt.id, apt);
+      });
+      
+      // Luego agregar/actualizar con los nuevos
+      apartamentosConImagenes.forEach(apt => {
+        apartamentosMap.set(apt.id, apt);
+      });
+      
+      apartamentosFinales = Array.from(apartamentosMap.values());
+    } else {
+      // Nueva descarga: usa directamente los del paquete
+      apartamentosFinales = apartamentosConImagenes;
+    }
+    
+    // Guarda el paquete descargado con imágenes locales
     descargados[zonaId] = {
       zonaId: paquete.zonaId,
       zonaNombre: paquete.zonaNombre,
-      apartamentos: apartamentosConImagenes,
-      fechaDescarga: Date.now()
+      apartamentos: apartamentosFinales,
+      fechaDescarga: Date.now(),
+      version: (zonaExistente?.version || 0) + 1
     };
     guardar('zonas_descargadas', descargados);
     
@@ -233,18 +260,25 @@ export function inicializarActualizar() {
     }
     
     btnDescargar.disabled = true;
-    btnDescargar.textContent = 'Descargando...';
+    btnDescargar.textContent = 'Procesando...';
     
     let exitos = 0;
     let errores = 0;
+    let actualizaciones = 0;
     
     for (const checkbox of seleccionadas) {
       const zonaId = checkbox.value;
+      const esMerge = checkbox.dataset.esActualizacion === 'true';
+      
       try {
         const codigo = await descargarZona(zonaId);
-        aplicarPaqueteZona(zonaId, codigo);
+        aplicarPaqueteZona(zonaId, codigo, esMerge);
         checkbox.checked = false;
-        exitos++;
+        if (esMerge) {
+          actualizaciones++;
+        } else {
+          exitos++;
+        }
       } catch (error) {
         errores++;
       }
@@ -255,11 +289,18 @@ export function inicializarActualizar() {
     
     if (exitos > 0) {
       mostrarAviso(`${exitos} zona(s) descargada(s) correctamente`, 'success');
+    }
+    
+    if (actualizaciones > 0) {
+      mostrarAviso(`${actualizaciones} zona(s) actualizada(s) con nuevos inmuebles`, 'success');
+    }
+    
+    if (exitos > 0 || actualizaciones > 0) {
       cargarZonasDescargadas();
     }
     
     if (errores > 0) {
-      mostrarAviso(`Error descargando ${errores} zona(s)`, 'error');
+      mostrarAviso(`Error procesando ${errores} zona(s)`, 'error');
     }
     
     actualizarBotonDescargar();
@@ -283,14 +324,27 @@ async function cargarCatalogoZonas() {
     
     const item = document.createElement('label');
     item.className = 'zona-item';
-    item.innerHTML = `
-      <input type="checkbox" value="${zona.id}" ${yaDescargada ? 'disabled' : ''}>
-      <div class="zona-info">
-        <span class="zona-nombre">${zona.nombre}</span>
-        <span class="small muted">${zona.descripcion}</span>
-        ${yaDescargada ? '<span class="badge-descargada">Ya descargada</span>' : ''}
-      </div>
-    `;
+    
+    if (yaDescargada) {
+      // Zona ya descargada - mostrar opción de actualizar
+      item.innerHTML = `
+        <input type="checkbox" value="${zona.id}" data-es-actualizacion="true">
+        <div class="zona-info">
+          <span class="zona-nombre">${zona.nombre}</span>
+          <span class="small muted">${zona.descripcion}</span>
+          <span class="badge-actualizable">Actualizar (fusionar nuevos inmuebles)</span>
+        </div>
+      `;
+    } else {
+      // Zona nueva - descarga normal
+      item.innerHTML = `
+        <input type="checkbox" value="${zona.id}">
+        <div class="zona-info">
+          <span class="zona-nombre">${zona.nombre}</span>
+          <span class="small muted">${zona.descripcion}</span>
+        </div>
+      `;
+    }
     
     const checkbox = item.querySelector('input');
     checkbox.addEventListener('change', actualizarBotonDescargar);
