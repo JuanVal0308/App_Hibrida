@@ -18,7 +18,7 @@ exports.apartamentos = [
     "puntos": 60,
     "lat": 6.251,
     "lng": -75.61,
-    "fotos": ["/img/inmuebles/apto2.jpg", "/img/inmuebles/apto3.jpg"]
+    "fotos": ["/fotos/apto-salon.svg", "/fotos/apto-salon.svg"]
   },
   {
     "id": "a27",
@@ -36,7 +36,7 @@ exports.apartamentos = [
     "puntos": 160,
     "lat": 6.253,
     "lng": -75.611,
-    "fotos": ["/img/inmuebles/casa1.jpg", "/img/inmuebles/casa2.jpg"]
+    "fotos": ["/fotos/casa-exterior.svg", "/fotos/casa-exterior.svg"]
   },
   {
     "id": "a28",
@@ -54,7 +54,7 @@ exports.apartamentos = [
     "puntos": 58,
     "lat": 6.252,
     "lng": -75.612,
-    "fotos": ["/img/inmuebles/apto2.jpg", "/img/inmuebles/apto1.jpg"]
+    "fotos": ["/fotos/apto-salon.svg", "/fotos/apto-salon.svg"]
   },
   {
     "id": "a29",
@@ -72,6 +72,6 @@ exports.apartamentos = [
     "puntos": 26,
     "lat": 6.251,
     "lng": -75.6105,
-    "fotos": ["/img/inmuebles/parking1.jpg"]
+    "fotos": ["/fotos/fachada-moderna.svg"]
   }
 ];

@@ -6,9 +6,10 @@ import { leer, guardar } from './storage.js';
 import { mostrarAviso } from './ui.js';
 
 // URL base de los paquetes (GitHub Pages o configurable)
-// En producción, apuntará a: https://juanval0308.github.io/App_Hibrida/packages/
+// En producción (Capacitor Android/iOS), usar ruta relativa para acceder a assets empaquetados
+// En desarrollo web, usar /packages/
 const BASE_URL = import.meta.env.PROD 
-  ? 'https://juanval0308.github.io/App_Hibrida/packages/'
+  ? './packages/'  // Ruta relativa para assets empaquetados en Capacitor
   : '/packages/';
 
 let estadoOnline = false;
@@ -40,53 +41,61 @@ export async function verificarConexion() {
 }
 
 /**
- * Obtiene el catálogo de zonas disponibles para descargar desde el servidor.
- * Intenta primero desde el paquete local (funciona offline), luego desde remoto.
+ * Obtiene el catálogo de zonas disponibles para descargar desde el paquete local.
+ * Funciona offline con assets empaquetados en Capacitor.
  */
 export async function obtenerCatalogoZonas() {
-  try {
-    const response = await fetch(`${BASE_URL}catalogo.json`);
-    if (!response.ok) throw new Error('No se pudo cargar el catálogo');
-    return await response.json();
-  } catch (error) {
-    console.error('Error cargando catálogo remoto, intentando local:', error);
+  // Intentar primero con ruta relativa (funciona en Capacitor)
+  const rutasAIntentar = [
+    './packages/catalogo.json',
+    '/packages/catalogo.json',
+    'packages/catalogo.json'
+  ];
+  
+  for (const ruta of rutasAIntentar) {
     try {
-      const localResponse = await fetch('/packages/catalogo.json');
-      if (localResponse.ok) {
-        return await localResponse.json();
+      const response = await fetch(ruta);
+      if (response.ok) {
+        const catalogo = await response.json();
+        console.log(`✓ Catálogo cargado desde: ${ruta}`);
+        return catalogo;
       }
-    } catch (localError) {
-      console.error('Error cargando catálogo local:', localError);
+    } catch (error) {
+      console.log(`✗ No se pudo cargar catálogo desde: ${ruta}`);
     }
-    return [];
   }
+  
+  console.error('No se pudo cargar el catálogo de zonas desde ninguna ruta');
+  return [];
 }
 
 /**
- * Descarga un paquete de zona desde el servidor.
- * Intenta primero desde el paquete local (funciona offline), luego desde remoto.
+ * Descarga un paquete de zona desde los assets empaquetados.
+ * Funciona offline con assets empaquetados en Capacitor.
  * @param {string} zonaId 
  */
 export async function descargarZona(zonaId) {
-  try {
-    const response = await fetch(`${BASE_URL}zona-${zonaId}.js`);
-    if (!response.ok) throw new Error(`No se pudo descargar zona ${zonaId}`);
-    
-    const codigo = await response.text();
-    return codigo;
-  } catch (error) {
-    console.error(`Error descargando zona ${zonaId} remota, intentando local:`, error);
+  // Intentar múltiples rutas para compatibilidad con Capacitor
+  const rutasAIntentar = [
+    `./packages/zona-${zonaId}.js`,
+    `/packages/zona-${zonaId}.js`,
+    `packages/zona-${zonaId}.js`
+  ];
+  
+  for (const ruta of rutasAIntentar) {
     try {
-      const localResponse = await fetch(`/packages/zona-${zonaId}.js`);
-      if (localResponse.ok) {
-        const codigo = await localResponse.text();
+      const response = await fetch(ruta);
+      if (response.ok) {
+        const codigo = await response.text();
+        console.log(`✓ Zona ${zonaId} descargada desde: ${ruta}`);
         return codigo;
       }
-    } catch (localError) {
-      console.error(`Error descargando zona ${zonaId} local:`, localError);
+    } catch (error) {
+      console.log(`✗ No se pudo descargar zona ${zonaId} desde: ${ruta}`);
     }
-    throw error;
   }
+  
+  throw new Error(`No es posible descargar la zona ${zonaId}. Verifica que la app esté correctamente instalada.`);
 }
 
 /**
@@ -143,9 +152,21 @@ export function eliminarZonaDescargada(zonaId) {
  * Obtiene todos los apartamentos (base + zonas descargadas).
  */
 export async function obtenerTodosLosApartamentos() {
-  // Carga apartamentos base
-  const response = await fetch('/json/arriendos.json');
-  const apartamentosBase = await response.json();
+  // Carga apartamentos base - intentar múltiples rutas para Capacitor
+  const rutasAIntentar = ['./json/arriendos.json', '/json/arriendos.json', 'json/arriendos.json'];
+  let apartamentosBase = [];
+  
+  for (const ruta of rutasAIntentar) {
+    try {
+      const response = await fetch(ruta);
+      if (response.ok) {
+        apartamentosBase = await response.json();
+        break;
+      }
+    } catch (error) {
+      console.log(`No se pudo cargar arriendos desde: ${ruta}`);
+    }
+  }
   
   // Agrega apartamentos de zonas descargadas
   const zonasDescargadas = obtenerZonasDescargadas();
