@@ -1,10 +1,12 @@
-# ✅ Tarea Completada: Fix Descarga de Zonas v1.0.4
+# ✅ Tarea Completada: Fix Descarga de Zonas + Sistema de Imágenes v1.0.4
 
 ## 🎯 Resumen Ejecutivo
 
-**Bug reportado:** "No es posible descargar las nuevas zonas o descargar más apartamentos en las zonas ya existentes."
+**Bug 1 reportado:** "No es posible descargar las nuevas zonas o descargar más apartamentos en las zonas ya existentes."
 
-**Estado:** ✅ **RESUELTO Y PR ABIERTO**
+**Bug 2 reportado:** "Images are NOT showing on inmuebles in the app."
+
+**Estado:** ✅ **AMBOS RESUELTOS Y PR ABIERTO**
 
 **PR:** https://github.com/JuanVal0308/App_Hibrida/pull/7
 
@@ -227,13 +229,16 @@ cd android
 ### 3. Testing Checklist para Testers
 - [ ] Instalar v1.0.4 desde Play Store
 - [ ] Abrir app **sin internet**
+- [ ] **Verificar Radar base: TODAS las propiedades muestran imágenes JPG reales**
+- [ ] Tocar propiedad → Ver galería de 3 imágenes
 - [ ] Ir a "Actualizar"
 - [ ] Verificar 12 zonas en catálogo
 - [ ] Descargar 2-3 zonas (El Poblado + Laureles recomendado)
 - [ ] Confirmar mensaje éxito
 - [ ] Verificar "Zonas descargadas" las muestra
-- [ ] Ir a "Radar" → Ver nuevos apartamentos (~15)
-- [ ] Tocar apartamento → Ver imagen SVG
+- [ ] Ir a "Radar" → Ver nuevos apartamentos (~15) **con imágenes**
+- [ ] Tocar apartamento nuevo → Ver galería de imágenes JPG
+- [ ] Cerrar y reabrir app → Verificar mismas propiedades muestran **mismas imágenes** (estables)
 - [ ] Re-descargar zona → No debe dar error
 
 ### 4. Si Testers Aprueban
@@ -248,7 +253,8 @@ cd android
 |---------|----------------|----------------|
 | Descarga zonas | ❌ Error 404 | ✅ Funciona offline |
 | Catálogo zonas | ❌ Vacío | ✅ 12 zonas |
-| Imágenes | ❌ Rotas | ✅ SVG correctos |
+| **Imágenes inmuebles** | ❌ **No se muestran** | ✅ **13 JPGs locales (1.2MB)** |
+| **Asignación imágenes** | ❌ **N/A** | ✅ **Aleatoria pero estable por ID** |
 | Re-descarga | ❌ Falla | ✅ Actualiza |
 | Props adicionales | ❌ 0 | ✅ 45 |
 | Offline | ❌ No funciona | ✅ 100% offline |
@@ -259,17 +265,25 @@ cd android
 
 ### ✅ Tarea Completada al 100%
 
+**Documentación adicional:**
+- **[IMAGEN_SYSTEM_SUMMARY.md](IMAGEN_SYSTEM_SUMMARY.md)** - 🖼️ Resumen completo del sistema de imágenes
+
 **Todos los objetivos cumplidos:**
 
-1. ✅ **Investigado y documentado causa raíz**
+1. ✅ **Investigado y documentado causas raíz**
    - Incompatibilidad Capacitor con rutas absolutas
-   - Imágenes incorrectas en zonas
+   - Imágenes no funcionan offline (CDN/remote)
    - JSON sin empaquetar
 
-2. ✅ **Fix implementado y testeado**
+2. ✅ **Fix 1 implementado y testeado (Descarga de Zonas)**
    - Rutas relativas + fallback system
-   - Corrección de 12 archivos zona
    - Empaquetado correcto de assets
+   
+3. ✅ **Fix 2 implementado y testeado (Sistema de Imágenes)**
+   - Pool de 13 imágenes JPG locales (~1.2 MB)
+   - Módulo `imagenes-inmuebles.js` con hash-based selection
+   - Asignación aleatoria pero estable por ID
+   - Integración completa en UI (radar/inventario/detalle)
 
 3. ✅ **Catálogo base mejorado**
    - 52 propiedades en arriendos.json
