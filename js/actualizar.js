@@ -318,8 +318,9 @@ export function inicializarActualizar() {
     btnDescargar.disabled = false;
     btnDescargar.textContent = 'Descargar seleccionadas';
     
+    let mensajeExitos = '';
     if (exitos > 0) {
-      mostrarAviso(`${exitos} zona(s) descargada(s) correctamente`, 'success');
+      mensajeExitos = `${exitos} zona(s) descargada(s)`;
     }
     
     if (actualizaciones > 0) {
@@ -329,6 +330,26 @@ export function inicializarActualizar() {
     
     if (exitos > 0 || actualizaciones > 0) {
       cargarZonasDescargadas();
+      
+      // Refresca el radar para incluir inmuebles de zonas recién descargadas
+      try {
+        import('./juego.js').then((m) => {
+          if (m.refrescarRotacionConZonasNuevas) {
+            const resultado = m.refrescarRotacionConZonasNuevas();
+            if (resultado.agregados && resultado.agregados.length > 0) {
+              mostrarAviso(
+                `${mensajeExitos} · ${resultado.agregados.length} nuevo(s) inmueble(s) en el radar`,
+                'success'
+              );
+            } else {
+              mostrarAviso(`${mensajeExitos} correctamente`, 'success');
+            }
+          }
+        });
+      } catch (error) {
+        console.error('Error refrescando rotación:', error);
+        mostrarAviso(`${mensajeExitos} correctamente`, 'success');
+      }
     }
     
     if (errores > 0) {
