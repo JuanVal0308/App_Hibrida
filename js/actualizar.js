@@ -5,6 +5,7 @@
 import { leer, guardar } from './storage.js';
 import { mostrarAviso } from './ui.js';
 import { aplicarImagenesLocalesArray } from './imagenes-inmuebles.js';
+import { agregarNuevosARotacion } from './juego.js';
 
 // URL base de los paquetes (GitHub Pages o configurable)
 // En producción (Capacitor Android/iOS), usar ruta relativa para acceder a assets empaquetados
@@ -105,7 +106,7 @@ export async function descargarZona(zonaId) {
  * @param {string} zonaId 
  * @param {string} codigoPaquete 
  * @param {boolean} esMerge - Si es true, fusiona con datos existentes
- * @returns {Object} - { success: boolean, nuevosCount: number } - indica éxito y cuántos apartamentos fueron nuevos
+ * @returns {Object} - { success: boolean, nuevosCount: number, nuevosIds: Array<string> } - indica éxito, cuántos apartamentos fueron nuevos y sus IDs
  */
 export function aplicarPaqueteZona(zonaId, codigoPaquete, esMerge = false) {
   try {
@@ -126,6 +127,7 @@ export function aplicarPaqueteZona(zonaId, codigoPaquete, esMerge = false) {
     
     let apartamentosFinales;
     let nuevosCount = 0;
+    let nuevosIds = [];
     
     if (esMerge && zonaExistente && zonaExistente.apartamentos) {
       // MERGE: Combina apartamentos existentes con nuevos por ID
@@ -143,6 +145,7 @@ export function aplicarPaqueteZona(zonaId, codigoPaquete, esMerge = false) {
       apartamentosConImagenes.forEach(apt => {
         if (!idsExistentes.has(apt.id)) {
           nuevosCount++;
+          nuevosIds.push(apt.id);
         }
         apartamentosMap.set(apt.id, apt);
       });
@@ -152,6 +155,7 @@ export function aplicarPaqueteZona(zonaId, codigoPaquete, esMerge = false) {
       // Nueva descarga: todos son nuevos
       apartamentosFinales = apartamentosConImagenes;
       nuevosCount = apartamentosFinales.length;
+      nuevosIds = apartamentosFinales.map(apt => apt.id);
     }
     
     // Guarda el paquete descargado con imágenes locales
@@ -164,7 +168,7 @@ export function aplicarPaqueteZona(zonaId, codigoPaquete, esMerge = false) {
     };
     guardar('zonas_descargadas', descargados);
     
-    return { success: true, nuevosCount };
+    return { success: true, nuevosCount, nuevosIds };
   } catch (error) {
     console.error('Error aplicando paquete:', error);
     throw error;
@@ -275,6 +279,7 @@ export function inicializarActualizar() {
     let errores = 0;
     let actualizaciones = 0;
     let totalNuevosInmuebles = 0;
+    const todosLosNuevosIds = [];
     
     for (const checkbox of seleccionadas) {
       const zonaId = checkbox.value;
@@ -284,6 +289,12 @@ export function inicializarActualizar() {
         const codigo = await descargarZona(zonaId);
         const resultado = aplicarPaqueteZona(zonaId, codigo, esMerge);
         checkbox.checked = false;
+        
+        // Acumular todos los IDs nuevos para agregarlos al radar
+        if (resultado.nuevosIds && resultado.nuevosIds.length > 0) {
+          todosLosNuevosIds.push(...resultado.nuevosIds);
+        }
+        
         if (esMerge) {
           actualizaciones++;
           totalNuevosInmuebles += resultado.nuevosCount;
@@ -292,6 +303,15 @@ export function inicializarActualizar() {
         }
       } catch (error) {
         errores++;
+      }
+    }
+    
+    // Agregar TODOS los apartamentos nuevos al radar inmediatamente
+    if (todosLosNuevosIds.length > 0) {
+      try {
+        agregarNuevosARotacion(todosLosNuevosIds);
+      } catch (error) {
+        console.error('Error agregando apartamentos al radar:', error);
       }
     }
     

@@ -259,6 +259,40 @@ export function forzarRotacion() {
   return res;
 }
 
+/**
+ * Agrega apartamentos recién descargados a la rotación visible inmediatamente.
+ * Usado después de descargar/actualizar zonas para que TODOS los nuevos apartamentos
+ * aparezcan en el radar, no solo 2-3 aleatorios.
+ * @param {Array<string>} nuevosIds - IDs de apartamentos recién agregados
+ */
+export function agregarNuevosARotacion(nuevosIds) {
+  if (!nuevosIds || nuevosIds.length === 0) return;
+  
+  const juego = estadoJuego();
+  asegurarRotacion(juego);
+  
+  const visiblesSet = new Set(juego.rotacion.visibleIds);
+  const agregados = [];
+  
+  // Agregar todos los nuevos IDs que no estén ya visibles
+  nuevosIds.forEach(id => {
+    if (!visiblesSet.has(id)) {
+      juego.rotacion.visibleIds.push(id);
+      const base = obtenerArriendo(id);
+      if (base) {
+        juego.rotacion.posiciones[id] = calcularPosicionSpawn(base);
+        agregados.push(id);
+      }
+    }
+  });
+  
+  if (agregados.length > 0) {
+    guardarJuego(juego);
+  }
+  
+  return agregados;
+}
+
 export function obtenerZonasEscaneadas() {
   const juego = estadoJuego();
   asegurarRotacion(juego);
