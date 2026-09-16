@@ -105,6 +105,7 @@ export async function descargarZona(zonaId) {
  * @param {string} zonaId 
  * @param {string} codigoPaquete 
  * @param {boolean} esMerge - Si es true, fusiona con datos existentes
+ * @returns {Object} - { success: boolean, nuevosCount: number } - indica éxito y cuántos apartamentos fueron nuevos
  */
 export function aplicarPaqueteZona(zonaId, codigoPaquete, esMerge = false) {
   try {
@@ -124,6 +125,7 @@ export function aplicarPaqueteZona(zonaId, codigoPaquete, esMerge = false) {
     const zonaExistente = descargados[zonaId];
     
     let apartamentosFinales;
+    let nuevosCount = 0;
     
     if (esMerge && zonaExistente && zonaExistente.apartamentos) {
       // MERGE: Combina apartamentos existentes con nuevos por ID
@@ -134,15 +136,22 @@ export function aplicarPaqueteZona(zonaId, codigoPaquete, esMerge = false) {
         apartamentosMap.set(apt.id, apt);
       });
       
+      // Contar IDs existentes antes del merge
+      const idsExistentes = new Set(apartamentosMap.keys());
+      
       // Luego agregar/actualizar con los nuevos
       apartamentosConImagenes.forEach(apt => {
+        if (!idsExistentes.has(apt.id)) {
+          nuevosCount++;
+        }
         apartamentosMap.set(apt.id, apt);
       });
       
       apartamentosFinales = Array.from(apartamentosMap.values());
     } else {
-      // Nueva descarga: usa directamente los del paquete
+      // Nueva descarga: todos son nuevos
       apartamentosFinales = apartamentosConImagenes;
+      nuevosCount = apartamentosFinales.length;
     }
     
     // Guarda el paquete descargado con imágenes locales
@@ -155,7 +164,7 @@ export function aplicarPaqueteZona(zonaId, codigoPaquete, esMerge = false) {
     };
     guardar('zonas_descargadas', descargados);
     
-    return true;
+    return { success: true, nuevosCount };
   } catch (error) {
     console.error('Error aplicando paquete:', error);
     throw error;
@@ -265,6 +274,7 @@ export function inicializarActualizar() {
     let exitos = 0;
     let errores = 0;
     let actualizaciones = 0;
+    let totalNuevosInmuebles = 0;
     
     for (const checkbox of seleccionadas) {
       const zonaId = checkbox.value;
@@ -272,10 +282,11 @@ export function inicializarActualizar() {
       
       try {
         const codigo = await descargarZona(zonaId);
-        aplicarPaqueteZona(zonaId, codigo, esMerge);
+        const resultado = aplicarPaqueteZona(zonaId, codigo, esMerge);
         checkbox.checked = false;
         if (esMerge) {
           actualizaciones++;
+          totalNuevosInmuebles += resultado.nuevosCount;
         } else {
           exitos++;
         }
@@ -292,7 +303,8 @@ export function inicializarActualizar() {
     }
     
     if (actualizaciones > 0) {
-      mostrarAviso(`${actualizaciones} zona(s) actualizada(s) con nuevos inmuebles`, 'success');
+      const inmueblesTexto = totalNuevosInmuebles === 1 ? 'inmueble nuevo' : 'inmuebles nuevos';
+      mostrarAviso(`${actualizaciones} zona(s) actualizada(s): ${totalNuevosInmuebles} ${inmueblesTexto}`, 'success');
     }
     
     if (exitos > 0 || actualizaciones > 0) {
@@ -307,6 +319,28 @@ export function inicializarActualizar() {
   });
 }
 
+/**
+ * Calcula cuántos apartamentos en un paquete de zona son nuevos (no descargados aún).
+ * @param {string} zonaId 
+ * @param {Array} apartamentosPaquete - Array de apartamentos del paquete
+ * @returns {number} - Cantidad de apartamentos nuevos
+ */
+function calcularApartamentosNuevos(zonaId, apartamentosPaquete) {
+  const descargadas = obtenerZonasDescargadas();
+  const zonaExistente = descargadas[zonaId];
+  
+  if (!zonaExistente || !zonaExistente.apartamentos) {
+    // Si no está descargada, todos son nuevos
+    return apartamentosPaquete.length;
+  }
+  
+  // Crear set de IDs existentes
+  const idsExistentes = new Set(zonaExistente.apartamentos.map(apt => apt.id));
+  
+  // Contar cuántos del paquete NO están en los existentes
+  return apartamentosPaquete.filter(apt => !idsExistentes.has(apt.id)).length;
+}
+
 async function cargarCatalogoZonas() {
   const zonaLista = document.getElementById('zona-lista');
   const catalogo = await obtenerCatalogoZonas();
@@ -319,22 +353,54 @@ async function cargarCatalogoZonas() {
     return;
   }
   
-  catalogo.forEach(zona => {
+  for (const zona of catalogo) {
     const yaDescargada = descargadas[zona.id];
     
     const item = document.createElement('label');
     item.className = 'zona-item';
     
     if (yaDescargada) {
-      // Zona ya descargada - mostrar opción de actualizar
-      item.innerHTML = `
-        <input type="checkbox" value="${zona.id}" data-es-actualizacion="true">
-        <div class="zona-info">
-          <span class="zona-nombre">${zona.nombre}</span>
-          <span class="small muted">${zona.descripcion}</span>
-          <span class="badge-actualizable">Actualizar (fusionar nuevos inmuebles)</span>
-        </div>
-      `;
+      // Zona ya descargada - calcular cuántos apartamentos son nuevos
+      try {
+        const codigo = await descargarZona(zona.id);
+        const funcion = new Function('exports', codigo + '; return exports;');
+        const paquete = funcion({});
+        
+        const nuevosCount = calcularApartamentosNuevos(zona.id, paquete.apartamentos || []);
+        
+        if (nuevosCount > 0) {
+          // Hay apartamentos nuevos - mostrar opción de actualizar con el count
+          const inmueblesTexto = nuevosCount === 1 ? 'inmueble nuevo' : 'inmuebles nuevos';
+          item.innerHTML = `
+            <input type="checkbox" value="${zona.id}" data-es-actualizacion="true">
+            <div class="zona-info">
+              <span class="zona-nombre">${zona.nombre}</span>
+              <span class="small muted">${zona.descripcion}</span>
+              <span class="badge-actualizable">Actualizar · ${nuevosCount} ${inmueblesTexto}</span>
+            </div>
+          `;
+        } else {
+          // Ya tiene todos los apartamentos - no mostrar opción de actualizar
+          item.innerHTML = `
+            <div class="zona-info" style="opacity: 0.6; padding-left: 12px;">
+              <span class="zona-nombre">${zona.nombre}</span>
+              <span class="small muted">${zona.descripcion}</span>
+              <span class="badge-actualizable" style="background: var(--success); color: white;">✓ Actualizada</span>
+            </div>
+          `;
+        }
+      } catch (error) {
+        console.error(`Error cargando paquete ${zona.id}:`, error);
+        // Si hay error cargando, mostrar opción genérica
+        item.innerHTML = `
+          <input type="checkbox" value="${zona.id}" data-es-actualizacion="true">
+          <div class="zona-info">
+            <span class="zona-nombre">${zona.nombre}</span>
+            <span class="small muted">${zona.descripcion}</span>
+            <span class="badge-actualizable">Actualizar</span>
+          </div>
+        `;
+      }
     } else {
       // Zona nueva - descarga normal
       item.innerHTML = `
@@ -347,10 +413,12 @@ async function cargarCatalogoZonas() {
     }
     
     const checkbox = item.querySelector('input');
-    checkbox.addEventListener('change', actualizarBotonDescargar);
+    if (checkbox) {
+      checkbox.addEventListener('change', actualizarBotonDescargar);
+    }
     
     zonaLista.appendChild(item);
-  });
+  }
 }
 
 function cargarZonasDescargadas() {
