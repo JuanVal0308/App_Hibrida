@@ -173,6 +173,38 @@ export function asegurarRotacion(juego = estadoJuego()) {
   return juego.rotacion;
 }
 
+/**
+ * Refresca la rotación para incluir inmuebles de zonas recién descargadas.
+ * Agrega algunos apartamentos de zonas nuevas al radar sin eliminar los existentes.
+ * @param {number} cantidad - Cuántos apartamentos nuevos agregar (default: 3-5)
+ */
+export function refrescarRotacionConZonasNuevas(cantidad = null) {
+  const juego = estadoJuego();
+  asegurarRotacion(juego);
+  
+  const visibles = new Set(juego.rotacion.visibleIds);
+  const disponibles = catalogoArriendos()
+    .filter((a) => !visibles.has(a.id))
+    .map((a) => a.id);
+  
+  if (disponibles.length === 0) return { agregados: [] };
+  
+  const cantidadAgregar = cantidad !== null ? cantidad : randomInt(3, 5);
+  const aAgregar = shuffle(disponibles).slice(0, Math.min(cantidadAgregar, disponibles.length));
+  
+  aAgregar.forEach((id) => {
+    juego.rotacion.visibleIds.push(id);
+    const base = obtenerArriendo(id);
+    if (base) {
+      juego.rotacion.posiciones[id] = calcularPosicionSpawn(base);
+    }
+  });
+  
+  guardarJuego(juego);
+  
+  return { agregados: aAgregar };
+}
+
 export function rotarSpawns() {
   const juego = estadoJuego();
   asegurarRotacion(juego);

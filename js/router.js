@@ -17,6 +17,18 @@ export function alCambiarVista(fn) {
 
 function notificar(nombre) {
   escuchasCambio.forEach((fn) => fn(nombre));
+  
+  // Refresca el radar cuando el usuario vuelve a esta vista
+  // para mostrar inmuebles de zonas recién descargadas
+  if (nombre === 'radar') {
+    setTimeout(() => {
+      import('./radar.js').then((m) => {
+        if (m.refrescarRadar) {
+          m.refrescarRadar();
+        }
+      });
+    }, 100);
+  }
 }
 
 function animarBoton(el) {
