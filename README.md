@@ -50,6 +50,26 @@ npx cap open android  # abre Android Studio
 
 El **applicationId** `com.rentago.app` permite crear un nuevo listing en Google Play Store (el paquete anterior `com.rentaya.app` no está disponible).
 
+Versión Android actual: **1.0.9** (`versionCode` 10).
+
+## Capturas / Ícono
+
+Ícono de launcher RentaGo (casa + **RG** sobre turquesa `#00BEB5`). En Android 8+ el launcher usa un **ícono adaptativo**: capa de fondo de color y primer plano con el monograma blanco (con zona segura), recortado a círculo o squirculo según el dispositivo. En Android 7 y anteriores se usan los PNG `ic_launcher` / `ic_launcher_round`.
+
+<p>
+  <img src="docs/capturas/icono-512.png" alt="Ícono RentaGo 512 px" width="160" />
+  <img src="docs/capturas/icono-adaptativo.png" alt="Ícono adaptativo redondo" width="160" />
+  <img src="docs/capturas/icono-redondo-squirculo.png" alt="Ícono con forma squirculo" width="160" />
+</p>
+
+Pantallas actuales de la app (marca RentaGo):
+
+| Radar | Detalle | Capturas | Tienda |
+| --- | --- | --- | --- |
+| ![Radar](docs/capturas/01-radar.png) | ![Detalle](docs/capturas/02-detalle.png) | ![Capturas](docs/capturas/03-capturas.png) | ![Tienda](docs/capturas/04-tienda.png) |
+
+![Perfil](docs/capturas/05-perfil.png)
+
 ## Si `npm install` falla
 
 1. Este repo incluye `.npmrc` con `strict-ssl=false` (redes escolares / antivirus suelen romper el certificado de npm).
